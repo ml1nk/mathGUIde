@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>NumeralSystem</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="../styles/doc.css"/>
+</head>
+<body>
+<p><a href="mathguide.html">Main Overview</a></p>
+<h1>Class <code>NumeralSystem</code></h1>
+<p> Class <code>NumeralSystem</code>: Numeral Systems<br/>
+        This is a static class (only static methods available).</p>
+<div id="overview"><p style="margin-top:0">Overview:</p>
+<h2>Class methods (static methods)</h2>
+<table><tr><td><b>Method</b></td><td><b>Meaning</b></td></tr>
+<tr><td><a href="#binary">binary</a> (n, ascending=False)</td><td>Binary number representation of <var>n</var> as list</td></tr>
+<tr><td><a href="#fromBase">fromBase</a> (v, b, ascending=False)</td><td>Converts <var>v</var> from the base <var>b</var> numeral system to a number</td></tr>
+<tr><td><a href="#toBase">toBase</a> (n, b, ascending=False)</td><td><var>n</var> in the base <var>b</var> numeral system</td></tr>
+</table>
+</div><h1>Class methods (static methods)</h1>
+<h3><a id="binary">binary</a></h3>
+<p> <b>binary(n)</b><br/></p>
+<p><b>Usage:</b> <code>NumeralSystem.binary(n, ascending=False)</code></p>
+<p><b>Description</b>:<br/>        <i>Binary number representation of <var>n</var> as list</i><br/>
+        Abbreviation for <code>toBase(n,2)</code><br/>
+        <b>Example</b>:<br/>
+        <code>NumeralSystem.binary(11)</code> returns <code>[1, 0, 1, 1]</code>.<br/>
+        <b>See also</b> <a href="#toBase"><code>toBase</code></a>,
+                        <a href="#fromBase"><code>fromBase</code></a>.</p><hr/>
+<h3><a id="fromBase">fromBase</a></h3>
+<p> <b>fromBase(v, b)</b><br/></p>
+<p><b>Usage:</b> <code>NumeralSystem.fromBase(v, b, ascending=False)</code></p>
+<p><b>Description</b>:<br/>        <i>Converts <var>v</var> from the base <var>b</var> numeral system to a number</i><br/>
+        <var>v</var> is expected as list of digits.<br/>
+        <b>See also</b> <a href="#toBase"><code>toBase</code></a>,
+                        <a href="#binary"><code>binary</code></a>.</p><hr/>
+<h3><a id="toBase">toBase</a></h3>
+<p> <b>toBase(n, b)</b><br/></p>
+<p><b>Usage:</b> <code>NumeralSystem.toBase(n, b, ascending=False)</code></p>
+<p><b>Description</b>:<br/>        <i><var>n</var> in the base <var>b</var> numeral system</i><br/>
+        The result is returned as a list of the digits.<br/>
+        <b>See also</b> <a href="#binary"><code>binary</code></a>,
+                        <a href="#fromBase"><code>fromBase</code></a>.</p><hr/>
+</body></html>

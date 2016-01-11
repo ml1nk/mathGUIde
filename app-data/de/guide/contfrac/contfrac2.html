@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Kettenbrüche – 2</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../../styles/guide.css"/>
+ <script type="text/javascript" src="../../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../../jsMath/plugins/spriteImageFonts.js"/>
+ <script type="text/javascript" src="../../listingButtons.js"/>
+</head>
+
+<body>
+<h1>Kettenbrüche</h1>
+
+<p class="overview"><a href="./contfrac1.html">1. Wir basteln einen Mondkalender</a><br/>
+2. Wie kommt man auf „optimale Brüche“?</p>
+
+
+<h2>2. Wie kommt man auf „optimale Brüche“?</h2>
+
+<p>Bitte betrachten Sie die folgende Abbildung:</p>
+<div><object data="contfrac1.svg" type="image/svg+xml" width="225" height="60"/></div>
+<p>Wenn die Figur nur aus Quadraten besteht und die drei großen Quadrate
+die Seitenlänge 1 haben, wie breit ist dann die ganze Figur?</p>
+
+<p>Die Antwort ist nicht schwer: Da die fünf kleinen Quadrate zusammen
+so breit sind wie ein großes, haben sie die Kantenlänge 1/5 und die ganze
+Figur also die Breite</p>
+<div class="math">
+ \def\green{\bbox[#d0ffd0,2pt]}
+ \def\gray{\bbox[#e0e0e0,2pt]}
+ \bbox[border:1px #c0c0c0 solid,4pt]{
+ {\green 3 + \frac{1}{\gray 5}} } \: = \frac{16}5
+ 
+</div>
+
+<hr/>
+
+
+<p>Und wie breit ist die folgende Figur im Vergleich zu ihrer Höhe?</p>
+<div><object data="contfrac2.svg" type="image/svg+xml" width="225" height="175"/></div>
+<p>Die Figur besteht aus einem großen Quadrat und dem rechten Teil, der dem
+um 90° gedrehten ersten Beispiel entspricht, also das Seitenverhältnis 3 + 1/5 hat.
+Damit hat die ganze Figur das Seitenverhältnis</p>
+
+<div class="math">
+ \def\blue{\bbox[#c0e0ff,2pt]}
+ \def\green{\bbox[#d0ffd0,2pt]}
+ \def\gray{\bbox[#e0e0e0,2pt]}
+ \bbox[border:1px #c0c0c0 solid,4pt]{
+ \blue 1 + \frac{1}{\displaystyle \green 3 + \frac{1}{\gray 5}}}
+ \: = 1 + \frac{1}{\frac{16}5} = 1 + \frac{5}{16} = \frac{21}{16}
+</div>
+<hr/>
+
+<p>Dieses Spiel lässt sich beliebig fortsetzen.</p>
+<div><object data="contfrac3.svg" type="image/svg+xml" width="595" height="225"/></div>
+<p>Hier ergibt sich mit den gleichen Überlegungen das Seitenverhältnis</p>
+<div class="math">
+ \def\pink{\bbox[#ffe0e0,2pt]}
+ \def\blue{\bbox[#c0e0ff,2pt]}
+ \def\green{\bbox[#d0ffd0,2pt]}
+ \def\gray{\bbox[#e0e0e0,2pt]}
+ \bbox[border:1px #c0c0c0 solid,4pt]{
+ \pink 2 +
+ \frac{1}
+      {\displaystyle \blue 1
+       + \frac{1}{\displaystyle \green 3 + \frac{1}{\gray 5}}
+      }
+ }
+ \: = 2 + \frac{1}{\frac{21}{16}} = 2 + \frac{16}{21} = \frac{58}{21}
+</div>
+<p>Solche Brüche nennt man (reguläre) <a class="web" href="http://de.wikipedia.org/wiki/Kettenbruch">Kettenbrüche</a>.
+</p>
+
+
+<h3>Der umgekehrte Weg</h3>
+
+<p>Wir kehren jetzt das Spiel um und können damit beliebige rationale Zahlen
+als Kettenbrüche darstellen: Dazu zerlegen wir eine gegebene
+positive rationale Zahl <var>x</var> (z.B. 58/21) in ihren
+<span class="bgGreen">ganzzahligen Anteil</span>
+und den <span class="bgYellow">Rest</span>, der kleiner als 1 ist:</p>
+<div class="math">
+ \def\green{\bbox[#d0ffd0,2pt]}
+ \def\yellow{\bbox[#ffffa0,2pt]}
+ \def\pink{\bbox[#ffe0e0,2pt]}
+ x = \green{\lfloor x \rfloor} + \yellow{(x - \lfloor x \rfloor)}
+   = \lfloor x \rfloor + \frac{1}{\pink{\frac{1}{x - \lfloor x \rfloor}}}
+ </div>
+ 
+<p>Der <span class="bgPink">Kehrwert des Rests</span> ist damit größer als 1.
+Wir können dieses Verfahren nun auf den Rest anwenden und das so oft wiederholen,
+bis kein Rest mehr übrig bleibt.</p>
+
+<p>Was geschieht aber, wenn wir das Spiel mit einem irrationalen <var>x</var> durchführen?
+Da ja jeder endliche Kettenbruch eine rationale Zahl darstellt, kann die Kettenbruchentwicklung
+bei irrationalen Zahlen nicht abbrechen. Hört man trotzdem irgendwann auf und ignoriert den Rest,
+bekommt man offenbar einen Näherungswert.</p>
+
+<p>Wir testen das mit unserer gerundeten Monatszahl 4,218656:</p>
+
+<div class="math">
+ \def\green{\bbox[#d0ffd0,2pt]}
+ \def\yellow{\bbox[#ffffa0,2pt]}
+ \eqalign{
+ 4,218656 &amp; = \green 4 + \yellow{0,218656}
+                \approx 4 + \frac{1}{4.5733998} \cr
+ &amp; = \green 4 + \frac{1}{{\green 4 + \yellow{0.5733998}}}
+       \approx 4 + \frac{1}{{4 + \frac{1}{1.7439838658}}} \cr
+ &amp; = \green 4 + {\frac{1}{\green 4 + {\frac{1}{\green 1 + \yellow{0.7439838658}}}}}
+       \approx 4 + {\frac{1}{4 + {\frac{1}{1 + \frac{1}{1.3441151}}}}} \cr
+ &amp; = \ldots }
+</div>
+
+<p>Lassen wir in jedem Schritt den <span class="bgYellow">Rest</span> weg,
+bekommen wir folgende Näherungen:</p>
+
+<div class="math">
+ \def\green{\bbox[#d0ffd0,2pt]}
+\eqalign{
+&amp; \green{[4]}     &amp; \longrightarrow &amp; &amp; &amp; 4 \cr
+&amp; \green{[4,4]}   &amp; \longrightarrow &amp; 4 + \frac{1}{4} = \frac{17}{4} &amp; = &amp; 4,25 \cr
+&amp; \green{[4,4,1]} &amp; \longrightarrow &amp; 4 + \frac{1}{4 + \frac{1}{1}} = \frac{21}5 &amp; = &amp; 4,2}
+</div>                  
+
+<p>Die <span class="bgGreen">Listen</span> vor den Pfeilen
+sind eine übliche Kurzdarstellung von Kettenbrüchen.
+Daraus lässt sich die rationale Zahl am einfachsten rekursiv ausrechnen,
+indem man zur ersten Zahl der Liste den Kehrwert des Kettenbruchs
+aus dem Listenrest addiert:</p>
+
+<!-- listing-01 -->
+<pre>
+<span class="comment"># Umwandlung eines Kettenbruchs in eine Rationale Zahl
+# z.B. [3,2,4] ---> 3 + 1/(2 + 1/4)</span>
+<span class="keyword">def</span> rationalFromList(cf):
+    <span class="keyword">if</span> len(cf) == 0: <span class="keyword">return</span> Rational(0)
+    <span class="keyword">if</span> len(cf) == 1: <span class="keyword">return</span> Rational(cf[0])
+    <span class="keyword">return</span> cf[0] + Rational(1) / rationalFromList(cf[1:])
+
+rationalFromList([4,4,1])</pre>
+<script type="text/javascript">listingButtons("01")</script>
+
+<p>Jetzt fehlt nur noch die Ermittlung der Liste (bis zu einer bestimmten Schrittzahl)
+aus einer gegebenen Zahl:</p>
+
+<!-- listing-02 -->
+<pre>
+<span class="comment"># Annäherung einer reellen Zahl durch einen Kettenbruch</span>
+<span class="keyword">def</span> listFromNumber(x, steps):
+    l = []
+    <span class="keyword">for</span> i <span class="keyword">in</span> range(steps):
+        i = floor(x)       <span class="comment"># ganzzahliger Anteil</span>
+        l.append(i)
+        <span class="keyword">if</span> abs(x-i) &lt; 0.00000001:
+            <span class="keyword">break</span>
+        x = 1 / (x-i)      <span class="comment"># weiter mit Kehrwert des Rests</span>
+    <span class="keyword">return</span> l
+    
+echteMondwochen = 29.53059 / 7
+listFromNumber(echteMondwochen, 5)</pre>
+<script type="text/javascript">listingButtons("02")</script>
+
+<p>Nun wenden wir diese Funktionen an, um uns die ersten Näherungsbrüche
+für unsere Monatszahl zu erzeugen:</p>
+
+<!-- listing-03 -->
+<pre>
+print(<span class="literal">"Schritte | Näherungswert | Jahre bis 1 Tag Abweichung"</span>)
+<span class="keyword">for</span> i <span class="keyword">in</span> fromTo(1,7):
+    naeherung = rationalFromList(listFromNumber(echteMondwochen, i))
+    relativeAbweichung = naeherung/echteMondwochen - 1
+    tageAbweichungProJahr = relativeAbweichung * 365.24
+    jahreBisTagAbweichung = abs(1/tageAbweichungProJahr)
+    print(<span class="literal">"{0:8} | {1:13} | {2}"</span>.format(i, naeherung, jahreBisTagAbweichung))</pre>
+<script type="text/javascript">listingButtons("03")</script>
+
+<p>Im sechsten Schritt haben wir unser Getriebe wieder bekommen. Wenn Sie dies
+z.B. mit dem fünften Schritt vergleichen, sehen Sie, dass sich die Genauigkeit
+von 9 auf 122 Jahre verbessert hat. Trotzdem wird das Getriebe nicht komplizierter, im Gegenteil:
+Für 97/23 bräuchten wir Zahnräder mit 97 und 23 Zähnen, weil beide Zahlen
+Primzahlen sind. Dagegen lässt sich 135/32 in zwei einfachere Übersetzungen zerlegen:</p>
+
+<div class="math">
+ \def\green{\bbox[#d0ffd0,2pt]}
+ \def\pink{\bbox[#ffe0e0,2pt]}
+ \frac{135}{32} = \frac{3^3\cdot 5}{2^5} = \pink{\frac 9 4} \cdot \frac{15}8 = \green{\frac{18}8} \cdot \frac{15}8
+</div>
+
+<p>Zahnräder mit <span class="bgPink">vier Zähnen</span> sind
+mechanisch unmöglich, so dass wir wieder zur unserer Lösung (18/8) · (15/8)
+kommen.</p>
+
+<h3>Die Klasse ContFrac</h3>
+<p>In mathGUIde gibt es die fertige Klasse <code>ContFrac</code>.
+Damit können wir die komplette Berechnung so durchführen:</p>
+
+<!-- listing-04 -->
+<pre>
+echteMondwochen = 29.53059 / 7
+print(<span class="literal">"Schritte | Näherungswert | Jahre bis 1 Tag Abweichung"</span>)
+<span class="keyword">for</span> i <span class="keyword">in</span> fromTo(1,7):
+    cf = ContFrac(echteMondwochen, i)
+    naeherung = cf.toRational()
+    relativeAbweichung = naeherung/echteMondwochen - 1
+    tageAbweichungProJahr = relativeAbweichung * 365.24
+    jahreBisTagAbweichung = abs(1/tageAbweichungProJahr)
+    print(<span class="literal">"{0:8} | {1:13} | {2}"</span>.format(i, naeherung, jahreBisTagAbweichung))</pre>
+<script type="text/javascript">listingButtons("04")</script>
+
+
+
+</body>
+</html>

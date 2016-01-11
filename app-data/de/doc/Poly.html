@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Poly</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="../styles/doc.css"/>
+</head>
+<body>
+<p><a href="mathguide.html">Hauptübersicht</a></p>
+<h1>Klasse <code>Poly</code></h1>
+<p> Klasse <code>Poly</code><br/>
+        <i>Polynome</i><br/>
+        <code>Poly(list)</code> liefert Polynom mit den Koeffizienten aus <code>list</code> (aufsteigend).<br/>
+        Die Koeffizienten müssen die Ringaxiome erfüllen,<br/>
+        für Division und Modulo-Operator (//, %, divmod) auch Körperaxiome,<br/>
+        und die Abfrage auf Gleichheit mit 0 implementieren.<br/>
+        Kurzform für Polynom mit Mod-Objekten:<br/>
+        <b>Beispiel</b><br/>
+        <code>Poly([Mod(1,2),Mod(0,2),Mod(1,2)])</code><br/>
+        Dafür auch Kurzschreibweise:<br/>
+        <code>Poly([1,0,1,1],2)</code></p>
+<div id="overview"><p style="margin-top:0">Übersicht:</p>
+<h2>Konstruktor</h2>
+<p><a href="#constr">Poly</a> (coeff=[], mod=0)</p>
+<h2>Klassenmethoden (statische Methoden)</h2>
+<table><tr><td><b>Methode</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#gcd">gcd</a> (a,b)</td><td>Größter gemeinsamer Teiler von a und b</td></tr>
+<tr><td><a href="#gcdExt">gcdExt</a> (a,b)</td><td>Erweiterter Euklidischer Algorithmus.</td></tr>
+<tr><td><a href="#irreducibles">irreducibles</a> (maxDegree, mod=2)</td><td>Irreduzible Polynome</td></tr>
+</table>
+<h2>Operatoren</h2>
+<table><tr><td><b>Operator</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#xx20x2bx20y">x + y</a></td><td>Addition</td></tr>
+<tr><td><a href="#xx20x2fx20y">x / y</a></td><td>        f // g  <span style="font-family:Wingdings">à</span> f.__floordiv__ (g), if f is of type Poly
+                    g.__rfloordiv__(f), otherwise
+    </td></tr>
+<tr><td><a href="#divmodx28xx2cyx29">divmod(x,y)</a></td><td>        divmod(f, g) <span style="font-family:Wingdings">à</span> f.__divmod__(g), if f is of type Poly
+                         g.__rdivmod__(f), otherwise
+
+        Returns the pair (q,r)
+        with:  f == g * q + r
+        and:   r.degree() &lt; g.degree() or r == 0
+    </td></tr>
+<tr><td><a href="#xx20x3dx3dx20y">x == y</a></td><td>        with other polynomial or ring element
+    </td></tr>
+<tr><td><a href="#xx20x2fx2fx20y">x // y</a></td><td></td></tr>
+<tr><td><a href="#xx5bix5d">x[i]</a></td><td>        f[i] returns the i-th coefficient of the polynomial.
+    </td></tr>
+<tr><td><a href="#xx20x25x20y">x % y</a></td><td>        a % b  <span style="font-family:Wingdings">à</span> a.__mod__ (b), if f is of type Poly
+                   b.__rmod__(a), otherwise
+    </td></tr>
+<tr><td><a href="#xx20x2ax20y">x * y</a></td><td>        a * b  <span style="font-family:Wingdings">à</span> a.__mul__(b), if a is of type Poly
+                   b.__rmul__(a), otherwise
+    </td></tr>
+<tr><td><a href="#xx20x21x3dx20y">x != y</a></td><td>        with other polynomial or ring element
+    </td></tr>
+<tr><td><a href="#x2dx">-x</a></td><td>    </td></tr>
+<tr><td><a href="#strx28xx29">str(x)</a></td><td>    </td></tr>
+<tr><td><a href="#xx20x3ex3ex20y">x >> y</a></td><td>    </td></tr>
+<tr><td><a href="#xx20x2dx20y">x - y</a></td><td>        a - b  <span style="font-family:Wingdings">à</span> a.__sub__(b), if a is of type Poly
+                   b.__rsub__(a), otherwise
+    </td></tr>
+<tr><td><a href="#xx20x2fx20y">x / y</a></td><td></td></tr>
+</table>
+<h2>Objektmethoden</h2>
+<table><tr><td><b>Methode</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#copy">copy</a> ()</td><td>unabhängige Kopie von p</td></tr>
+<tr><td><a href="#degree">degree</a> ()</td><td>degree of the polynomial</td></tr>
+<tr><td><a href="#expand">expand</a> (x="x")</td><td>ausgeschriebenes Polynom für die Variable x</td></tr>
+<tr><td><a href="#inverse">inverse</a> (mod)</td><td>Multiplikatives Inverses modulo Polynom m</td></tr>
+<tr><td><a href="#isOne">isOne</a> ()</td><td></td></tr>
+<tr><td><a href="#isZero">isZero</a> ()</td><td></td></tr>
+<tr><td><a href="#normalized">normalized</a> ()</td><td></td></tr>
+<tr><td><a href="#operators">operators</a> ()</td><td>Nur zur Dokumentation</td></tr>
+<tr><td><a href="#pretty">pretty</a> (width=0)</td><td>Lesbare Darstellung des Polynoms</td></tr>
+<tr><td><a href="#toDigits">toDigits</a> ()</td><td>String aus Koeffizienten</td></tr>
+<tr><td><a href="#value">value</a> (x)</td><td>Wert des Polynoms für Argument x</td></tr>
+</table>
+</div><h1>Konstruktor</h1>
+<h3><a id="constr">Poly</a></h3>
+<p> Konstruktor</p>
+<p><b>Aufruf:</b> <code>Poly(coeff=[], mod=0)</code></p>
+<hr/>
+<h1>Klassenmethoden (statische Methoden)</h1>
+<h3><a id="gcd">gcd</a></h3>
+<p> <b>gcd(a,b)</b><br/></p>
+<p><b>Aufruf:</b> <code>Poly.gcd(a,b)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Größter gemeinsamer Teiler von a und b</i><br/>
+        Berechnung mit dem Euklidischen Algorithmus</p><hr/>
+<h3><a id="gcdExt">gcdExt</a></h3>
+<p> <b>gcdExt(a,b)</b><br/></p>
+<p><b>Aufruf:</b> <code>Poly.gcdExt(a,b)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Erweiterter Euklidischer Algorithmus.</i><br/>
+        Gibt (d, x, y) zurück mit d == gcd(a,b) und  x*a + y*b == d</p><hr/>
+<h3><a id="irreducibles">irreducibles</a></h3>
+<p> <b>Poly.irreducibles(maxDegree, mod=2)</b><br/></p>
+<p><b>Aufruf:</b> <code>Poly.irreducibles(maxDegree, mod=2)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Irreduzible Polynome</i><br/>
+        Rückgabewert: Liste der irreduziblen Polynome
+        über Z[mod] bis zum Grad maxDegree</p><hr/>
+<h1>Operatoren</h1>
+<h3><a id="xx20x2bx20y">x + y</a></h3>
+<p> <b>a.__add__(b)</b><br/></p>
+<p><b>Aufruf:</b> <code>x + y</font></p>
+<p><b>Beschreibung</b>:<br/>        <i>Addition</i><br/>
+        Also operator notation: <b>a + b</b><br/>
+        Instead of <code>a = a + b</code> you can write <code>a += b</code>.
+    </p><hr/>
+<h3><a id="xx20x2fx20y">x / y</a></h3>
+<p> Polynomial division with remainder (operators // und //=):</p>
+<p><b>Aufruf:</b> <code>x / y</font></p>
+<p><b>Beschreibung</b>:<br/>        f // g  <span style="font-family:Wingdings">à</span> f.__floordiv__ (g), if f is of type Poly
+                    g.__rfloordiv__(f), otherwise
+    </p><hr/>
+<h3><a id="divmodx28xx2cyx29">divmod(x,y)</a></h3>
+<p> Polynomial division with remainder. (global function divmod)</p>
+<p><b>Aufruf:</b> <code>divmod(x,y)</font></p>
+<p><b>Beschreibung</b>:<br/>        divmod(f, g) <span style="font-family:Wingdings">à</span> f.__divmod__(g), if f is of type Poly
+                         g.__rdivmod__(f), otherwise
+
+        Returns the pair (q,r)
+        with:  f == g * q + r
+        and:   r.degree() &lt; g.degree() or r == 0
+    </p><hr/>
+<h3><a id="xx20x3dx3dx20y">x == y</a></h3>
+<p> Test for equality (operator ==)</p>
+<p><b>Aufruf:</b> <code>x == y</font></p>
+<p><b>Beschreibung</b>:<br/>        with other polynomial or ring element
+    </p><hr/>
+<h3><a id="xx20x2fx2fx20y">x // y</a></h3>
+<p></p>
+<p><b>Aufruf:</b> <code>x // y</font></p>
+<hr/>
+<h3><a id="xx5bix5d">x[i]</a></h3>
+<p> Definition of the index operator []</p>
+<p><b>Aufruf:</b> <code>x[i]</font></p>
+<p><b>Beschreibung</b>:<br/>        f[i] returns the i-th coefficient of the polynomial.
+    </p><hr/>
+<h3><a id="xx20x25x20y">x % y</a></h3>
+<p> Modulo operator for polynomials (operators % und %=):</p>
+<p><b>Aufruf:</b> <code>x % y</font></p>
+<p><b>Beschreibung</b>:<br/>        a % b  <span style="font-family:Wingdings">à</span> a.__mod__ (b), if f is of type Poly
+                   b.__rmod__(a), otherwise
+    </p><hr/>
+<h3><a id="xx20x2ax20y">x * y</a></h3>
+<p> Multiplication (operators * and *=):</p>
+<p><b>Aufruf:</b> <code>x * y</font></p>
+<p><b>Beschreibung</b>:<br/>        a * b  <span style="font-family:Wingdings">à</span> a.__mul__(b), if a is of type Poly
+                   b.__rmul__(a), otherwise
+    </p><hr/>
+<h3><a id="xx20x21x3dx20y">x != y</a></h3>
+<p> Test for unequality (operator !=)</p>
+<p><b>Aufruf:</b> <code>x != y</font></p>
+<p><b>Beschreibung</b>:<br/>        with other polynomial or ring element
+    </p><hr/>
+<h3><a id="x2dx">-x</a></h3>
+<p> unärer Operator -</p>
+<p><b>Aufruf:</b> <code>-x</font></p>
+<p><b>Beschreibung</b>:<br/>    </p><hr/>
+<h3><a id="strx28xx29">str(x)</a></h3>
+<p> Object representation as string</p>
+<p><b>Aufruf:</b> <code>str(x)</font></p>
+<p><b>Beschreibung</b>:<br/>    </p><hr/>
+<h3><a id="xx20x3ex3ex20y">x >> y</a></h3>
+<p> f >> n -- Multiplication of Polynomial by x**n</p>
+<p><b>Aufruf:</b> <code>x >> y</font></p>
+<p><b>Beschreibung</b>:<br/>    </p><hr/>
+<h3><a id="xx20x2dx20y">x - y</a></h3>
+<p> Subtraction (operators - and -=):</p>
+<p><b>Aufruf:</b> <code>x - y</font></p>
+<p><b>Beschreibung</b>:<br/>        a - b  <span style="font-family:Wingdings">à</span> a.__sub__(b), if a is of type Poly
+                   b.__rsub__(a), otherwise
+    </p><hr/>
+<h3><a id="xx20x2fx20y">x / y</a></h3>
+<p></p>
+<p><b>Aufruf:</b> <code>x / y</font></p>
+<hr/>
+<h1>Objektmethoden</h1>
+<h3><a id="copy">copy</a></h3>
+<p> <b>p.copy()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.copy()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>unabhängige Kopie von p</i></p><hr/>
+<h3><a id="degree">degree</a></h3>
+<p> <b>p.degree()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.degree()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>degree of the polynomial</i></p><hr/>
+<h3><a id="expand">expand</a></h3>
+<p> <b>p.expand(x="x")</b><br/></p>
+<p><b>Aufruf:</b> <code>f.expand(x="x")</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>ausgeschriebenes Polynom für die Variable x</i><br/></p><hr/>
+<h3><a id="inverse">inverse</a></h3>
+<p> <b>p.inverse(m)</b><br/></p>
+<p><b>Aufruf:</b> <code>self.inverse(mod)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Multiplikatives Inverses modulo Polynom m</i><br/>
+        Das Polynom mod muss teilerfremd zu p sein!</p><hr/>
+<h3><a id="isOne">isOne</a></h3>
+<p></p>
+<p><b>Aufruf:</b> <code>self.isOne()</code></p>
+<hr/>
+<h3><a id="isZero">isZero</a></h3>
+<p></p>
+<p><b>Aufruf:</b> <code>self.isZero()</code></p>
+<hr/>
+<h3><a id="normalized">normalized</a></h3>
+<p> Dividiert das Polynom durch den höchsten Koeffizienten</p>
+<p><b>Aufruf:</b> <code>self.normalized()</code></p>
+<hr/>
+<h3><a id="operators">operators</a></h3>
+<p> <b>Poly.operators()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.operators()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Nur zur Dokumentation</i><br/>
+        Die Klasse <b>Poly</b> erlaubt folgende Operatoren:<br/>
+        <table>
+         <tr><th>Op.</th><th>Funktion</th><th>Beispiele</th></tr>
+         <tr><th>+</th><td>Addition</td><td><code>a + b; a += b</code></td></tr>
+         <tr><th>-</th><td>Subtraktion</td><td><code>a - b; a -= b</code></td></tr>
+         <tr><th>*</th><td>Multiplikation</td><td><code>a * b; a *= b</code></td></tr>
+         <tr><th>//</th><td>Polynomdivision (mit Rest)</td><td><code>a // b; a //= b</code></td></tr>
+         <tr><th>divmod</th><td>Division und Modulo simultan</td><td><code>d,m = divmod(a,b)</code></td></tr>
+         <tr><th>-</th><td>unäres Minus</td><td>-a</td></tr>
+        </table>
+        <font color="#000080" size="-2">Diese Methode dient nur zur Dokumentation. Sie hat keine Wirkung.</font></p><hr/>
+<h3><a id="pretty">pretty</a></h3>
+<p> <b>p.pretty(width=0)</b><br/></p>
+<p><b>Aufruf:</b> <code>f.pretty(width=0)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Lesbare Darstellung des Polynoms</i><br/></p><hr/>
+<h3><a id="toDigits">toDigits</a></h3>
+<p> <b>p.toDigits()</b><br/></p>
+<p><b>Aufruf:</b> <code>f.toDigits()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>String aus Koeffizienten</i><br/>
+        Kurzform, <b>nur für einstellige</b> Mod-Koeffizienten:<br/>
+        Verkettung der Koeffizienten-Ziffern (ohne mod-Angabe).<br/>
+        Höchster Koeffizient links!<br/>
+        <b>Beispiel</b><br/>
+        <code>p=Poly([1,0,1,1],2)</code><br/>
+        <code>p.toDigits()</code><br/>
+        Ergebnis: <code>"1101"</code></p><hr/>
+<h3><a id="value">value</a></h3>
+<p> <b>p.value(x)</b><br/></p>
+<p><b>Aufruf:</b> <code>self.value(x)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Wert des Polynoms für Argument x</i></p><hr/>
+</body></html>

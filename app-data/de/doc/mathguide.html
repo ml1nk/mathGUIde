@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <title>mathGUIde-Referenz</title>
+  <meta name="author" content="Hartmut Ring"/>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+  <link rel="stylesheet" type="text/css" href="../styles/doc.css"/>
+</head>
+<body>
+<p><img width="183" src="./img/mathguide.png"/><br/>Version 2.1</p>
+<h1>Funktions- und Klassen-Referenz</h1>
+
+<p><a href="#classes">Klassen</a><br/>
+<a href="#functions">Globale Funktionen</a></p>
+<div id="overview"><p style="margin-top:0">Übersicht:</p>
+<h2><a id="classes">Klassen</a></h2>
+<table><tr><td><b>Klasse</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="ContFrac.html">ContFrac</a></td><td>Kettenbrüche</td></tr>
+<tr><td><a href="Edge.html">Edge</a></td><td>Kanten eines Graphen</td></tr>
+<tr><td><a href="Graph.html">Graph</a></td><td>Graphen</td></tr>
+<tr><td><a href="Logic.html">Logic</a></td><td>Aussagenlogik</td></tr>
+<tr><td><a href="Matrix.html">Matrix</a></td><td>Matrizen</td></tr>
+<tr><td><a href="Mod.html">Mod</a></td><td>Elemente der Restklassenringe Z[m]</td></tr>
+<tr><td><a href="NumeralSystem.html">NumeralSystem</a></td><td>Umrechnung zwischen Stellenwertsystemen</td></tr>
+<tr><td><a href="Perm.html">Perm</a></td><td>Permutationen (aus Dictionary oder Zyklendarstellung)</td></tr>
+<tr><td><a href="Poly.html">Poly</a></td><td>Polynome über beliebigen Ringen</td></tr>
+<tr><td><a href="Rational.html">Rational</a></td><td>Rationale Zahlen</td></tr>
+<tr><td><a href="Rsa.html">Rsa</a></td><td>RSA-Verschlüsselung</td></tr>
+<tr><td><a href="Set.html">Set</a></td><td>Polymorphe Mengen</td></tr>
+<tr><td><a href="Vector.html">Vector</a></td><td>Vektoren</td></tr>
+</table>
+<h2><a id="functions">Globale Funktionen</a></h2>
+<table><tr><td><b>Function</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#allFactors">allFactors</a> (n)</td><td>Liste aller Primfaktoren von <var>n</var></td></tr>
+<tr><td><a href="#binomial">binomial</a> (n, k)</td><td>Binomialkoeffizient (n über k)</td></tr>
+<tr><td><a href="#ceil">ceil</a> (x)</td><td>kleinste ganze Zahl n >= x</td></tr>
+<tr><td><a href="#chinese">chinese</a> (mod1, *mod2)</td><td>Mod-Objekt zu mod1 mod2, ... nach Chinesischem Restsatz</td></tr>
+<tr><td><a href="#closure">closure</a> (elements, operation)</td><td>Der Abschluss der Menge elements unter der binären Operation operation</td></tr>
+<tr><td><a href="#copy">copy</a> (x)</td><td>unabhängige Kopie</td></tr>
+<tr><td><a href="#divisors">divisors</a> (n)</td><td>Liste der Teiler von <var>n</var></td></tr>
+<tr><td><a href="#eulerPhi">eulerPhi</a> (n)</td><td>Eulersche Phi-Funktion</td></tr>
+<tr><td><a href="#expMod">expMod</a> (a, x, m)</td><td>Berechnet (a**x) % m effizient.</td></tr>
+<tr><td><a href="#factor">factor</a> (n)</td><td>Primfaktorenzerlegung</td></tr>
+<tr><td><a href="#factorial">factorial</a> (n)</td><td>n! = 1*2*3* ... *n (n Fakultät)</td></tr>
+<tr><td><a href="#factors">factors</a> (n)</td><td>Liste der Primfaktoren von <var>n</var> (jeder nur einmal)</td></tr>
+<tr><td><a href="#fibonacci">fibonacci</a> (n)</td><td><var>n</var>-tes Element der Fibonacci-Folge</td></tr>
+<tr><td><a href="#fit">fit</a> (data, values)</td><td>Interpolation mit der Gaußschen Methode der kleinsten Quadrate</td></tr>
+<tr><td><a href="#floor">floor</a> (x)</td><td>größte ganze Zahl n &lt;= x (Gauß-Klammer)</td></tr>
+<tr><td><a href="#fromTo">fromTo</a> (a, b, step=1)</td><td>Iterator über die ganzen Zahlen von a bis einschl. b im Abstand step</td></tr>
+<tr><td><a href="#gcd">gcd</a> (a,b)</td><td>Größter gemeinsamer Teiler von a und b</td></tr>
+<tr><td><a href="#gcdExt">gcdExt</a> (a,b)</td><td>Erweiterter Euklidischer Algorithmus.</td></tr>
+<tr><td><a href="#isInteger">isInteger</a> (n)</td><td>        gibt <code>True</code> zurück genau dann, wenn n vom Typ <code>int</code> ist.</td></tr>
+<tr><td><a href="#isNatural">isNatural</a> (n)</td><td></td></tr>
+<tr><td><a href="#isPrime">isPrime</a> (n,s=20)</td><td>Rückgabewert bool (ist <var>n</var> Primzahl?)</td></tr>
+<tr><td><a href="#join">join</a> (l, filler="")</td><td>verbindet die Elemente von <code>l</code> zu einem String</td></tr>
+<tr><td><a href="#lcm">lcm</a> (a, b)</td><td>Kleinstes gemeinsames Vielfaches von <var>a</var> und <var>b</var></td></tr>
+<tr><td><a href="#nextPrime">nextPrime</a> (n)</td><td>nächste Primzahl ab (einschließlich) <var>n</var></td></tr>
+<tr><td><a href="#permutations">permutations</a> (v, prefix=[])</td><td>Liste aller Permutationen von v</td></tr>
+<tr><td><a href="#permute">permute</a> (v, fn, prefix=[])</td><td>wendet Prozedur <code>fn</code> auf alle Permutationen von Liste v an.</td></tr>
+<tr><td><a href="#plot">plot</a> (terms, x0, x1, **options)</td><td></td></tr>
+<tr><td><a href="#plotFunctions">plotFunctions</a> (functions, x0, x1, **options)</td><td></td></tr>
+<tr><td><a href="#prime">prime</a> (n)</td><td><var>n</var>-te Primzahl</td></tr>
+<tr><td><a href="#printTable">printTable</a> (height, width, cellFunction, **options)</td><td>gibt eine Tabelle mit <var>height</var> Zeilen und <var>width</var> Spalten aus, deren Zellen mit <var>cellFunction</var> berechnet werden.</td></tr>
+<tr><td><a href="#printValueTable">printValueTable</a> (values, variable="n", start=0, end=10, increment=1, vertical=True)</td><td>Gibt eine Wertetafel aus.</td></tr>
+<tr><td><a href="#product">product</a> (obj, start=None, end=None, step=1)</td><td>Product der Elemente des iterierbaren Objekts a bzw. aller obj(i) für i in fromTo(start,end,step)</td></tr>
+<tr><td><a href="#rand">rand</a> (n)</td><td>        Zufallszahl im Bereich 0 ... <var>n</var>-1<br/>
+        <var>n</var> kann eine beliebige natürliche Zahl sein (int).</td></tr>
+<tr><td><a href="#sum">sum</a> (obj, start=None, end=None, step=1)</td><td>Summe der Elemente des iterierbaren Objekts a bzw. aller obj(i) für i in fromTo(start,end,step)</td></tr>
+<tr><td><a href="#toNumber">toNumber</a> (s)</td><td>verwandelt den String s in eine rationale oder Gleitkommazahl</td></tr>
+</table>
+</div><h1>Globale Funktionen</h1>
+<h2><a id="allFactors">allFactors</a></h2>
+<p><b>Aufruf:</b> <code>allFactors(n)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Liste aller Primfaktoren von <var>n</var></i><br/>
+        <b>Beispiel</b>: <code>allFactors(24)</code>
+        gibt <code>[2, 2, 2, 3]</code> zurück.<br/>
+        <b>Siehe auch</b> <a href="#factor"><code>factor</code></a>,
+                          <a href="#factors"><code>factors</code></a>.</p><hr/>
+<h2><a id="binomial">binomial</a></h2>
+<p><b>Aufruf:</b> <code>binomial(n, k)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Binomialkoeffizient (n über k)</i><br/>
+        n muss nichtnegative ganze Zahl sein, k im Bereich 0 .. n.</p><hr/>
+<h2><a id="ceil">ceil</a></h2>
+<p><b>Aufruf:</b> <code>ceil(x)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>kleinste ganze Zahl n >= x</i><br/></p><hr/>
+<h2><a id="chinese">chinese</a></h2>
+<p><b>Aufruf:</b> <code>chinese(mod1, *mod2)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Mod-Objekt zu mod1 mod2, ... nach Chinesischem Restsatz</i><br/>
+        Voraussetzung: mod1, mod2, ... sind Mod-Objekte mit paarweise
+        teilerfremden Moduln.<br/>
+        <code>chinese(Mod(a1, m1), Mod(a2, m2, ...)</code><br/>
+        berechnet Mod(x, m1*m2*...) mit 0 &lt;= <code>x</code> &lt; m1*m2*... und<br/>
+        <code>x % m1 == a1</code><br/>
+        <code>x % m2 == a2</code><br/>, ...<br/>
+        <b>Beispiel</b>:<pre>
+    chinese(Mod(1,5), Mod(2,7))  # -<span style="font-family:Wingdings">à</span> Mod(16,35)</pre>
+        (16 mod 5 = 1, 16 mod 7 = 2).<br/>
+        <b>Siehe auch</b> <a href="Mod.html"><code>Mod</code></a></p><hr/>
+<h2><a id="closure">closure</a></h2>
+<p><b>Aufruf:</b> <code>closure(elements, operation)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Der Abschluss der Menge elements unter der binären Operation operation</i><br/>
+        operation muss eine function mit zwei Parametern sein.</p><hr/>
+<h2><a id="copy">copy</a></h2>
+<p><b>Aufruf:</b> <code>copy(x)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>unabhängige Kopie</i></p><hr/>
+<h2><a id="divisors">divisors</a></h2>
+<p><b>Aufruf:</b> <code>divisors(n)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Liste der Teiler von <var>n</var></i></p><hr/>
+<h2><a id="eulerPhi">eulerPhi</a></h2>
+<p><b>Aufruf:</b> <code>eulerPhi(n)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Eulersche Phi-Funktion</i><br/>
+        Anzahl der zu <var>n</var> teilerfremden Zahlen im Bereich von 1 bis <var>n</var></p><hr/>
+<h2><a id="expMod">expMod</a></h2>
+<p><b>Aufruf:</b> <code>expMod(a, x, m)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Berechnet (a**x) % m effizient.</i><br/>
+        Synonym für die Python-Standardfunktion <code>pow</code>.</p><hr/>
+<h2><a id="factor">factor</a></h2>
+<p><b>Aufruf:</b> <code>factor(n)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Primfaktorenzerlegung</i><br/>
+        Rückgabewert: Liste mit Paaren [Primfaktor, Exponent]<br/>
+        <b>Beispiel</b>:<br/>
+        <code>factor(24)</code><br/>
+        gibt <code>[[2,3],[3,1]]</code> zurück.<br/>
+        <b>Siehe auch</b> <a href="#factors"><code>factors</code></a>,
+                          <a href="#allFactors"><code>allFactors</code></a>.</p><hr/>
+<h2><a id="factorial">factorial</a></h2>
+<p><b>Aufruf:</b> <code>factorial(n)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>n! = 1*2*3* ... *n (n Fakultät)</i></p><hr/>
+<h2><a id="factors">factors</a></h2>
+<p><b>Aufruf:</b> <code>factors(n)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Liste der Primfaktoren von <var>n</var> (jeder nur einmal)</i><br/>
+        <b>Beispiel</b>:<br/>
+        <code>factors(24)</code>
+        gibt <code>[2, 3]</code> zurück.<br/>
+        <b>Siehe auch</b> <a href="#factor"><code>factor</code></a>,
+                            <a href="#allFactors"><code>allFactors</code></a>.</p><hr/>
+<h2><a id="fibonacci">fibonacci</a></h2>
+<p><b>Aufruf:</b> <code>fibonacci(n)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i><var>n</var>-tes Element der Fibonacci-Folge</i>
+        fibonacci(0) = 0<br/>
+        fibonacci(1) = 1<br/>
+        fibonacci(n) = fibonacci(n-1) + fibonacci(n-2) für n >= 2</p><hr/>
+<h2><a id="fit">fit</a></h2>
+<p><b>Aufruf:</b> <code>fit(data, values)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Interpolation mit der Gaußschen Methode der kleinsten Quadrate</i><br/>
+        <code>fit(data, values)</code>
+        berechnet nach der Methode der kleinsten Quadrate
+        eine Linearkombination der Funktionen, die x auf die
+        Terme in <code>values</code> abbilden.<br/>
+        (entspricht der Mathematica-Funktion <code>Fit</code>).<br/>
+        <b>Beispiel</b>:<pre>
+ fit([(-1,2), (1,1), (2,1), (3,0), (5,3)],
+     ["1", "x", "x**2"])</pre>
+        berechnet <code>[c1, c2, c3]</code> so dass die Funktion<br/>
+        <code>f(x) = c1*1  + c2*x + c3 * x**2</code><br/>
+        die Bedingungen f(-1)=2, f(1)=1, f(2)=1, f(3)=0, f(5)=3 approximiert.<br/>
+        Ergebnis: "(6/5 * 1) + (-53/70 * x) + (3/14 * x**2)</p><hr/>
+<h2><a id="floor">floor</a></h2>
+<p><b>Aufruf:</b> <code>floor(x)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>größte ganze Zahl n &lt;= x (Gauß-Klammer)</i><br/></p><hr/>
+<h2><a id="fromTo">fromTo</a></h2>
+<p><b>Aufruf:</b> <code>fromTo(a, b, step=1)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Iterator über die ganzen Zahlen von a bis einschl. b im Abstand step</i><br/>
+        Wenn <var>step</var> nicht übergeben wird, wird <var>step</var> auf 1 gesetzt.<br/>
+        <b>Beispiele</b>:<pre>
+    list(fromTo(3, 6))               # -<span style="font-family:Wingdings">à</span>  [3,4,5,6]
+    list(fromTo(3, 6, 2))            # -<span style="font-family:Wingdings">à</span>  [3,5]
+    list(fromTo(6, 3))               # -<span style="font-family:Wingdings">à</span>  []
+    list(fromTo(6, 3, -2))           # -<span style="font-family:Wingdings">à</span>  [6,4]
+    [2*i for i in fromTo(6, 3, -2)]  # -<span style="font-family:Wingdings">à</span>  [12,8]
+    sum(fromTo(1, 10))               # -<span style="font-family:Wingdings">à</span>  55</pre></p><hr/>
+<h2><a id="gcd">gcd</a></h2>
+<p><b>Aufruf:</b> <code>gcd(a,b)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Größter gemeinsamer Teiler von a und b</i><br/>
+        Berechnung mit dem euklidischen Algorithmus<br/>
+        <b>Siehe auch</b> <a href="#lcm"><code>lcm</code></a></p><hr/>
+<h2><a id="gcdExt">gcdExt</a></h2>
+<p><b>Aufruf:</b> <code>gcdExt(a,b)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Erweiterter Euklidischer Algorithmus.</i><br/>
+        Gibt (d, x, y) zurück mit d == gcd(a,b) und  x*a + y*b == d</p><hr/>
+<h2><a id="isInteger">isInteger</a></h2>
+<p><b>Aufruf:</b> <code>isInteger(n)</code></p>
+<p><b>Beschreibung</b>:<br/>        gibt <code>True</code> zurück genau dann, wenn n vom Typ <code>int</code> ist.</p><hr/>
+<h2><a id="isNatural">isNatural</a></h2>
+<p><b>Aufruf:</b> <code>isNatural(n)</code></p>
+<hr/>
+<h2><a id="isPrime">isPrime</a></h2>
+<p><b>Aufruf:</b> <code>isPrime(n,s=20)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Rückgabewert bool (ist <var>n</var> Primzahl?)</i><br/>
+        Implementierung mit Miller-Rabin-Test<br/>
+        (vgl. Cormen, Leiserson, Rivest: Algorithms, S. 841)<br/>
+        <b>Siehe auch</b> <a href="#prime"><code>prime</code></a>,
+                          <a href="#nextPrime"><code>nextPrime</code></a>.</p><hr/>
+<h2><a id="join">join</a></h2>
+<p><b>Aufruf:</b> <code>join(l, filler="")</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>verbindet die Elemente von <code>l</code> zu einem String</i><br/>
+        Zwischen je zwei Elemente wird <code>filler</code> eingefügt.<br/>
+        Ersatz für die schwer lesbare String-Methode join()
+        bzw. für die Funktion string.join().<br/>
+        Im Gegensatz zu diesen Funktionen werden zusätzlich
+        die Listenelemente zu Strings konvertiert.<br/>
+        <b>Beispiel</b>:<br/>
+        <code>join(fromTo(1,5), "-")</code>
+        liefert <code>"1-2-3-4-5"</code>.</p><hr/>
+<h2><a id="lcm">lcm</a></h2>
+<p><b>Aufruf:</b> <code>lcm(a, b)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Kleinstes gemeinsames Vielfaches von <var>a</var> und <var>b</var></i><br/>
+        <b>Siehe auch</b> <a href="#gcd"><code>gcd</code></a></p><hr/>
+<h2><a id="nextPrime">nextPrime</a></h2>
+<p><b>Aufruf:</b> <code>nextPrime(n)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>nächste Primzahl ab (einschließlich) <var>n</var></i><br/>
+        <b>Siehe auch</b> <a href="#isPrime"><code>isPrime</code></a>,
+                          <a href="#prime"><code>prime</code></a>.</p><hr/>
+<h2><a id="permutations">permutations</a></h2>
+<p><b>Aufruf:</b> <code>permutations(v, prefix=[])</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Liste aller Permutationen von v</i><br/>
+        Wenn v sortiert ist, werden auch die Permutationen in
+        sortierter Reihenfolge erzeugt.</p><hr/>
+<h2><a id="permute">permute</a></h2>
+<p><b>Aufruf:</b> <code>permute(v, fn, prefix=[])</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>wendet Prozedur <code>fn</code> auf alle Permutationen von Liste v an.</i><br/>
+        Wenn v sortiert ist, werden auch die Permutationen in
+        sortierter Reihenfolge erzeugt.</p><hr/>
+<h2><a id="plot">plot</a></h2>
+<p><b>Aufruf:</b> <code>plot(terms, x0, x1, **options)</code></p>
+<hr/>
+<h2><a id="plotFunctions">plotFunctions</a></h2>
+<p><b>Aufruf:</b> <code>plotFunctions(functions, x0, x1, **options)</code></p>
+<hr/>
+<h2><a id="prime">prime</a></h2>
+<p><b>Aufruf:</b> <code>prime(n)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i><var>n</var>-te Primzahl</i><br/>
+        <b>Siehe auch</b> <a href="#isPrime"><code>isPrime</code></a>,
+                          <a href="#nextPrime"><code>nextPrime</code></a>.</p><hr/>
+<h2><a id="printTable">printTable</a></h2>
+<p><b>Aufruf:</b> <code>printTable(height, width, cellFunction, **options)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>gibt eine Tabelle mit <var>height</var> Zeilen und <var>width</var> Spalten aus, deren Zellen mit <var>cellFunction</var> berechnet werden.</i><br/>
+        <var>cellFunction</var> muss eine Funktion mit zwei Parametern (Zeile, Spalte) sein.<br/>
+        Folgende optionalen benannten Parameter werden unterstützt:<br/>
+        <var>rowHeadFn</var>: Falls vorhanden, werden Zeilenköpfe angezeigt und mit dieser Funktion berechnet.<br/>
+        <var>colHeadFn</var>: Falls vorhanden, werden Spaltenköpfe angezeigt und mit dieser Funktion berechnet.<br/>
+        <var>headAlign</var>: "left" (Standard), "right" oder "center"<br/>
+        <var>cellAlign</var>: "left", "right" (Standard) oder "center"<br/>
+        <var>title</var>: Falls vorhanden, wird eine Titelzeile mit diesem Text über der Tabelle angezeigt<br/>
+        <var>corner</var>: Falls vorhanden (und auch rowHeadFn und colHeadFn), wird dieser Text
+        in der oberen linken Tabellenecke angezeigt.<br/>
+        Diese Funktion wird vom Menübefehl Einfügen -- Tabelle verwendet.<br/>
+        <b>Beispiel</b>:<pre>
+ printTable(7, 7, lambda i,k: i*k % 7,
+    rowHeadFn = lambda i: i,
+    colHeadFn = lambda k: k,
+    title = "Multiplikation mod 7",
+    corner = "*")</pre>
+        Gibt eine Multiplikationstabelle modulo 7 aus.</p><hr/>
+<h2><a id="printValueTable">printValueTable</a></h2>
+<p><b>Aufruf:</b> <code>printValueTable(values, variable="n", start=0, end=10, increment=1, vertical=True)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Gibt eine Wertetafel aus.</i><br/>
+        Diese Funktion wird vom Menübefehl Einfügen -- Wertetafel verwendet.<br/>
+        <b>Beispiel</b>:<pre>
+printValueTable([(lambda n:n^2, "n²"), (lambda n:2^n, "2<sup>n</sup>")],
+                 "n", 0, 10, True)</pre>
+        Listet die Werte n² und 2<sup>n</sup> für n von 0 bis 10 auf.</p><hr/>
+<h2><a id="product">product</a></h2>
+<p><b>Aufruf:</b> <code>product(obj, start=None, end=None, step=1)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Product der Elemente des iterierbaren Objekts a bzw. aller obj(i) für i in fromTo(start,end,step)</i><br/>
+        Die Elemente müssen mit dem Operator * verknüpfbar sein<br/>
+        <b>Beispiele</b>:<br/>
+        <code>product([i^2 for i n fromTo(1,10)])</code><br/>
+        <code>product(fibonacci, 0, 10)</code><br/>
+        <code>product(lambda i:i^2, 2, 10, 2)</code></p><hr/>
+<h2><a id="rand">rand</a></h2>
+<p><b>Aufruf:</b> <code>rand(n)</code></p>
+<p><b>Beschreibung</b>:<br/>        Zufallszahl im Bereich 0 ... <var>n</var>-1<br/>
+        <var>n</var> kann eine beliebige natürliche Zahl sein (int).</p><hr/>
+<h2><a id="sum">sum</a></h2>
+<p><b>Aufruf:</b> <code>sum(obj, start=None, end=None, step=1)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Summe der Elemente des iterierbaren Objekts a bzw. aller obj(i) für i in fromTo(start,end,step)</i><br/>
+        Die Elemente müssen mit dem Operator + verknüpfbar sein
+        (z. B. Zahlen oder Strings).<br/>
+        <b>Beispiele</b>:<br/>
+        <code>sum([i^2 for i n fromTo(1,10)])</code><br/>
+        <code>sum(fibonacci, 0, 10)</code><br/>
+        <code>sum(lambda i:i^2, 2, 10, 2)</code></p><hr/>
+<h2><a id="toNumber">toNumber</a></h2>
+<p><b>Aufruf:</b> <code>toNumber(s)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>verwandelt den String s in eine rationale oder Gleitkommazahl</i><br/>
+        <b>Beispiele</b>:<br/>
+        <code>toNumber("3.1")</code><br/>
+        <code>toNumber("7/3")</code></p><hr/>
+</body></html>

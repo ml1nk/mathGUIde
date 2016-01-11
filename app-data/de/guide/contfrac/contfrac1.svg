@@ -1,0 +1,19 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<!--svg width="2.24cm" height="1cm" viewBox="-1 -1 23 11" xmlns="http://www.w3.org/2000/svg"-->
+<svg viewBox="-1 -1 44 11" xmlns="http://www.w3.org/2000/svg">
+  <g stroke="#808080" stroke-width="0.2">
+    <g fill="#d0ffd0">
+      <rect x="0" y="0" width="10" height="10" />
+      <rect x="10" y="0" width="10" height="10" />
+      <rect x="20" y="0" width="10" height="10" />
+    </g>
+    <g fill="#e0e0e0">
+      <rect x="30" y="0" width="2" height="2" />
+      <rect x="30" y="2" width="2" height="2" />
+      <rect x="30" y="4" width="2" height="2" />
+      <rect x="30" y="6" width="2" height="2" />
+      <rect x="30" y="8" width="2" height="2" />
+    </g>
+  </g>
+</svg>

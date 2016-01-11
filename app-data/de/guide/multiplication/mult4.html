@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Multiplikation — 4</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../../styles/guide.css"/>
+ <script type="text/javascript" src="../../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../../jsMath/plugins/spriteImageFonts.js"/>
+ <script type="text/javascript" src="../../listingButtons.js"/>
+</head>
+
+<body>
+
+<h1>Eine kurze Geschichte der Multiplikation</h1>
+
+<p class="overview"><a href="mult1.html">1. Multiplikation durch Addition</a><br/>
+<a href="mult2.html">2. Binäre Multiplikation</a><br/>
+<a href="mult3.html">3. Parallele Multiplikation</a><br/>
+4. Karatsuba-Multiplikation</p>
+
+<h2>4. Karatsuba-Multiplikation</h2>
+
+<p>Wir lassen nun Python zwei 10000-stellige Zahlen multiplizieren (100 mal hintereinander)
+und messen die Rechenzeit dafür:</p>
+
+<!-- listing-01 -->
+<pre>
+<span class="keyword">import</span> time
+a = rand(10^10000)
+b = rand(10^10000)
+start = time.clock()
+<span class="keyword">for</span> i <span class="keyword">in</span> range(100):
+    c = a * b
+end = time.clock()
+zeit10000 = end-start
+print(<span class="literal">"Rechenzeit für 10000 Stellen: {:0.3f} s"</span>.format(zeit10000))
+</pre>
+<script type="text/javascript">listingButtons("01")</script>
+
+
+<p>Nun wiederholen wir das Experiment mit doppelt so langen (20000-stelligen) Zahlen.<br/>
+Nach unseren Überlegungen zur schriftlichen Multiplikation sollte die
+Rechnung nun 2² = 4 mal so lange dauern.</p>
+
+<!-- listing-02 -->
+<pre>
+a = rand(10^20000)
+b = rand(10^20000)
+start = time.clock()
+<span class="keyword">for</span> i <span class="keyword">in</span> range(100):
+    c = a * b
+zeit20000 = time.clock() - start
+print(<span class="literal">"Rechenzeit für 20000 Stellen: {:0.3f} s"</span>.format(zeit20000))
+print(<span class="literal">"20000 Stellen benötigen {:0.2f} mal soviel Zeit wie 10000 Stellen"</span>
+      .format(zeit20000/zeit10000))
+</pre>
+<script type="text/javascript">listingButtons("02")</script>
+
+
+<p>Wie hat sich bei der Zeitbedarf erhöht? Stimmt das mit unserer Vorhersage überein?</p>
+
+<!--div class="right-box" style="clear:both">
+ Aufwand bei der<br/>Karatsuba-<br/>Multiplikation<br/> <br/>
+ <embed src="karatsuba1.svg" width="132" height="132"/><br/>
+ Stufe 1<br/> <br/>
+ <embed src="karatsuba2.svg" width="132" height="132"/><br/>
+ Stufe 2<br/> <br/>
+ <embed src="karatsuba3.svg" width="132" height="132"/><br/>
+ Stufe 3<br/> <br/>
+ <embed src="karatsuba4.svg" width="132" height="132"/><br/>
+ Stufe 4<br/> <br/>
+ <embed src="karatsuba5.svg" width="132" height="132"/><br/>
+ Stufe 5<br/> <br/>
+ <embed src="karatsuba6.svg" width="132" height="132"/><br/>
+ Stufe 6
+</div-->
+
+<div class="right-box" style="clear:both">
+ Stufe 1<br/>
+ <object data="karatsuba1.svg" type="image/svg+xml" width="132" height="132"/><br/>
+</div>
+<div class="right-box" style="clear:both">
+ Stufe 2<br/>
+ <object data="karatsuba2.svg" type="image/svg+xml" width="132" height="132"/><br/>
+</div>
+<div class="right-box" style="clear:both">
+ Stufe 3<br/>
+ <object data="karatsuba3.svg" type="image/svg+xml" width="132" height="132"/><br/>
+</div>
+<div class="right-box" style="clear:both">
+ Stufe 4<br/>
+ <object data="karatsuba4.svg" type="image/svg+xml" width="132" height="132"/><br/>
+</div>
+<div class="right-box" style="clear:both">
+ Stufe 5<br/>
+ <object data="karatsuba5.svg" type="image/svg+xml" width="132" height="132"/><br/>
+</div>
+<div class="right-box" style="clear:both">
+ Stufe 6<br/>
+ <object data="karatsuba6.svg" type="image/svg+xml" width="132" height="132"/><br/>
+</div>
+
+<h3>Der Trick von Karatsuba</h3>
+
+<p>Sie werden bei Ihrer Messung bemerkt haben, dass die Multiplikation
+doppelt langer Zahlen nicht – wie erwartet – viermal so lange gedauert hat,
+sondern nur dreimal so lang. Das liegt daran, dass Python eine verbesserte
+Methode, die sogenannte Karatsuba-Multiplikation verwendet.</p>
+
+<p>Um diese Methode zu verstehen, kommen wir nun nochmals auf die Aufgabe 1234 · 5678 zurück.
+Wenn wir je zwei Ziffern als Einheit betrachten (man kann sie als Ziffer im Stellenwertsystem
+zur Basis 100 auffassen), bekommen wir:<br/>
+
+<code>  <span class="bgYellow">12</span><span class="bgGreen">34</span> · <span class="bgYellow">56</span><span class="bgGreen">78</span><br/>
+─────────────<br/>
+        <span class="bgGreen">34·78</span><br/>
+<span class="bgYellow">12·78+34·56</span><br/>
+    <span class="bgPink">12·56</span><br/>
+─────────────<br/>
+10<sup>4</sup>·12·56 + 10<sup>2</sup>(12·78 + 34·56) + 34·78</code></p>
+
+<p>Wir haben also vier einzelne Multiplikationen von zweistelligen Zahlen.
+Für jede dieser vier Multiplikationen benötigen wir wieder vier Multiplikationen
+von einstelligen Zahlen. Auch so kommen wir auf die 4·4 = 16 Basismultiplikationen.
+Der russische Mathematiker <a class="web" href="http://en.wikipedia.org/wiki/Anatolii_Alexeevitch_Karatsuba">A. Karatsuba</a> hat 1960 mit einen
+einfachen Trick die Methode verbessert:<br/>
+Im gelben Ausdruck stecken zwei der vier Produkte. Wenn man ihn so umformt:<br/>
+<span class="bgYellow">12·78 + 34·56</span> = (12+34)·(56+78) - <span class="bgPink">12·56</span> - <span class="bgGreen">34·78</span><br/>
+hat man zwar aus zwei Produkten drei gemacht. Aber zwei davon haben wir ja sowieso schon berechnet.
+Insgesamt benötigen wir so nur drei statt vier Produkten, das bedeutet, wir haben 25% eingespart!
+Grafisch ist das in der nebenstehenden Abbildung (Stufe 1) dargestellt.
+Jetzt können Sie sich auch das Ergebnis des Tests erklären:
+Python verwendet automatisch die Karatsuba-Multiplikation.</p>
+
+<p>25% Ersparnis sind zwar ganz hübsch, aber der eigentliche Vorteil
+der Karatsuba-Multiplikation liegt darin, dass sich die Ersparnis
+umso mehr steigert, je größer die zu multiplizierenden Zahlen sind.
+Im Beispiel 1234 · 5678  bestehen ja die Faktoren der drei Einzelmultiplikationen
+aus zweistelligen Zahlen, und hier können wir wieder den Trick anwenden, z. B.<br/><code>
+12·56 = <span class="bgPink">1·5</span>·100 + (<span class="bgYellow">1·6</span> + <span class="bgYellow">2·5</span>)·10           + <span class="bgGreen">2·6</span><br/>
+      = <span class="bgPink">1·5</span>·100 + (<span class="bgYellow">(1+2)·(6+5)</span>-<span class="bgPink">1·5</span>-<span class="bgGreen">2·6</span>)·10 + <span class="bgGreen">2·6</span></code></p>
+
+<p>Jetzt haben wir zweimal gespart:
+Zunächst haben wir 1234 · 5678 in drei statt vier Multiplikationen
+mit zweistelligen Faktoren zerlegt.
+Bei jeder dieser drei Multiplikationen sparen wir wieder ein Viertel ein.
+Die gesamte Rechenzeit verkürzt sich also auf (3/4)·(3/4) = 9/16 (Abbildung: Stufe 2).</p>
+
+<p>Je größer also die Faktoren sind, umso drastischer zahlt sich der Vorteil der Karatsuba-Multiplikation aus!
+Multiplizieren wir z.B. zwei 64-stellige Zahlen miteinander,
+haben wir 6 Halbierungen bis zu einstelligen Zahlen (64 = 2<sup>6</sup>).
+Damit verkürzt sich die Rechenzeit auf (3/4)<sup>6</sup>, das ist etwa 0,178 (Abbildung, Stufe 6).
+Hier sparen wir also schon über 80% gegenüber der Standardmethode!</p>
+
+<p>Die Anzahl <var>S</var>(<var>n</var>) der Einzelmultiplikationen bei der
+Multiplikation zweier <var>n</var>-stelliger Zahlen mit der schriftlichen
+Multiplikation ist <var>S</var>(<var>n</var>) = <var>n</var><sup>2</sup>.<br/>
+Wenn die Stellenzahl eine Zweierpotenz ist, haben wir
+<var>S</var>(2<sup><var>n</var></sup>) = 4<sup><var>n</var></sup>.<br/>
+Bei der Karatsuba-Multiplikation erhalten wir entsprechend:
+<var>K</var>(2<sup><var>n</var></sup>) = 3<sup><var>n</var></sup>.</p>
+<p>Damit bekommen wir</p>
+<div class="math">
+  \begin{eqnarray}
+  K(n) &amp; = &amp; K(2^{log_2 n}) \\
+       &amp; = &amp; 3^{log_2 n} \\
+       &amp; = &amp; (2^{log_2 3})^{log_2 n} \\
+       &amp; = &amp; 2^{log_2 n\cdot log_2 3} \\
+       &amp; = &amp; n^{log_2 3} \approx n^{1.59}
+  \end{eqnarray}
+</div>
+
+<p>Der entscheidende Vorteil ist also nicht, dass wir den Algorithmus um einen
+bestimmten Prozentsatz schneller gemacht haben (das könnte man auch mit einem
+schnelleren Computer oder Code-Optimierung erreichen).<br/>
+Entscheidend ist vielmehr, dass wir von einem quadratischen Wachstum (<var>n</var><sup>2</sup>) mit der Größe
+der Faktoren zum Wachstums mit nur <var>n</var><sup>1.59</sup> gekommen sind.</p>
+<p>Bitte machen Sie sich klar, dass der schnellste Computer der Welt (auch der Zukunft)
+mit dem klassischen Multiplikationsverfahren, ab einer gewissen Größe der Faktoren
+dem langsamsten Computer der Welt unterlegen ist, wenn dieser die Karatsuba-Multiplikation 
+verwendet. Denn das Verhältnis von <var>n</var><sup>2</sup> zu <var>n</var><sup>1.59</sup>
+wächst ja mit <var>n</var> über alle Grenzen!</p>
+
+</body>
+</html>

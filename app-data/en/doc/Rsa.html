@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Rsa</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="../styles/doc.css"/>
+</head>
+<body>
+<p><a href="mathguide.html">Main Overview</a></p>
+<h1>Class <code>Rsa</code></h1>
+<p> Class <code>Rsa</code>: RSA Encryption<br/>
+        This is a static class (only static methods available).</p>
+<div id="overview"><p style="margin-top:0">Overview:</p>
+<h2>Class methods (static methods)</h2>
+<table><tr><td><b>Method</b></td><td><b>Meaning</b></td></tr>
+<tr><td><a href="#createKeys">createKeys</a> (bits=768)</td><td>returns an RSA key pair</td></tr>
+<tr><td><a href="#encrypt">encrypt</a> (m, key)</td><td>RSA encryption</td></tr>
+</table>
+</div><h1>Class methods (static methods)</h1>
+<h3><a id="createKeys">createKeys</a></h3>
+<p> <b>createKeys(bits=768)</b><br/></p>
+<p><b>Usage:</b> <code>Rsa.createKeys(bits=768)</code></p>
+<p><b>Description</b>:<br/>        <i>returns an RSA key pair</i><br/>
+        The pair is returned as tuple <code>((e,n),(d,n))</code>.<br/>
+        <b>Example</b>:<br/>
+        <code>public, private = Rsa.createKeys(24)<br/>
+              m = 12345 # message<br/>
+              c = Rsa.encrypt(m, public) # encrypted message<br/>
+              assert Rsa.encrypt(c, private) == m</code><br/>
+        <b>See also</b> <a href="#Rsa.encrypt"><code>Rsa.encrypt</code></a>.</p><hr/>
+<h3><a id="encrypt">encrypt</a></h3>
+<p> <b>encrypt(m, key)</b><br/></p>
+<p><b>Usage:</b> <code>Rsa.encrypt(m, key)</code></p>
+<p><b>Description</b>:<br/>        <i>RSA encryption</i><br/>
+        encrypts m using the mit dem key <code>key = (e,n)</code><br/>
+        <b>See also</b> <a href="#Rsa.createKeys"><code>Rsa.createKeys</code></a>.</p><hr/>
+</body></html>

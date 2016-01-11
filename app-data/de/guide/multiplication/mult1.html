@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Multiplikation — 1</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../../styles/guide.css"/>
+ <script type="text/javascript" src="../../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../../jsMath/plugins/spriteImageFonts.js"/>
+ <script type="text/javascript" src="../../listingButtons.js"/>
+</head>
+
+<body>
+<h1>Eine kurze Geschichte der Multiplikation</h1>
+
+<p class="overview">1. Multiplikation durch Addition<br/>
+<a href="mult2.html">2. Binäre Multiplikation</a><br/>
+<a href="mult3.html">3. Parallele Multiplikation</a><br/>
+<a href="mult4.html">4. Karatsuba-Multiplikation</a></p>
+
+<p class="intro">Auch scheinbar einfache Algorithmen lassen sich oft noch optimieren.<br/>
+In dieser Präsentation untersuchen wir, ob die aus der Schule bekannte
+schriftliche Multiplikation noch Verbesserungspotenzial hat.</p>
+
+<h2>1. Multiplikation durch Addition</h2>
+
+<p>Falls Sie sich noch an das schriftliche Rechnen in der Schule erinnern
+oder jemals in die Verlegenheit kamen, nur mit Bleistift und Papier
+eine größere Multiplikation durchzuführen, werden Sie ein Gefühl dafür haben,
+dass Multiplizieren viel aufwendiger ist als Addieren. Woran liegt das?</p>
+
+<p>Nehmen wir einmal an, Sie können das kleine Einmaleins auswendig
+und damit zwei einstellige Zahlen ebenso schnell multiplizieren wie addieren.<br/>
+Nun probieren Sie bitte einmal, zwei vierstellige Zahlen schriftlich
+zu addieren und zu multiplizieren.<br/>
+Sieht Ihr Zettel etwa so aus:</p>
+
+<pre class="pure">
+   1234      1234·5678
+  +5678      ─────────
+   ────           9872   
+   6912          8638
+                7404
+               6170
+             ─────────
+               7006652</pre>
+
+<p class="question">Wie verhält sich die Rechenzeit zur Größe der Zahlen beim schriftlichen Multiplizieren?</p>
+
+<p>Wir haben jede Ziffer des linken Faktors
+mit jeder Ziffer des rechten Faktors multipliziert.
+Im Beispiel haben wir 4·4 = 16 Einzelmultiplikationen durchgeführt.<br/>
+Für das Produkt zweier <var>n</var>-stelliger Zahlen brauchen wir also <var>n</var>²
+einzelne Multiplikationen. Dazu kommt noch das Aufaddieren am Ende, das aber
+am gesamten Rechenaufwand bei großen Zahlen kaum eine Rolle spielt.
+Die Zeit ist demnach proportional zum Produkt der Längen beider Zahlen.<br/>
+
+Zum Vergleich: Beim schriftlichen Addieren zweier <var>n</var>-stelliger Zahlen
+braucht man nur <var>n</var> Additionen von einzelnen Ziffern (und maximal noch einmal
+so viele Additionen für die Überträge).
+Die Rechenzeit steigt hier also nur linear mit <var>n</var> an!</p>
+
+<div class="right-img"><img alt="addifix" src="addifix.jpg"/></div>
+<p>Die relative Einfachheit der Addition schlägt sich auch in der Geschichte
+der mechanischen Rechenmaschinen nieder. Bevor in den 1970er-Jahren der
+Taschenrechner seinen Siegeszug antrat, waren preiswerte
+mechanische Additionshilfen weit verbreitet. Maschinen,
+die auch multiplizieren konnten, waren dagegen sehr teuer und langsam.<br/>
+Das nebenstehende Bild zeigt meine erste, vom Taschengeld erworbene
+Rechenmaschine.</p>
+<div class="left-img"><img alt="addiator" src="addiator.jpg"/></div>
+<p>Das Geheimnis dieser <a class="web" href="http://de.wikipedia.org/wiki/Zahlenschieber">
+Addiatoren</a> war eine Doppelzahnstange (links im Bild
+blau eingezeichnet), in die ein Stift gesteckt wurde, um die Ziffern zu verschieben.
+Um z.B. im linken Bild 30 zu addieren, steckt man den Stift in das mit 3 markierte
+Loch der hervorgehobenen Zehnerstange und zieht ihn bis zum unteren Ende.
+Wenn man aber z.B. 70 addieren möchte, ist das entsprechende Loch rot markiert.
+Das bedeutet, dass man nicht nach unten schieben darf (sonst käme man ja aus dem
+erlaubten Ziffernbereich bis 9 heraus, sondern nach oben. Statt 70 zu addieren,
+subtrahiert man also 30 (=100-70) und korrigiert den Fehler, indem man
+anschließend 100 addiert. Das geht aber in einem Rutsch durch den oben
+umgebogenen Weg!</p>
+
+<p>Wegen der Unerschwinglichkeit von Multiplikationsmaschinen hat man sich
+früher beholfen, indem man die Multiplikation mit Hilfe von Logarithmen
+auf die Addition zurückgeführt hat.</p>
+<p>Die folgende Abbildung zeigt das Prinzip:<br/>
+<img alt="multiplication by addition" src="mult-add.png"/></p>
+<p>Statt die <span class="bgPink">Multiplikation <var>x</var>·<var>y</var>
+direkt</span> durchzuführen, berechnet man die <span class="bgGreen">Logarithmen von <var>x</var>
+und <var>y</var>, addiert</span> diese und wendet
+auf die Summe die Umkehrfunktion (Exponentialfunktion) an,
+um das Ergebnis zu erhalten.</p>
+<p>In der Praxis wurden deshalb
+<a class="web" href="http://de.wikipedia.org/wiki/Logarithmentafel">Logarithmentafeln</a>
+zur Basis 10 gedruckt.<br/>
+Hier sehen Sie einen Auszug aus einer vierstelligen Logarithmentafel:</p>
+
+<table class="overview">
+ <tr><th></th><th>0</th><th>1</th><th>2</th><th>3</th><th><span class="bgPink">4</span></th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th></tr>
+ <tr><th>300</th><td>4771</td><td>4773</td><td>4774</td><td>4776</td><td>4777</td><td>4778</td><td>4780</td><td>4781</td><td>4783</td><td>4784</td></tr>
+ <tr><th>301</th><td>4786</td><td>4787</td><td>4789</td><td>4790</td><td>4791</td><td>4793</td><td>4794</td><td>4796</td><td>4797</td><td>4799</td></tr>
+ <tr><th><span class="bgPink">302</span></th><td>4800</td><td>4802</td><td>4803</td><td>4804</td><td><span class="bgGreen">4806</span></td><td>4807</td><td>4809</td><td>4810</td><td>4812</td><td>4813</td></tr>
+ <tr><th>303</th><td>4814</td><td>4816</td><td>4817</td><td>4819</td><td>4820</td><td>4822</td><td>4823</td><td>4824</td><td>4826</td><td>4827</td></tr>
+ <tr><th>304</th><td>4829</td><td>4830</td><td>4832</td><td>4833</td><td>4834</td><td>4836</td><td>4837</td><td>4839</td><td>4840</td><td>4842</td></tr>
+ <tr><th>305</th><td>4843</td><td>4844</td><td>4846</td><td>4847</td><td>4849</td><td>4850</td><td>4852</td><td>4853</td><td>4854</td><td>4856</td></tr>
+ <tr><th>306</th><td>4857</td><td>4859</td><td>4860</td><td>4861</td><td>4863</td><td>4864</td><td>4866</td><td>4867</td><td>4869</td><td>4870</td></tr>
+ <tr><th>307</th><td>4871</td><td>4873</td><td>4874</td><td>4876</td><td>4877</td><td>4878</td><td>4880</td><td>4881</td><td>4883</td><td>4884</td></tr>
+ <tr><th>308</th><td>4886</td><td>4887</td><td>4888</td><td>4890</td><td>4891</td><td>4893</td><td>4894</td><td>4895</td><td>4897</td><td>4898</td></tr>
+ <tr><th>309</th><td>4900</td><td>4901</td><td>4902</td><td>4904</td><td>4905</td><td>4907</td><td>4908</td><td>4909</td><td>4911</td><td>4912</td></tr>
+</table>
+
+<p class="remark">Früher war die Berechnung solcher Tafeln mit ungeheuren Mühen verbunden.
+So verbrachte der Mathematikprofessor
+<a class="web" href="http://de.wikipedia.org/wiki/Henry_Briggs">Henry Briggs</a>
+sieben Jahre damit, Logarithmen zur Basis 10 zu berechnen.
+Heute bräuchte er dazu nur noch auf die folgenden zwei Knöpfe zu klicken:</p>
+
+<!-- listing-01 -->
+<pre>
+printTable(10,10,
+           <span class="keyword">lambda</span> i,k: <span class="literal">"{:0.4f}"</span>.format(log(3000+10*i+k, 10))[2:],
+           rowHeadFn = <span class="keyword">lambda</span> i: 300+i,
+           colHeadFn = <span class="keyword">lambda</span> k: k,
+           cellAlign = <span class="literal">"left"</span>,
+           title = <span class="literal">"Logarithmentafel (Auszug)"</span>)</pre>
+<script type="text/javascript">listingButtons("01")</script>
+
+
+<p>In der Tafel oben steht die Hervorhebung für <span class="bgPink">3,024</span> = 10<sup>0,<span class="bgGreen">4806</span></sup>, aber auch
+für <span class="bgPink">30,24</span> = 10<sup>1,<span class="bgGreen">4806</span></sup> 
+oder <span class="bgPink">3024</span> = 10<sup>3,<span class="bgGreen">4806</span></sup> usw.
+</p>
+<p>Der Auszug zeigt 100 von 10000 Logarithmen der gesamten Tafel, die etwa 20 Buchseiten benötigt.<br/>
+Im praktischen Gebrauch waren auch siebenstellige Logarithmentafeln,
+schon ziemlich dicke Wälzer.</p>
+
+<p class="question">Warum hat man denn statt Logarithmentafeln
+nicht gleich große Multiplikationstafeln gedruckt?</p>
+
+<p class="remark">Eine Logarithmentafel ist eindimensional, zu jeder Zahl
+(in bestimmten Abständen) enthält sie einen Eintrag.
+Eine Multiplikationstafel dagegen ist zweidimensional: Sie muss zu jedem Paar
+von Zahlen einen Eintrag enthalten. So würde aus einem handlichen Buch eine
+riesige Bibliothek!</p>
+
+<div class="right-img"><img alt="slide-rule" src="slide-rule.jpg"/></div>
+<p>Sehr naheliegend ist es auch, die Logarithmen direkt auf Linealen
+aufzutragen und diese grafisch zu addieren. Einen solchen
+<a class="web" href="http://de.wikipedia.org/wiki/Rechenschieber">Rechenschieber</a>
+hatte bis in die siebziger Jahre hinein praktisch jeder Ingenieur.
+Um z.B. 2·3 zu berechnen kann man die Logarithen von 2 und 3 addieren, indem
+man die 2 des unteren Lineals an die 1 (log 1 = 0) des oberen schiebt und nun
+unter der 3 des oberen Lineals das Ergebnis 6 abliest.</p>
+
+<p class="remark">Ein Vorteil des Rechenschiebers und der Logarithmentafeln war,
+dass man die Größenordnung (Zehnerpotenz) der berechneten Zahlen im Kopf haben
+musste. Die Fähigkeit dazu scheint heute bei manchen Finanzpolitikern verloren
+gegangen zu sein.</p>
+
+<p><b>Fortsetzung</b>: <a href="mult2.html">Binäre Multiplikation</a></p>
+
+</body>
+</html>

@@ -1,0 +1,309 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Matrix</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="../styles/doc.css"/>
+</head>
+<body>
+<p><a href="mathguide.html">Main Overview</a></p>
+<h1>Class <code>Matrix</code></h1>
+<p> class <code>Matrix</code><br/>
+        <i>see also: Menu: Insert -- Matrix</i><br/>
+        <b>Matrix(v)</b>: v list of lists with uniform length.<br/>
+        <b>Example</b>:<br/>
+        <code>Matrix([[11,12,13],[21,22,23]])</code><br/>
+        The class <code>Matrix</code> ist derived from <code>Vector</code>:<br/>
+        A <code>Matrix</code> object ist a <code>Vector</code>
+        of <code>Vector</code> objects with uniform length.<br/>
+        The elements can be addressed using double indices (e.g.: <code>A[i,k]</code>).
+        Indices are counted from 0 (as in Python lists etc.).<br/>
+        see also. class methods with <code>Matrix.</code></p>
+<p><b>Base Class:</b> <a href="Vector.html"><code>Vector</code></a></p>
+<div id="overview"><p style="margin-top:0">Overview:</p>
+<h2>Constructor</h2>
+<p><a href="#constr">Matrix</a> (v)</p>
+<h2>Class methods (static methods)</h2>
+<table><tr><td><b>Method</b></td><td><b>Meaning</b></td></tr>
+<tr><td><a href="#fromFunction">fromFunction</a> (m, n, fn, offset=0)</td><td><code>m*n</code>-Matrix defined by function <code>fn</code></td></tr>
+<tr><td><a href="#fromString">fromString</a> (s)</td><td>Matrix given by a string</td></tr>
+<tr><td><a href="#identity">identity</a> (n)</td><td>n*n Identity Matrix</td></tr>
+<tr><td><a href="#null">null</a> (m, n=0)</td><td>m*n-Null matrix</td></tr>
+<tr><td><a href="#random">random</a> (m,n=0, r=100)</td><td>m*n matrix with random elements in 0..r-1</td></tr>
+</table>
+<h2>Operators</h2>
+<table><tr><td><b>Operator</b></td><td><b>Meaning</b></td></tr>
+<tr><td><a href="#xx20x2bx20y">x + y</a></td><td>Matrix addition operator</td></tr>
+<tr><td><a href="#xx5bix5d">x[i]</a></td><td>        Counts from 0
+        A[i]   <span style="font-family:Wingdings">à</span> i-th row vector
+        A[i,k] <span style="font-family:Wingdings">à</span> element in i-th row, k-th column
+    </td></tr>
+<tr><td><a href="#x7ex">~x</a></td><td>    </td></tr>
+<tr><td><a href="#xx20x2ax20y">x * y</a></td><td>Scalar or matrix multiplication</td></tr>
+<tr><td><a href="#x2dx">-x</a></td><td>    </td></tr>
+<tr><td><a href="#strx28xx29">str(x)</a></td><td>    </td></tr>
+<tr><td><a href="#xx5bix5dx20x3dx20y">x[i] = y</a></td><td>        Counts from 0
+        A[i]   <span style="font-family:Wingdings">à</span> i-th row vector
+        A[i,k] <span style="font-family:Wingdings">à</span> element in i-th row, k-th column
+    </td></tr>
+<tr><td><a href="#xx20x2dx20y">x - y</a></td><td>Matrix subtraction operator</td></tr>
+</table>
+<h2>Object Methods</h2>
+<table><tr><td><b>Method</b></td><td><b>Meaning</b></td></tr>
+<tr><td><a href="#adjoint">adjoint</a> ()</td><td>Adjoint matrix</td></tr>
+<tr><td><a href="#cofactor">cofactor</a> (i, k)</td><td>Cofactor for row i, columns k</td></tr>
+<tr><td><a href="#colRange">colRange</a> ()</td><td>List of all column indices</td></tr>
+<tr><td><a href="#complement">complement</a> (i, k)</td><td>Matrix without row i and column k</td></tr>
+<tr><td><a href="#copy">copy</a> ()</td><td>independent copy of the matrix ("clone") A</td></tr>
+<tr><td><a href="#det">det</a> ()</td><td>Determinant of the matrix A</td></tr>
+<tr><td><a href="#float">float</a> ()</td><td>returns the Matrix A with all elements converted to <code>float</code></td></tr>
+<tr><td><a href="#gaussElim">gaussElim</a> (jordan=True)</td><td>Row echelon form of the matrix A</td></tr>
+<tr><td><a href="#gramSchmidt">gramSchmidt</a> (normalize=False)</td><td>Orthogonalizing using the Gram–Schmidt process</td></tr>
+<tr><td><a href="#height">height</a> ()</td><td>Number of rows of the Matrix A</td></tr>
+<tr><td><a href="#inverse">inverse</a> ()</td><td>Inverse og the matrix A</td></tr>
+<tr><td><a href="#isSquare">isSquare</a> ()</td><td>Truth value (A is square matrix)</td></tr>
+<tr><td><a href="#joinBottom">joinBottom</a> (B)</td><td>Vertical concatenation of A with B</td></tr>
+<tr><td><a href="#joinRight">joinRight</a> (B)</td><td>Horizontal concatenation of A with B</td></tr>
+<tr><td><a href="#leastSquares">leastSquares</a> (b)</td><td>Solution of the normal system</td></tr>
+<tr><td><a href="#lup">lup</a> ()</td><td>LUP decomposition of the matrix</td></tr>
+<tr><td><a href="#minor">minor</a> (i, k)</td><td>Minor for row i, column k</td></tr>
+<tr><td><a href="#operators">operators</a> ()</td><td>For documentation only</td></tr>
+<tr><td><a href="#rank">rank</a> ()</td><td>Rank of the matrix A</td></tr>
+<tr><td><a href="#rowRange">rowRange</a> ()</td><td>List of all row indices</td></tr>
+<tr><td><a href="#solve">solve</a> (b)</td><td>Solution of the linear equation system Ax = b</td></tr>
+<tr><td><a href="#str">str</a> (i,k)</td><td>string representation of the element [i,k]</td></tr>
+<tr><td><a href="#submatrix">submatrix</a> (i, k, m, n)</td><td>m*n Submatrix (rows  i..i+m-1, columns k..k+n-1)</td></tr>
+<tr><td><a href="#transp">transp</a> ()</td><td>returns the transposed Matrix</td></tr>
+<tr><td><a href="#width">width</a> ()</td><td>Number of columns of the Matrix A</td></tr>
+</table>
+</div><h1>Constructor</h1>
+<h3><a id="constr">Matrix</a></h3>
+<p> Constructor</p>
+<p><b>Usage:</b> <code>Matrix(v)</code></p>
+<hr/>
+<h1>Class methods (static methods)</h1>
+<h3><a id="fromFunction">fromFunction</a></h3>
+<p> <b>Matrix.fromFunction(m,n, fn, offset=0)</b><br/></p>
+<p><b>Usage:</b> <code>Matrix.fromFunction(m, n, fn, offset=0)</code></p>
+<p><b>Description</b>:<br/>        <i><code>m*n</code>-Matrix defined by function <code>fn</code></i><br/>
+        <code>fn</code> must be a binary function.<br/>
+        The Matrix element <code>A[i,k]</code> is defined as <code>fn(i+offset,k+offset)</code>.<br/>
+        <b>Example</b>:<br/>
+        <code>Matrix.fromFunction(2,4, pow, 1)</code><br/>
+        returns the Matrix<pre>
+ / 1 1 1  1 \ 
+ |          |
+ \ 2 4 8 16 /</pre></p><hr/>
+<h3><a id="fromString">fromString</a></h3>
+<p> <b>Matrix.fromString(s)</b><br/></p>
+<p><b>Usage:</b> <code>Matrix.fromString(s)</code></p>
+<p><b>Description</b>:<br/>        <i>Matrix given by a string</i><br/>
+        The string s must contains the elementa row by row.<br/>
+        The rows are divided by semicolon, the elemente within a row by comma.<br/>
+        Elemente may also be rational (notated with slash).<br/>
+        <b>Example</b>:<br/>
+        <code>Matrix.fromString("1, 2, 3.14; 4/5, 5, 6")</code>
+        returns the matrix<pre>
+ / 1    2  3.14 \ 
+ |              |
+ \ 4/5  5   6   /</pre></p><hr/>
+<h3><a id="identity">identity</a></h3>
+<p> <b>Matrix.identity(n)</b><br/></p>
+<p><b>Usage:</b> <code>Matrix.identity(n)</code></p>
+<p><b>Description</b>:<br/>        <i>n*n Identity Matrix</i><br/></p><hr/>
+<h3><a id="null">null</a></h3>
+<p> <b>Matrix.null(m, n=0)</b><br/></p>
+<p><b>Usage:</b> <code>Matrix.null(m, n=0)</code></p>
+<p><b>Description</b>:<br/>        <i>m*n-Null matrix</i><br/>
+        Square Matrix, if n is omitted.<br/></p><hr/>
+<h3><a id="random">random</a></h3>
+<p> <b>Matrix.random(m,n=0, r=100)</b><br/></p>
+<p><b>Usage:</b> <code>Matrix.random(m,n=0, r=100)</code></p>
+<p><b>Description</b>:<br/>        <i>m*n matrix with random elements in 0..r-1</i></p><hr/>
+<h1>Operators</h1>
+<h3><a id="xx20x2bx20y">x + y</a></h3>
+<p> <b>A.__add__(B)</b><br/></p>
+<p><b>Usage:</b> <code>x + y</font></p>
+<p><b>Description</b>:<br/>        <i>Matrix addition operator</i><br/>
+        Instead of A = A + B you may write A += B.
+    </p><hr/>
+<h3><a id="xx5bix5d">x[i]</a></h3>
+<p> Definition of the Index operator []</p>
+<p><b>Usage:</b> <code>x[i]</font></p>
+<p><b>Description</b>:<br/>        Counts from 0
+        A[i]   <span style="font-family:Wingdings">à</span> i-th row vector
+        A[i,k] <span style="font-family:Wingdings">à</span> element in i-th row, k-th column
+    </p><hr/>
+<h3><a id="x7ex">~x</a></h3>
+<p> Operator ~ (transposition)</p>
+<p><b>Usage:</b> <code>~x</font></p>
+<p><b>Description</b>:<br/>    </p><hr/>
+<h3><a id="xx20x2ax20y">x * y</a></h3>
+<p> <b>A.__sub__(B)</b><br/></p>
+<p><b>Usage:</b> <code>x * y</font></p>
+<p><b>Description</b>:<br/>        <i>Scalar or matrix multiplication</i><br/>
+        Instead of A = A * B you may write A *= B.
+    </p><hr/>
+<h3><a id="x2dx">-x</a></h3>
+<p> unary minus operator</p>
+<p><b>Usage:</b> <code>-x</font></p>
+<p><b>Description</b>:<br/>    </p><hr/>
+<h3><a id="strx28xx29">str(x)</a></h3>
+<p> Object representation as string</p>
+<p><b>Usage:</b> <code>str(x)</font></p>
+<p><b>Description</b>:<br/>    </p><hr/>
+<h3><a id="xx5bix5dx20x3dx20y">x[i] = y</a></h3>
+<p> Definition of the Index operator [] for assignments</p>
+<p><b>Usage:</b> <code>x[i] = y</font></p>
+<p><b>Description</b>:<br/>        Counts from 0
+        A[i]   <span style="font-family:Wingdings">à</span> i-th row vector
+        A[i,k] <span style="font-family:Wingdings">à</span> element in i-th row, k-th column
+    </p><hr/>
+<h3><a id="xx20x2dx20y">x - y</a></h3>
+<p> <b>A.__sub__(B)</b><br/></p>
+<p><b>Usage:</b> <code>x - y</font></p>
+<p><b>Description</b>:<br/>        <i>Matrix subtraction operator</i><br/>
+        Instead of A = A - B you may write A -= B.
+    </p><hr/>
+<h1>Object Methods</h1>
+<h3><a id="adjoint">adjoint</a></h3>
+<p> <b>A.adjoint()</b><br/></p>
+<p><b>Usage:</b> <code>A.adjoint()</code></p>
+<p><b>Description</b>:<br/>        <i>Adjoint matrix</i><br/></p><hr/>
+<h3><a id="cofactor">cofactor</a></h3>
+<p> <b>A.cofactor(i, k)</b><br/></p>
+<p><b>Usage:</b> <code>A.cofactor(i, k)</code></p>
+<p><b>Description</b>:<br/>        <i>Cofactor for row i, columns k</i><br/>
+        (signed minor)</p><hr/>
+<h3><a id="colRange">colRange</a></h3>
+<p> <b>A.rowRange()</b><br/></p>
+<p><b>Usage:</b> <code>A.colRange()</code></p>
+<p><b>Description</b>:<br/>        <i>List of all column indices</i></p><hr/>
+<h3><a id="complement">complement</a></h3>
+<p> <b>A.complement(i, k)</b><br/></p>
+<p><b>Usage:</b> <code>A.complement(i, k)</code></p>
+<p><b>Description</b>:<br/>        <i>Matrix without row i and column k</i><br/>
+        (Algebraic complement)</p><hr/>
+<h3><a id="copy">copy</a></h3>
+<p> <b>A.copy()</b><br/></p>
+<p><b>Usage:</b> <code>A.copy()</code></p>
+<p><b>Description</b>:<br/>        <i>independent copy of the matrix ("clone") A</i></p><hr/>
+<h3><a id="det">det</a></h3>
+<p> <b>A.det()</b><br/></p>
+<p><b>Usage:</b> <code>A.det()</code></p>
+<p><b>Description</b>:<br/>        <i>Determinant of the matrix A</i><br/></p><hr/>
+<h3><a id="float">float</a></h3>
+<p> <b>A.float()</b><br/></p>
+<p><b>Usage:</b> <code>A.float()</code></p>
+<p><b>Description</b>:<br/>        <i>returns the Matrix A with all elements converted to <code>float</code></i></p><hr/>
+<h3><a id="gaussElim">gaussElim</a></h3>
+<p> <b>A.gaussElim(jordan=True)</b><br/></p>
+<p><b>Usage:</b> <code>self.gaussElim(jordan=True)</code></p>
+<p><b>Description</b>:<br/>        <i>Row echelon form of the matrix A</i><br/>
+        If <var>jordan</var> is <code>True</code>, the reduced row echelon form
+        is returned (Gaussian elimination), otherwise the normal row echelon form.</p><hr/>
+<h3><a id="gramSchmidt">gramSchmidt</a></h3>
+<p> <b>A.gramSchmidt(normalize=False)</b><br/></p>
+<p><b>Usage:</b> <code>self.gramSchmidt(normalize=False)</code></p>
+<p><b>Description</b>:<br/>        <i>Orthogonalizing using the Gram–Schmidt process</i><br/>
+        <code>A</code> must be the matrix of the (linearly independent) vectors
+        to be orthogonalized (given as rows).<br/>
+        If <var>normalize</var> is True, the vectors are normalized.<br/>
+        return value: Matrix consisting of the orthogonalen vectors.<br/>
+        <b>Example</b>:<br/><pre>
+ A = Matrix([[1,1],[2,0]])
+ A.gramSchmidt()</pre>
+        returns the matrix<pre>
+ / 1   1 \ 
+ |       |
+ \ 1  -1 /</pre></p><hr/>
+<h3><a id="height">height</a></h3>
+<p> <b>A.height()</b><br/></p>
+<p><b>Usage:</b> <code>A.height()</code></p>
+<p><b>Description</b>:<br/>        <i>Number of rows of the Matrix A</i></p><hr/>
+<h3><a id="inverse">inverse</a></h3>
+<p> <b>A.inverse()</b><br/></p>
+<p><b>Usage:</b> <code>A.inverse()</code></p>
+<p><b>Description</b>:<br/>        <i>Inverse og the matrix A</i><br/></p><hr/>
+<h3><a id="isSquare">isSquare</a></h3>
+<p> <b>A.isSquare()</b><br/></p>
+<p><b>Usage:</b> <code>A.isSquare()</code></p>
+<p><b>Description</b>:<br/>        <i>Truth value (A is square matrix)</i></p><hr/>
+<h3><a id="joinBottom">joinBottom</a></h3>
+<p> <b>A.joinBottom(B)</b><br/></p>
+<p><b>Usage:</b> <code>A.joinBottom(B)</code></p>
+<p><b>Description</b>:<br/>        <i>Vertical concatenation of A with B</i><br/>
+        <b>Requires</b>: Both Matrices must have the same column count.</p><hr/>
+<h3><a id="joinRight">joinRight</a></h3>
+<p> <b>A.joinRight(B)</b><br/></p>
+<p><b>Usage:</b> <code>A.joinRight(B)</code></p>
+<p><b>Description</b>:<br/>        <i>Horizontal concatenation of A with B</i><br/>
+        <b>Requires</b>: Both Matrices must have the same row count.</p><hr/>
+<h3><a id="leastSquares">leastSquares</a></h3>
+<p> <b>A.leastSquares(b)</b><br/></p>
+<p><b>Usage:</b> <code>A.leastSquares(b)</code></p>
+<p><b>Description</b>:<br/>        <i>Solution of the normal system</i><br/>
+        Returns: <code>(~A*A).solve(~A*b)</code></p><hr/>
+<h3><a id="lup">lup</a></h3>
+<p> <b>A.lup()</b><br/></p>
+<p><b>Usage:</b> <code>self.lup()</code></p>
+<p><b>Description</b>:<br/>        <i>LUP decomposition of the matrix</i><br/>
+        Returns a triplet (L, U, P) with P*A = L*R, where:<br/>
+        P is a Permutation matrix,<br/>
+        L is a Lower triangular matrix where all diagonal elements are one.<br/>
+        R is an upper triangular matrix.<br/>
+        <bRequires</b>: Matrix ist invertible.</p><hr/>
+<h3><a id="minor">minor</a></h3>
+<p> <b>A.minor(i, k)</b><br/></p>
+<p><b>Usage:</b> <code>A.minor(i, k)</code></p>
+<p><b>Description</b>:<br/>        <i>Minor for row i, column k</i><br/>
+        (Determinant of the algebraic complement)</p><hr/>
+<h3><a id="operators">operators</a></h3>
+<p> <b>Matrix.operators()</b><br/></p>
+<p><b>Usage:</b> <code>self.operators()</code></p>
+<p><b>Description</b>:<br/>        <i>For documentation only</i><br/>
+        The following operators are defined in the class <b>Matrix</b>:<br/>
+        <table>
+         <tr><th>Op.</th><th>Function</th><th width="30%">Examples</th></tr>
+         <tr><th>+</th><td>Addition</td><td><code>a + b; a += b</code></td></tr>
+         <tr><th>-</th><td>Subtraction</td><td><code>a - b; a -= b</code></td></tr>
+         <tr><th>*</th><td>Matrizenmultiplikation if both operands are Matrices, otherwise: Scalar multiplication</td><td><code>a * b; a *= b</code></td></tr>
+         <tr><th>-</th><td>Unary minus</td><td><code>-a</code></td></tr>
+         <tr><th>~</th><td>Transposed Matrix</td><td><code>~A</code></td></tr>
+         <tr><th>|</th><td>Concatenation</td><td><code>A | B; A |= B</code></td></tr>
+         <tr><th>[ ]</th><td>Index operator</td><td><code>A[i,k]</code><br/><code>A[i]</code> (Row Vector)</td></tr>
+        </table>
+        <font color="#000080" size="-2">This method is for documentation only. It has no effect.</font></p><hr/>
+<h3><a id="rank">rank</a></h3>
+<p> <b>A.rank()</b><br/></p>
+<p><b>Usage:</b> <code>A.rank()</code></p>
+<p><b>Description</b>:<br/>        <i>Rank of the matrix A</i><br/></p><hr/>
+<h3><a id="rowRange">rowRange</a></h3>
+<p> <b>A.rowRange()</b><br/></p>
+<p><b>Usage:</b> <code>A.rowRange()</code></p>
+<p><b>Description</b>:<br/>        <i>List of all row indices</i></p><hr/>
+<h3><a id="solve">solve</a></h3>
+<p> <b>A.solve(b)</b><br/></p>
+<p><b>Usage:</b> <code>A.solve(b)</code></p>
+<p><b>Description</b>:<br/>        <i>Solution of the linear equation system Ax = b</i><br/>
+        b may be Vektor or column Matrix.</p><hr/>
+<h3><a id="str">str</a></h3>
+<p> <b>A.str(i,k)</b><br/></p>
+<p><b>Usage:</b> <code>A.str(i,k)</code></p>
+<p><b>Description</b>:<br/>        <i>string representation of the element [i,k]</i></p><hr/>
+<h3><a id="submatrix">submatrix</a></h3>
+<p> <b>A.submatrix(i, k, m, n)</b><br/></p>
+<p><b>Usage:</b> <code>A.submatrix(i, k, m, n)</code></p>
+<p><b>Description</b>:<br/>        <i>m*n Submatrix (rows  i..i+m-1, columns k..k+n-1)</i><br/></p><hr/>
+<h3><a id="transp">transp</a></h3>
+<p> <b>A.transp()</b><br/></p>
+<p><b>Usage:</b> <code>A.transp()</code></p>
+<p><b>Description</b>:<br/>        <i>returns the transposed Matrix</i><br/>
+        short form: ~A</p><hr/>
+<h3><a id="width">width</a></h3>
+<p> <b>A.height()</b><br/></p>
+<p><b>Usage:</b> <code>A.width()</code></p>
+<p><b>Description</b>:<br/>        <i>Number of columns of the Matrix A</i></p><hr/>
+</body></html>

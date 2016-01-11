@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Kreuzungsfreie Graphen</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../styles/guide.css"/>
+  <script type="text/javascript" src="../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../jsMath/plugins/spriteImageFonts.js"/>
+ <script type="text/javascript" src="../listingButtons.js"/>
+</head>
+
+<body>
+<h1>Kreuzungsfreie Graphen</h1>
+
+<!-- Würfel (für Eulerschen Polyedersatz!)
+Graph.fromShortRepr(
+"""1,100,100; 2,180,100; 3,180,180; 4,100,180;
+   5,40,40;   6,240,40; 7,240,240; 8,40,240 |
+   1,2; 1,4; 1,5; 2,3; 2,6; 3,4; 3,7; 4,8; 5,8; 5,6; 6,7; 7,8""").display(2)
+-->
+
+<p class="intro">In der Praxis ist es oft wichtig, einen Graphen so in der Ebene anzuordnen,
+dass sich keine Kanten kreuzen. Ein typisches Beispiel: Leiterbahnen auf einer Platine.</p>
+
+<p>Betrachten Sie bitte den „vollständigen Graphen“ <b>K</b><sub>4</sub>,
+bei dem jeder der vier Knoten mit jedem anderen verbunden ist:</p>
+
+<!-- listing-01 -->
+<pre>
+Graph.complete(4).display()</pre>
+<script type="text/javascript">listingButtons("01")</script>
+
+<p>Hier kreuzen sich zwei Kanten. Aber das lässt sich ändern:
+Klicken Sie bitte in der Symbolleiste des Grapheneditors auf das Zeigefingersymbol
+und schieben Sie dann z.B. den Knoten 3 nach oben (in das Dreieck 4,1,2).
+Der Graph <b>K</b><sub>4</sub> kann also ohne Kreuzungen dargestellt werden.</p>
+
+<div class="def">
+ <p class="title">Definition</p>
+ <p>Ein Graph heißt <b>planar</b> (oder plättbar), wenn er sich ohne Kreuzungen in der Ebene darstellen lässt.</p>
+</div>
+
+<p>Nun betrachten Sie bitte den „vollständigen bipartiten Graphen“ <b>K</b><sub>3,2</sub>,
+bei dem die Knoten aus zwei Gruppen (mit 3 und 2 Mitgliedern) bestehen, so dass
+jeder Knoten genau mit jedem Knoten der anderen Gruppe verbunden ist:</p>
+
+<!-- listing-02 -->
+<pre>
+Graph.completeBipartite(3,2).display()</pre>
+<script type="text/javascript">listingButtons("02")</script>
+
+<p>Sicher gelingt es Ihnen auch hier, die Knoten so zu verschieben, dass keine
+Kreuzung mehr übrig bleibt: Der <b>K</b><sub>3,2</sub> ist also ebenfalls ein planarer Graph!</p>
+
+<p>Jetzt kommt eine schwierigere Aufgabe. Versuchen Sie sich an dem Graphen <b>K</b><sub>5</sub>:</p>
+<!-- listing-03 -->
+<pre>
+Graph.complete(5).display()</pre>
+<script type="text/javascript">listingButtons("03")</script>
+
+<p>Haben Sie es geschafft, die anfänglich 5 Kreuzungen auf eine zu reduzieren?
+Dann herzlichen Glückwunsch! Besser geht es nicht.
+Der <b>K</b><sub>5</sub> ist nämlich nicht planar!<br/>
+Bisher haben wir den Nachweis der Planarität durch erfolgreiches Probieren bewiesen.
+Misserfolg nach langem Probieren ist natürlich kein Beweis, dass es nicht doch geht.
+Jetzt müssen wir wirklich mathematisch an das Problem herangehen.</p>
+
+<h2>Zwei Beispiele für nicht planare Graphen</h2>
+
+<h3><b>K</b><sub>5</sub> ist nicht planar!</h3>
+
+<p>Wir nehmen einmal an, der <b>K</b><sub>5</sub> wäre planar.<br/>
+Dann würde eine kreuzungsfreie Darstellung die Ebene in Gebiete zerlegen,
+für deren Anzahl <var>g</var> nach dem 
+<a class="web" href="http://de.wikipedia.org/wiki/Eulerscher_Polyedersatz">eulerschen Polyedersatz</a></p>
+
+<div class="math">g = k - e + 2</div>
+
+gilt, wobei <var>k</var> die Anzahl der Kanten
+und <var>n</var> die Anzahl der Knoten (Ecken) ist.<br/>
+In unserem Fall ist also
+
+<div class="math">g = 10 - 5 + 2 = 7</div>
+
+<var>a</var> sei die durchschnittliche Anzahl der Kanten um ein Gebiet.<br/>
+Jedes Gebiet wird von mindestens 3 Kanten umrandet.
+Also ist
+
+<div class="math">
+ \def\pink{\bbox[#ffe0e0,2pt]}
+ \pink{a \ge 3}
+</div>
+
+Da jede Kante an zwei Gebiete grenzt, gilt
+
+<div class="math">
+ \def\pink{\bbox[#ffe0e0,2pt]}
+ \pink{a} = \frac{2 k}g = \frac{20}7 \pink{&lt; 3}
+</div>
+
+<p>Die <span class="bgPink">beiden Ungleichungen</span> widersprechen sich.
+Demnach war unsere Annahme (<b>K</b><sub>5</sub> wäre planar) falsch.</p>
+
+
+<h3><b>K</b><sub>3,3</sub> ist nicht planar!</h3>
+<p>Auch an diesem Graphen werden Sie verzweifeln, wenn Sie versuchen, ihn kreuzungsfrei zu machen:</p>
+<!-- listing-04 -->
+<pre>
+Graph.completeBipartite(3,3).display()</pre>
+<script type="text/javascript">listingButtons("04")</script>
+
+<p>Der <b>K</b><sub>3,3</sub> wird auch als „Versorgungsgraph“ bezeichnet.</p>
+<p class="remark">Man kann nämlich die eine Dreiergruppe als Häuser ansehen
+und die andere z.B. als Wasserwerk, E-Werk und Gaswerk und versuchen,
+alle Zuleitungen kreuzungsfrei zu verlegen.</p>
+
+<p>Der Beweis, dass der <b>K</b><sub>3,3</sub> nicht planar ist, klappt ebenso wie beim <b>K</b><sub>5</sub>.
+Einziger Unterschied: Da die Kanten immer zwischen zwei Gruppen wechseln, muss jedes Gebiet
+von einer geraden Zahl von Kanten umgeben sein und daher von mindestens vier Kanten!</p>
+
+<h2>Der Satz von Kuratowski</h2>
+<div class="right-img"><img alt="kuratowski" src="img/kuratowski.png"/></div>
+
+<p>Wir haben gerade zwei Beispiele für nicht planare Graphen gefunden.
+Der polnische Mathematiker Kazimierz Kuratowski veröffentlichte 1930 einen erstaunlichen Satz.
+Danach haben unsere beiden Beispiele eine ganz besondere Bedeutung:
+Mindestens eines dieser beiden Beispiele steckt nämlich in in jedem nicht planaren Graphen!</p>
+<div class="theorem">
+ <p class="title">Satz von Kuratowski</p>
+ <p>Ein Graph ist planar genau dann, wenn er keinen Teilgraphen besitzt,
+    der eine Unterteilung von <b>K</b><sub>3,3</sub> oder <b>K</b><sub>5</sub> ist.</p>
+</div>
+<p>Eine Unterteilung entsteht, wenn man auf einer Kante einen neuen Knoten einfügt (und damit die Kante in zwei Kanten zerlegt).
+Wir schauen uns das an einem Beispiel an:</p>
+
+<h3>Beispiel: Der Petersen-Graph</h3>
+
+<!-- listing-05 -->
+<pre>G = Graph.fromShortRepr(<span class="literal">"""
+    1,170,20; 2,313,124; 3,258,291; 4,82,291; 5,27,124;
+    6,170,90; 7,241,147; 8,214,231; 9,126,231;10,99,147;
+    -1,490,290; -2,620,20; -3,620,164; -4,620,290; -5,360,20;
+    -6,490,20; -7,585,57; -8,395,220; -9,586,220; -10,360,290|
+    1,6; 1,5; 1,2; 2,3; 2,7; 3,4; 3,8; 4,5; 4,9; 5,10; 6,8; 6,9; 7,9; 7,10; 8,10"""</span>)
+G.display()</pre>
+<script type="text/javascript">listingButtons("05")</script>
+
+<p>Obwohl dieser „Petersen-Graph“ dem <b>K</b><sub>5</sub> sehr ähnlich sieht
+(ignorieren Sie bitte zunächst die grauen Knoten!),
+steckt im Sinne von Kuratowski der <b>K</b><sub>5</sub> nicht darin!</p>
+<p>Bitte schieben Sie nun alle Knoten des Petersen-Graphen (1 bis 10) möglichst genau über die grauen Pendants
+mit den negativen Nummern.</p>
+<p>Das Ergebnis sieht dem <b>K</b><sub>3,3</sub> ähnlich! Löschen Sie bitte die Kanten
+zwischen den Knoten 3 und 8 sowie zwischen den Knoten 7 und 9.<br/>
+Der verbliebene Teilgraph ist eine Unterteilung des Graphen <b>K</b><sub>3,3</sub> (die vier Kanten {2,4},
+{2,10}, {4,6} und {6,10} sind unterteilt).</p>
+<p>Nach dem Satz von Kuratowski ist der Petersen-Graph also nicht planar.</p>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Die Klasse Graph und der Graphen-Editor</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../styles/guide.css"/>
+ <script type="text/javascript" src="../listingButtons.js"/>
+</head>
+
+<body>
+<h1>Die Klasse <code>Graph</code> und der Graphen-Editor</h1>
+
+<div class="right-box">
+  <img alt="K12" src="./img/k12.png"/><br/>
+  Der vollständige Graph <b>K</b><sub>12</sub><br/>
+  mathGUIde: <code>Graph.complete(12)</code>
+</div>
+
+<p class="intro">Die folgenden Beispiele zeigen einige Möglichkeiten der Klasse <code>Graph</code>,
+des Graphen-Editors und des Wechselspiels zwischen beiden.</p>
+
+<p>Ein Graph besteht aus Knoten und Kanten. Eine Kante verbindet zwei Knoten.<br/>
+Zwar gehört zur Definiton eines Graphen keine Information über eine geometrische Anordnung. In der Praxis hilft es aber oft,
+wenn man einen Graphen als Punkte (Knoten) und Verbindungslinien (Kanten) zeichnet.</p>
+<p>Wir wollen zunächst einen Graphen mit drei Knoten (1, 2, 3) und zwei Kanten definieren,
+die Knoten 1 mit den beiden anderen Kanten verbinden:</p>
+
+<!-- listing-01 -->
+<pre>
+g = Graph.fromShortRepr(<span class="literal">"1; 2; 3 | 1,2; 1,3"</span>)</pre>
+<script type="text/javascript">listingButtons("01")</script>
+
+<p>Da dieser "reine" Graph keine geometrischen Informationen enthält, werden Sie enttäuscht sein, wenn Sie ihn
+im Graphen-Editor betrachten:</p>
+
+<!-- listing-02 -->
+<pre>g.display()</pre>
+<script type="text/javascript">listingButtons("02")</script>
+
+<p>Klicken sie nun bitte im Graphen-Editor auf das Zeigefingersymbol
+und bewegen Sie die Knoten an drei verschiedene Plätze, so dass die zwei Kanten sichtbar werden.<br/>
+Versuchen Sie, einen vierten Knoten und eine weitere Kante hinzuzufügen
+(Wählen Sie dafür aus der Graphen-Symbolleiste das Knoten- und dann das Kantenwerkzeug aus!).</p>
+
+<p>Jetzt wollen wir den umgekehrten Weg gehen und den erweiterten Graphen in ein Objekt verwandeln.
+Dazu klicken Sie in der Graphen-Symbolleiste auf das Bleistiftsymbol (rechts).<br/>
+Nun sollte etwas Ähnliches im Eingabefenster stehen:</p>
+
+<pre>Graph.fromShortRepr(<span class="literal">"1,26,165;2,153,124;3,50,50;4,159,49|1,3;1,2;3,4"</span>)
+</pre>
+
+<p>Nun definieren wir einen gewichteten Graphen.
+Dazu wird bei den Kanten als dritter Wert das Gewicht angegeben</p>
+
+<!-- listing-03 -->
+<pre>
+<span class="comment"># Beispiel für einen gewichteten Graphen:</span>
+g = Graph.fromShortRepr(<span class="literal">"""
+1,100, 20;  2,260,20;   3,20,100;   4,180,100;   5,340,100;
+6, 20,180;  7,180,180;  8,340,180;  9,100,260;  10,260,260    |
+1,2,36;  1,4,15;  2,4,69;  2,5,1;   4,5,53;  3,4,92;  1,3,99;
+3,6,37;  6,7,21;  7,8,88;  4,6,27;  4,7,32;  5,7,10;  5,8,66;
+6,9,3;   7,9,18;  7,10,49; 8,10,43; 9,10,74"""</span>)
+
+g.display(1)  <span class="comment"># Anzeige im 1. Graphen-Fenster</span></pre>
+<script type="text/javascript">listingButtons("03")</script>
+
+<p>Wir lassen uns einen minimalen Spannbaum (mit Hilfe des Kruskal-Algorithmus) berechnen...</p>
+
+<!-- listing-04 -->
+<pre>g.highlightMinimalSpanTree(trace=<span class="keyword">True</span>)</pre>
+<script type="text/javascript">listingButtons("04")</script>
+
+<p>... und im 2. Graphen-Fenster anzeigen.</p>
+
+<!-- listing-05 -->
+<pre>g.display(2)</pre>
+<script type="text/javascript">listingButtons("05")</script>
+
+<p>Mit dem Dijkstra-Algorithmus berechnen wir einen kürzesten Weg von Knoten 2 nach Knoten 9 ...</p>
+
+<!-- listing-06 -->
+<pre>g.highlightShortestPath(2,9)</pre>
+<script type="text/javascript">listingButtons("06")</script>
+
+<p>... und zeigen ihn im 3. Graphen-Fenster an.</p>
+
+<!-- listing-07 -->
+<pre>g.display(3)</pre>
+<script type="text/javascript">listingButtons("07")</script>
+
+</body>
+</html>

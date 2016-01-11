@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>NumeralSystem</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="../styles/doc.css"/>
+</head>
+<body>
+<p><a href="mathguide.html">Hauptübersicht</a></p>
+<h1>Klasse <code>NumeralSystem</code></h1>
+<p> Klasse <code>NumeralSystem</code>: Stellenwertsysteme<br/>
+        Statische Klasse: nur Klassenmethoden.</p>
+<div id="overview"><p style="margin-top:0">Übersicht:</p>
+<h2>Klassenmethoden (statische Methoden)</h2>
+<table><tr><td><b>Methode</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#binary">binary</a> (n, ascending=False)</td><td>Binärdarstellung von <var>n</var> als Liste</td></tr>
+<tr><td><a href="#fromBase">fromBase</a> (v, b, ascending=False)</td><td><var>v</var> aus dem Stellenwertsystem zur Basis <var>b</var> als Zahl</td></tr>
+<tr><td><a href="#toBase">toBase</a> (n, b, ascending=False)</td><td><var>n</var> im Stellenwertsystem zur Basis <var>b</var></td></tr>
+</table>
+</div><h1>Klassenmethoden (statische Methoden)</h1>
+<h3><a id="binary">binary</a></h3>
+<p> <b>binary(n)</b><br/></p>
+<p><b>Aufruf:</b> <code>NumeralSystem.binary(n, ascending=False)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Binärdarstellung von <var>n</var> als Liste</i><br/>
+        Kurzform für <code>toBase(n,2)</code><br/>
+        <b>Beispiel</b>:<br/>
+        <code>NumeralSystem.binary(11)</code> gibt <code>[1, 0, 1, 1]</code> zurück.<br/>
+        <b>Siehe auch</b> <a href="#toBase"><code>toBase</code></a>,
+                          <a href="#fromBase"><code>fromBase</code></a>.</p><hr/>
+<h3><a id="fromBase">fromBase</a></h3>
+<p> <b>fromBase(v, b)</b><br/></p>
+<p><b>Aufruf:</b> <code>NumeralSystem.fromBase(v, b, ascending=False)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i><var>v</var> aus dem Stellenwertsystem zur Basis <var>b</var> als Zahl</i><br/>
+        <var>v</var> wird als Liste der Stellen erwartet.<br/>
+        <b>Siehe auch</b> <a href="#toBase"><code>toBase</code></a>,
+                          <a href="#binary"><code>binary</code></a>.</p><hr/>
+<h3><a id="toBase">toBase</a></h3>
+<p> <b>toBase(n, b)</b><br/></p>
+<p><b>Aufruf:</b> <code>NumeralSystem.toBase(n, b, ascending=False)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i><var>n</var> im Stellenwertsystem zur Basis <var>b</var></i><br/>
+        Das Ergebnis wird als Liste der Stellen ausgegeben.<br/>
+        <b>Siehe auch</b> <a href="#binary"><code>binary</code></a>,
+                          <a href="#fromBase"><code>fromBase</code></a>.</p><hr/>
+</body></html>

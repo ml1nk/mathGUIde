@@ -1,0 +1,94 @@
+body {background:white; margin:3mm;}
+
+body, p, li, td, th {
+    font-family:Calibri,Arial,Helvetica,sans-serif;
+	font-size:13pt
+}
+
+h1 {color:#558ED5}
+h2 {color:#376092}
+h3 {color:#558ED5}
+strong {color:#F00040}
+
+code, pre, var {
+    font-family:Consolas,'Courier New',Courier,Typewriter,monospace}
+pre {
+    clear:both;
+    background:#FCFAF8;
+    border-width:1px; border-color:#C0C0C0; border-style:solid;
+    padding:2mm;
+    margin-bottom:0mm
+}
+var {
+	font-style:normal
+}
+
+a[href]:link, a[href]:visited {color:#376092; font-weight:bold}
+a[href]:hover {background:#ECE8FF; color:#376092}
+
+p.buttons {
+	color:#008050;
+    padding: 2mm;
+	margin-top:0mm;
+	border-left:1px solid #C0C0C0;
+	border-right:1px solid #C0C0C0;
+	border-bottom:1px solid #C0C0C0;
+}
+
+p.buttons > a {
+	color:black;
+	border-style:outset;
+	border-width:2px;
+	padding-left:4px;
+	padding-right:4px;
+	text-decoration: none;
+	font-weight:normal;
+	background-image:url('img/buttonup.png');
+}
+p.buttons > a:hover {
+	border: 2px solid #7af;
+}
+p.buttons > a:active {
+	border-style:outset;
+	border-width:2px;
+	background-image:url('img/buttondown.png');
+}
+
+ul {list-style-image:url('img/arrow.png')}
+
+hr {
+    border-left:0px; border-top:0px; border-right:0mm;
+    border-bottom:1px solid #C0C0C0}
+
+*.keyword { color:#0000A0; font-weight:bold}
+*.comment { color:#00A000 }
+*.literal { color:#A00000 }
+
+p.intro   { font-size:1.2em; color:#606060 }
+
+table {empty-cells:show}
+table.overview {background:#FCFAF8;
+    border-width:thin; border-color:#C0C0C0; border-style:solid}
+
+tr {vertical-align:top}
+th {font-weight:bold; color:#000000; text-align:left}
+td {border-width:0; padding:0.5mm; vertical-align:top}
+
+#overview {
+    padding: 2mm;
+    background-color: #F8F8F8;
+    border-width:1px; border-color:#C0C0C0; border-style:solid;     
+}
+
+#right-box {
+    float: right;
+    margin: 2mm;
+    padding: 2mm;
+    background-color: white;
+    border-width:medium; border-color:#C0C0C0; border-style:solid;     
+}
+
+#right-img {
+    float: right;
+    padding: 2mm;
+}

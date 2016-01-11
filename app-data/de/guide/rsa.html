@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>RSA-Algorithmus</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../styles/guide.css"/>
+ <script type="text/javascript" src="../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../jsMath/plugins/spriteImageFonts.js"/>
+ <script type="text/javascript" src="../listingButtons.js"/>
+</head>
+
+<body>
+<h1>RSA-Algorithmus</h1>
+
+<p class="intro">Diese (noch unfertige) Präsentation zeigt die Chiffrierung mit dem RSA-Algorithmus</p>
+
+<h3>Schlüssel-Erzeugung</h3>
+
+<!-- listing-01 -->
+<pre>
+publicKey, privateKey = Rsa.createKeys()
+e, n = publicKey
+d = privateKey[0]</pre>
+<script type="text/javascript">listingButtons("01")</script>
+
+
+<h3>Verschlüsselung mit dem öffentlichen Schlüssel</h3>
+
+<!-- listing-02 -->
+<pre>
+m = 666  <span class="comment"># "Nachricht"</span>
+print(<span class="literal">"Die verschlüsselte Nachricht:"</span>)
+c = Rsa.encrypt(m, publicKey)
+print(c)</pre>
+<script type="text/javascript">listingButtons("02")</script>
+
+
+<h3>Entschlüsselung mit dem geheimen Schlüssel</h3>
+
+<!-- listing-03 -->
+<pre>
+print(<span class="literal">"Die entschlüsselte Nachricht:"</span>)
+print(Rsa.encrypt(c, privateKey))</pre>
+<script type="text/javascript">listingButtons("03")</script>
+
+
+</body>
+</html>

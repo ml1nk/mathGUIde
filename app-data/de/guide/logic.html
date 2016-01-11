@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Aussagenlogik</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../styles/guide.css"/>
+ <script type="text/javascript" src="../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../jsMath/plugins/spriteImageFonts.js"/>
+ <script type="text/javascript" src="../listingButtons.js"/>
+</head>
+
+<body>
+<h1>Aussagenlogik</h1>
+
+<p class="intro">Diese Präsentation zeigt einige der in mathGUIde eingebauten
+Funktionen der Aussagenlogik</p>
+
+<p>Aussagenlogische Formeln, die den Klassenmethoden der Klasse <code>Logic</code>
+übergeben werden, müssen wie folgt aufgebaut sein:</p>
+<ul>
+ <li>Variablen müssen einzelne Buchstaben sein.</li>
+ <li>Erlaubte Junktoren sind: <code>not</code>, <code>and</code>, <code>or</code>,
+  <code>xor</code>, <code>-></code>, <code>&lt;-></code>.</li>
+</ul>
+
+
+<h3>Wahrheitswerttafel</h3>
+<p>Wir testen die De Morgan'sche Regeln durch Fallunterscheidung,
+indem wir sie für alle möglichen Wahrheitswerttafeln prüfen.</p>
+<p>Im folgenden Programmstück werden in der ersten Zeile alle vier möglichen Wahrheitswerttafeln
+für die Variablen <var>a</var> und <var>b</var> erzeugt.<br/>
+In der zweiten Zeile stehen vier logische Ausdrücke, deren Wahrheitswerte für alle vier Fälle
+in einer Tabelle ausgegeben werden.<br/>
+Anschließend wird eine Wahrheitswerttafel mit Hilfe der mathGUIde-Funktion
+<a href="../doc/mathguide.html#printTable">printTable</a> angezeigt.</p>
+
+<!-- listing-04 -->
+<pre>
+table = [{<span class="literal">"a"</span>:a, <span class="literal">"b"</span>:b} <span class="keyword">for</span> a <span class="keyword">in</span> (<span class="keyword">False</span>, <span class="keyword">True</span>) <span class="keyword">for</span> b <span class="keyword">in</span> (<span class="keyword">False</span>, <span class="keyword">True</span>)]
+expr = [<span class="literal">"a"</span>, <span class="literal">"b"</span>, <span class="literal">"not(a or b)"</span>, <span class="literal">"not a and not b"</span>]
+printTable(4,4,
+    <span class="keyword">lambda</span> i,k: Logic.satisfies(expr[k], table[i]),
+    colHeadFn = <span class="keyword">lambda</span> i: expr[i])</pre>
+<script type="text/javascript">listingButtons("04")</script>
+
+<p>Man sieht, dass in jedem der vier Falle beide logischen Folrmeln den
+gleichen Wahrheitswert haben. Bitte überprüfen Sie ebenso die andere De Morgan'sche Regel!</p>
+
+<h3>Aussagenlogische Äquivalenzen</h3>
+<p>Wir haben soeben folgende aussagenlogische Äquivalenz gezeigt:</p>
+
+<div class="math">
+\neg (a \wedge b) \Leftrightarrow \neg a \vee \neg b
+</div>
+
+<p>Das kann mathGUIde auch direkt überprüfen:</p>
+
+<!-- listing-01 -->
+<pre>
+<span class="comment"># De Morgan'sche Regeln:</span>
+Logic.equivalent(<span class="literal">"not(a or b)"</span>, <span class="literal">"not a and not b"</span>)
+Logic.equivalent(<span class="literal">"not(a and b)"</span>, <span class="literal">"not a or not b"</span>)
+
+<span class="comment"># Eine ungültige Regel:</span>
+Logic.equivalent(<span class="literal">"not(a or b)"</span>, <span class="literal">"not a or not b"</span>)</pre>
+<script type="text/javascript">listingButtons("01")</script>
+
+<h3>Subjunktion und Implikation</h3>
+
+<!-- listing-02 -->
+<pre>
+Logic.equivalent(<span class="literal">"a -> b"</span>, <span class="literal">"not a or b"</span>) <span class="comment"># Subjunktion</span>
+Logic.implies(<span class="literal">"a"</span>, <span class="literal">"a or b"</span>)             <span class="comment"># Implikation</span>
+Logic.implies(<span class="literal">"a"</span>, <span class="literal">"a and b"</span>)  <span class="comment"># Ungültige Implikation</span></pre>
+<script type="text/javascript">listingButtons("02")</script>
+
+<h3>Allgemeingültigkeit und Unerfüllbarkeit</h3>
+
+<!-- listing-03 -->
+<pre>Logic.valid(<span class="literal">"a or not a"</span>)        <span class="comment"># Allgemeingültige Formel</span>
+Logic.satisfiable(<span class="literal">"a and not a"</span>) <span class="comment"># Unerfüllbare Formel</span>
+
+<span class="comment"># De Morgan'sche Regeln</span>
+Logic.valid(<span class="literal">"not(a or b) &lt;-> (not a and not b)"</span>)
+Logic.valid(<span class="literal">"not(a and b) &lt;-> (not a or not b)"</span>)</pre>
+<script type="text/javascript">listingButtons("03")</script>
+
+</body>
+</html>

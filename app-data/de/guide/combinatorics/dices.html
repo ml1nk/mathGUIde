@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Kombinatorik – Würfelspiele</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../../styles/guide.css"/>
+ <script type="text/javascript" src="../../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../../jsMath/plugins/spriteImageFonts.js"/>
+ <script type="text/javascript" src="../../listingButtons.js"/>
+</head>
+
+<body>
+<h1>Kombinatorik</h1>
+
+<h2>1. Würfelspiele</h2>
+
+<p class="intro">In dieser Präsentation simulieren wir einige Glücksspiele.
+Alle hier experimentell ermittelten Wahrscheinlichkeiten lassen sich mit den
+Mitteln der Kombinatorik leicht nachrechnen.</p>
+
+<h3>Zwei normale Würfel</h3>
+
+<p>Wir simulieren ein Spiel, bei dem jeder Spieler einen Würfel wirft
+und die höhere Zahl gewinnt.</p>
+
+<!-- listing-01 -->
+<pre>
+wuerfel = (1,2,3,4,5,6) <span class="comment"># Die sechs Seiten des Würfels</span>
+
+gewonnen = 0
+unentschieden = 0
+verloren = 0
+
+<span class="keyword">for</span> i <span class="keyword">in</span> range(60000): <span class="comment"># 60000 mal würfeln</span>
+    a1 = wuerfel[rand(6)]
+    a2 = wuerfel[rand(6)]
+    <span class="keyword">if</span> a1 > a2:
+        gewonnen += 1
+    <span class="keyword">elif</span> a1 &lt; a2:
+        verloren += 1
+    <span class="keyword">else</span>:
+        unentschieden += 1
+
+print(gewonnen, <span class="literal">"mal gewonnen"</span>)
+print(unentschieden, <span class="literal">"mal unentschieden"</span>)
+print(verloren, <span class="literal">"mal verloren"</span>)</pre>
+<script type="text/javascript">listingButtons("01")</script>
+
+<p>Das Ergebnis ist nicht sehr überraschend: Die Wahrscheinlichkeit,
+dass der zweite Würfel die gleiche Zahl wie der erste würfelt, ist 1/6.
+Die übrigen 5/6 verteilen sich auf den Gewinn des einen oder des anderen Würfels, also je 5/12.</p>
+
+<h3>Zwei ungewöhnliche Würfel</h3>
+
+<p>Nun testen wir zwei exotische Würfel: Der erste hat zwei Flächen
+mit einer Null und vier Seiten mit einer Vier, der zweite hat auf allen
+sechs Flächen eine Drei. Der erste Würfel gewinnt immer bei Vier
+und verliert immer bei Null.
+Offenbar gewinnt also der erste Würfel in 2/3 aller Fälle.<br/>
+Das überprüfen wir nun experimentell.</p>
+
+<!-- listing-02 -->
+<pre>
+wuerfel1 = (0,0,4,4,4,4)
+wuerfel2 = (3,3,3,3,3,3)
+
+gewinn12 = 0
+
+<span class="keyword">n = 100000
+for</span> i <span class="keyword">in</span> range(n): <span class="comment"># n mal würfeln</span>
+    a1 = wuerfel1[rand(6)]
+    a2 = wuerfel2[rand(6)]
+    <span class="keyword">if</span> a1 > a2: gewinn12 += 1
+print(100*gewinn12/n, <span class="literal">"%"</span>)</pre>
+<script type="text/javascript">listingButtons("02")</script>
+
+<div class="right-img"><img alt="4 dices" src="4dices.png"/></div>
+<h3>Vier merkwürdige Würfel</h3>
+
+<p>Wie wir gesehen haben, ist der erste Würfel „besser“ als der zweite.<br/>
+Jetzt nehmen wir noch einen dritten und einen vierten Würfen dazu und zählen
+zusätzlich, wie oft der zweite gegen den dritten und der dritte
+gegen den vierten Würfel gewinnt.</p>
+
+<!-- listing-03 -->
+<pre>
+wuerfel1 = (0,0,4,4,4,4)
+wuerfel2 = (3,3,3,3,3,3)
+wuerfel3 = (2,2,2,2,6,6)
+wuerfel4 = (1,1,1,5,5,5)
+
+gewinn12, gewinn23, gewinn34 = 0,0,0
+
+n = 100000
+<span class="keyword">for</span> i <span class="keyword">in</span> range(n): <span class="comment"># n mal würfeln</span>
+    a1 = wuerfel1[rand(6)]
+    a2 = wuerfel2[rand(6)]
+    a3 = wuerfel3[rand(6)]
+    a4 = wuerfel4[rand(6)]
+    <span class="keyword">if</span> a1 > a2: gewinn12 += 1
+    <span class="keyword">if</span> a2 > a3: gewinn23 += 1
+    <span class="keyword">if</span> a3 > a4: gewinn34 += 1
+print(<span class="literal">"Gewinn 1. gegen 2. Würfel:"</span>, 100*gewinn12/n, <span class="literal">"%"</span>)
+print(<span class="literal">"Gewinn 2. gegen 3. Würfel:"</span>, 100*gewinn23/n, <span class="literal">"%"</span>)
+print(<span class="literal">"Gewinn 3. gegen 4. Würfel:"</span>, 100*gewinn34/n, <span class="literal">"%"</span>)</pre>
+<script type="text/javascript">listingButtons("03")</script>
+
+<p>Anscheinend ist der erste Würfel „besser“ als der zweite,
+der zweite Würfel „besser“ als der dritte und der dritte Würfel „besser“
+als der vierte.</p>
+<p>Wenn Sie nun für ein Wettwürfeln zwischen dem ersten und dem vierten
+Würfel wählen könnten, welchen würden Sie nehmen?<br/>
+Wenn Sie sich entschieden haben, testen Sie bitte einmal:</p>
+
+<!-- listing-04 -->
+<pre>
+wuerfel1 = (0,0,4,4,4,4)
+wuerfel4 = (1,1,1,5,5,5)
+
+gewinn14 = 0
+n = 100000
+<span class="keyword">for</span> i <span class="keyword">in</span> range(n): <span class="comment"># n mal würfeln</span>
+    a1 = wuerfel1[rand(6)]
+    a4 = wuerfel4[rand(6)]
+    <span class="keyword">if</span> a1 > a4: gewinn14 += 1
+print(<span class="literal">"Gewinn 1. gegen 4. Würfel:"</span>, 100*gewinn14/n, <span class="literal">"%"</span>)</pre>
+<script type="text/javascript">listingButtons("04")</script>
+
+<p>Möchten Sie Ihre Entscheidung jetzt noch einmal überdenken?</p>
+
+
+<h3>Exakte Gewinnwahrscheinlichkeiten</h3>
+
+<p>Die vier Würfel haben folgende Belegung der sechs Flächen:</p>
+<ul>
+ <li><b>Würfel 1</b>: 0,0,4,4,4,4</li>
+ <li><b>Würfel 2</b>: 3,3,3,3,3,3</li>
+ <li><b>Würfel 3</b>: 2,2,2,2,6,6</li>
+ <li><b>Würfel 4</b>: 1,1,1,5,5,5</li>
+</ul>
+
+<p>Die folgenden Tabellen zeigen, dass von den 36 Elementarereignissen der zwei Würfel
+immer 24 einen <span class="bgGreen">Gewinn</span> und 12 einen
+<span class="bgPink">Verlust</span> ergeben.<br/>
+Die Gewinnwahrscheinlichkeit ist also immer 2/3.</p>
+
+<table>
+ <tr>
+  <td>
+   <table style="background:#lightgray">
+    <tr><td colspan="7">Würfel 1<br/>gegen Würfel 2</td></tr>
+    <tr><td></td><th> 3 </th><th> 3 </th><th> 3 </th><th> 3 </th><th> 3 </th><th> 3 </th></tr>
+    <tr>
+      <th>0</th>
+      <td rowspan="2" colspan="6" style="background:#ffc0c0"></td>
+    </tr>
+    <tr> <th>0</th> </tr>
+    <tr>
+      <th>4</th>
+      <td rowspan="4" colspan="6" style="background:#c0ffc0"></td>
+    </tr>
+    <tr> <th>4</th> </tr>
+    <tr> <th>4</th> </tr>
+    <tr> <th>4</th> </tr>
+   </table>
+  </td>
+  <td></td>
+
+  <td>
+   <table style="background:#lightgray">
+    <tr><td colspan="7">Würfel 2<br/>gegen Würfel 3</td></tr>
+    <tr><td></td><th> 2 </th><th> 2 </th><th> 2 </th><th> 2 </th><th> 6 </th><th> 6 </th></tr>
+    <tr>
+      <th>3</th>
+      <td rowspan="6" colspan="4" style="background:#c0ffc0"></td>
+      <td rowspan="6" colspan="2" style="background:#ffc0c0"></td>
+    </tr>
+    <tr> <th>3</th> </tr>
+    <tr> <th>3</th> </tr>
+    <tr> <th>3</th> </tr>
+    <tr> <th>3</th> </tr>
+    <tr> <th>3</th> </tr>
+   </table>
+  </td>
+  <td></td>
+
+  <td>
+   <table style="background:#lightgray">
+    <tr><td colspan="7">Würfel 3<br/>gegen Würfel 4</td></tr>
+    <tr><td></td><th> 1 </th><th> 1 </th><th> 1 </th><th> 5 </th><th> 5 </th><th> 5 </th></tr>
+    <tr>
+      <th>2</th>
+      <td rowspan="4" colspan="3" style="background:#c0ffc0"></td>
+      <td rowspan="4" colspan="3" style="background:#ffc0c0"></td>
+    </tr>
+    <tr> <th>2</th> </tr>
+    <tr> <th>2</th> </tr>
+    <tr> <th>2</th> </tr>
+    <tr>
+     <th>6</th>
+     <td rowspan="2" colspan="6" style="background:#c0ffc0"></td>
+    </tr>
+    <tr> <th>6</th> </tr>
+   </table>
+  </td>
+  <td></td>
+
+  <td>
+   <table style="background:#lightgray">
+    <tr><td colspan="7">Würfel 4<br/>gegen Würfel 1</td></tr>
+    <tr><td></td><th> 0 </th><th> 0 </th><th> 4 </th><th> 4 </th><th> 4 </th><th> 4 </th></tr>
+    <tr>
+      <th>1</th>
+      <td rowspan="3" colspan="2" style="background:#c0ffc0"></td>
+      <td rowspan="3" colspan="4" style="background:#ffc0c0"></td>
+    </tr>
+    <tr> <th>1</th> </tr>
+    <tr> <th>1</th> </tr>
+    <tr>
+     <th>5</th>
+     <td rowspan="3" colspan="6" style="background:#c0ffc0"></td>
+    </tr>
+    <tr> <th>5</th> </tr>
+    <tr> <th>5</th> </tr>
+   </table>
+   </td>
+   </tr>
+</table>
+
+</body>
+</html>

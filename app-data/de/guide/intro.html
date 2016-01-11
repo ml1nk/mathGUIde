@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Einstieg in mathGUIde</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../styles/guide.css"/>
+ <script type="text/javascript" src="../listingButtons.js"/>
+</head>
+<body>
+
+<a style="float:right;padding:1mm" href="index.html"><img alt="home" src="img/home.png"/></a>
+
+<h1>Einstieg in mathGUIde</h1>
+<p class="intro">Diese kurze Präsentation führt Sie in wenigen Minuten
+in den Umgang mit mathGUIde ein.</p>
+
+<p class="remark">mathGUIde ist einerseits ein math-guide, weil es Sie durch die
+Mathematik (für Informatiker) führt, andererseits ist GUI die Abkürzung
+für Graphical User Interface (grafische Benutzeroberfläche).</p>
+
+<div class="right-img"><img alt="mathguide-screen" src="img/mathguide-screen.png"/></div>
+
+<h2>Das mathGUIde-Fenster</h2>
+<p>Das mathGUIde-Fenster hat folgende Bestandteile:</p>
+
+<p><b><span style="color:#ff0000;font-size:xx-large">1</span> Eingabefenster</b><br/>
+Hier geben Sie Ausdrücke (z.B. <code>3*7</code>), Anweisungen
+(z.B. <code>a = 3*7</code>) oder Funktions- oder Klassendefinitionen ein,
+die mathGUIde berechnen soll.
+Um eine neue Zeile zu beginnen, drücken Sie dabei <span class="key">Return</span>.
+Zum Auswerten der Eingaben klicken Sie auf das Abakus-Symbol <img alt="abacus" src="img/abacus.png"/>
+oder drücken <span class="key">Strg</span>+<span class="key">Return</span>.</p>
+
+<p class="remark"><b>Hinweis für Mac OS</b>: 
+Der <span class="key">Strg</span>-Taste entspricht auf der Macintosh-Tastatur
+die <span class="key">cmd</span>-Taste 
+und nicht die <span class="key">ctrl</span>-Taste.</p>
+
+<p><b><span style="color:#ff0000;font-size:xx-large">2</span> Protokollfenster</b><br/>
+Hier werden alle Ausgaben Ihrer Berechnungen und ihre Ergebnisse protokolliert.<br/>
+Falls das Ergebnis einer Berechnung ein Funktionsplot oder ein
+(graphentheoretischer) Graph ist, werden hier spezielle Registerkarten aktiviert.</p>
+
+<p class="remark">Die Platzverteilung zwischen Eingabefenster und Protokollfenster können Sie
+durch Ziehen der gedrückten Maus auf dem Trennstreifen verändern.</p>
+
+<p class="remark">Zuweisungen haben kein Ergebnis.
+<i>Ausnahme</i>: Bei einer einzelnen (einzeiligen) Zuweisung zeigt mathGUIde
+den zugewiesenen Wert an.</p>
+
+<p><b><span style="color:#ff0000;font-size:xx-large">3</span> Guide-Fenster</b><br/>
+Dieses Fenster (in dem Sie gerade lesen) ist ein Browser,
+in dem Sie Präsentationen betrachten können.<br/>
+Sie können im Guide-Fenster mit den Symbolen <img alt="browser-buttons" src="img/browser-buttons.png"/>
+oder mit den üblichen Navigationstasten navigieren:
+<span class="key">Alt</span>+<span class="key">←</span>,
+<span class="key">Alt</span>+<span class="key">→</span>,
+<span class="key">Alt</span>+<span class="key">Pos1</span>.</p>
+
+<p class="remark">Wenn Sie die Maus über einen Link bewegen,
+sehen Sie in der Statusleiste des Hauptfensters das Ziel.
+Für die schnelle Unterscheidung zwischen lokalen und externen Links sind die
+lokalen Links (für die Sie nicht online sein müssen) bei Mausberührung blassblau
+unterlegt, die externen Links rötlich.</p>
+
+<p>Unter vielen Programmbeispielen finden Sie Schaltflächen (Buttons),
+mit denen Sie die Beispiele per Mausklick ins Eingabefenster übertragen
+und ausführen können. Hier ist ein Beispiel:</p>
+
+<!-- listing-01 -->
+<pre>nextPrime(10^50)</pre>
+<script type="text/javascript">listingButtons("01")</script>
+
+<p class="remark">
+Die Platzverteilung zwischen dem Guide-Fenster und dem Eingabe-/Protokollfenster
+können Sie durch Ziehen der gedrückten Maus auf dem Trennstreifen
+(am linken Rand des Guide-Fensters) verändern.</p>
+
+<p class="remark">Das Guide-Fenster lässt sich auch an anderen Kanten das Hauptfensters andocken
+oder als eigenes Fenster frei positionieren (z. B. im zweiten Bildschirm).
+Dazu ziehen Sie es mit im Titelbalken gedrückter Maus.</p>
+
+<p><b><span style="color:#ff0000;font-size:xx-large">4</span> Menü- und Symbolleiste</b></p>
+<p><b>Menüleiste</b>: Vor den Menübefehlen finden Sie die entsprechenden Symbole,
+dahinter die Tastenkombinationen.<br/>
+<b>Symbolleiste</b>: Wenn Sie die Maus kurz über einem Symbol anhalten,
+erscheint ein „Tooltip“ mit einer kurzen Erklärung des Befehls
+und der entsprechenden Tastenkombination.</p>
+
+<p><b><span style="color:#ff0000;font-size:xx-large">5</span> Statusleiste</b><br/>
+Hier werden zur jeweiligen Situation passende Hinweise angezeigt.</p>
+
+<div class="right-img"><img alt="elements" src="img/elements.png"/></div>
+
+<h2>Eingabe von Funktionen</h2>
+
+<p>Klicken bitte in das Eingabefenster und tippen Sie
+<span class="key">Strg</span> + <span class="key">Leertaste</span>.</p>
+<p class="remark"><b>Hinweis für Mac OS</b>: 
+Die Tastenkombination <span class="key">cmd</span> + <span class="key">Leertaste</span>
+ist auf vielen Mac-Tastaturen für Spotlight reserviert. Deshalb dürfen Sie stattdessen
+hier auch alternativ <span class="key">ctrl</span> + <span class="key">Leertaste</span> drücken.</p>
+
+<p>Es öffnet sich eine Liste aller in mathGUIde verfügbaren Klassen und globalen Funktionen.
+Sie erkennen</p>
+<ul>
+<li>die Klassen am großen Anfangsbuchstaben und am Symbol <img alt="class" src="img/class.png"/>,</li>
+<li>die Methoden am kleinen Anfangsbuchstaben und am Symbol <img alt="method" src="img/method.png"/>.</li>
+</ul>
+
+<p>Wir wollen die Funktion <code>isPrime</code> testen.
+Tippen Sie den Anfangsbuchstaben <span class="key">I</span>. Die Liste rollt zur ersten Funktion
+(oder Klasse), die mit i anfängt. Um zur gewünschten Funktion zu gelangen, tippen Sie
+weiter: <span class="key">S</span> und <span class="key">P</span>.
+Jetzt ist der Name <code>isPrime</code> markiert.
+Mit <span class="key">Return</span> übernehmen Sie diese Funktion ins Eingabefenster.</p>
+<p>Wenn Sie jetzt eine öffnende Klammer eintippen, erscheint ein kleines Hilfsfenster
+(„Tooltip“), das Sie über die Parameter und die Bedeutung der Funktion informiert.</p>
+<p>Ergänzen Sie die Zeile so:</p>
+<pre>isPrime(31)</pre>
+<p>Drücken Sie jetzt <span class="key">Strg</span>+<span class="key">Return</span>
+oder klicken Sie auf <img alt="abacus" src="img/abacus.png"/>, 
+und das Ergebnis erscheint: <code>True</code>.</p>
+<p><code>isPrime</code> ist eine in mathGUIde definierte globale Funktion.
+Weil mathGUIde auf Python aufbaut, können Sie natürlich auch alle Python-Funktionen verwenden.
+Die Funktionen des Pakets <code>math</code> sind standardmäßig schon importiert.</p>
+<p>Wenn Sie weitere mathGUIde-Funktionen kennenlernen möchten, schlagen Sie in der
+<a href="../doc/mathguide.html">Funktions- und Klassen-Referenz</a> nach.</p>
+
+<h2>Klassen</h2>
+<p>Neben globalen Funktionen gibt es auch Klassen, wie z. B. <code>Matrix</code>
+oder <code>Rational</code>.<br/>
+Klassenobjekte können erzeugt werden, indem der Klassenname wie eine Funktion
+verwendet wird („Konstruktor“).</p>
+<p>Tippen Sie zum Beispiel folgendes ins Eingabefenster
+(und dann <span class="key">Strg</span>+<span class="key">Return</span>):</p>
+<pre>A = Matrix([[1,2],[3,4]])</pre>
+
+<p>Um zu erfahren, welche Objektmethoden es gibt, tippen Sie einfach:</p>
+<pre>A.</pre>
+<p>Nun werden alle Methoden des Objekts im Listenfeld angezeigt.</p>
+<p>Wählen Sie z. B. die Methode <code>transp</code>:</p>
+<pre>A.transp()</pre>
+<p>Wenn Sie den Hinweis im Tooltip gelesen haben, wissen Sie jetzt auch, dass Sie
+eine Matrix mit dem Präfix-Operator <code>~</code> transponieren können.<br/>
+Vielleicht kombinieren Sie das gleich einmal mit Matrizenmultiplikation:</p>
+<pre>A * ~A</pre>
+<p>Matrizen können Sie übrigens auch sehr komfortabel mit dem Befehl
+<em>Matrix</em> im Menü <em>Einfügen</em> definieren.</p>
+
+<h2>Klassenmethoden</h2>
+
+<p>Die Klasse Matrix besitzt neben dem eben verwendeteten Konstruktor
+und den Objektmethoden (wie <code>transp</code>) einige Klassenmethoden
+zum Erzeugen eines Objekts. Löschen Sie bitte das Eingabefenster
+(mit <span class="key">Strg</span>+<span class="key">A</span> und dann <span class="key">Entf</span>), schreiben Sie <code>A =</code>,
+drücken Sie <span class="key">Strg</span>+<span class="key">Leertaste</span>
+und wählen Sie die Klasse Matrix aus der Liste
+(dazu brauchen Sie nur <span class="key">M</span> und <span class="key">Return</span> zu drücken!).
+Danach tippen Sie noch einen Punkt ein:</p>
+<pre>A = Matrix.</pre>
+<p>Nach dem Tippen des Punkts zeigt mathGUIde alle Klassenmethoden in einem Listenfeld an.</p>
+<p>Wählen Sie z. B. die Methode <code>random</code> durch Klick auf den entsprechenden Eintrag
+und tippen Sie nun die öffnende Klammer der Methode:</p>
+<pre>A = Matrix.random(</pre>
+<p>Wieder sehen Sie einen „Tooltip“. Vervollständigen Sie die Zeile so:</p>
+
+<!-- listing-02 -->
+<pre>A = Matrix.random(3, 5, 100)</pre>
+<script type="text/javascript">listingButtons("02")</script>
+
+<p>A ist jetzt eine 3·5-Matrix mit Zufallselementen zwischen 0 und 99.</p>
+
+<p class="remark">Einige Klassen (sog. statische Klassen) enthalten nur Klassenmethoden,
+so z.B. die Klasse <code>Logic</code>.
+Damit wird verhindert, dass die Liste der globalen Funktionen und Klassen
+zu unübersichtlich wird.</p>
+
+<h2>Wie geht es weiter?</h2>
+
+<p>Wenn Sie weitere mathGUIde-Funktionen und -Klassen kennenlernen möchten,
+schlagen Sie in der <a href="../doc/mathguide.html">Funktions- und Klassen-Referenz</a> nach.</p>
+
+<p>Die mathGUIde-Funktionen und Klassen sind in der Skriptsprache Python implementiert.
+Sie finden die Quellen in der Datei <code>mathguide.py</code> im Programmverzeichnis.<br/>
+Bitte schauen Sie dort ab und zu hinein! Einen ersten Anlass dazu haben Sie,
+wenn Sie sich wundern, wie mathGUIde die nächste Primzahl nach 10<sup>50</sup> so
+blitzschnell gefunden hat!
+Die Beschäftigung mit den Quellen wird Ihnen helfen,
+eigene Funktionen und Klassen zu implementieren.</p>
+
+<p>Bitte schauen Sie sich auch die kurze Präsentation
+<a href="python.html">Einführung in Python für mathGUIde</a> an!<br/>
+Danach führt Sie das
+<a class="web" href="http://docs.python.org/dev/py3k/tutorial/">Python Tutorial</a>
+weiter.</p>
+
+</body>
+</html>

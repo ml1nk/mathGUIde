@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ContFrac</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="../styles/doc.css"/>
+</head>
+<body>
+<p><a href="mathguide.html">Main Overview</a></p>
+<h1>Class <code>ContFrac</code></h1>
+<p> <b>ContFrac(number, steps=5)</b><br/>
+        <i>Continued fraction from <b>number</b> with maximal length <b>steps</b></i><br/>
+        <b>Example</b>:<br/>
+        <code>ContFrac(pi, 3)</code> returns
+        <code>ContFrac(3, 7, 15)</code>.<br/>
+        This represent the number 3 + 1/(7 + 1/15).</p>
+<div id="overview"><p style="margin-top:0">Overview:</p>
+<h2>Constructor</h2>
+<p><a href="#constr">ContFrac</a> (number, steps=5)</p>
+<h2>Operators</h2>
+<table><tr><td><b>Operator</b></td><td><b>Meaning</b></td></tr>
+<tr><td><a href="#strx28xx29">str(x)</a></td><td>    </td></tr>
+</table>
+<h2>Object Methods</h2>
+<table><tr><td><b>Method</b></td><td><b>Meaning</b></td></tr>
+<tr><td><a href="#toRational">toRational</a> (n=0)</td><td>Rational number defined by the first n list elements</td></tr>
+</table>
+</div><h1>Constructor</h1>
+<h3><a id="constr">ContFrac</a></h3>
+<p> Constructor</p>
+<p><b>Usage:</b> <code>ContFrac(number, steps=5)</code></p>
+<hr/>
+<h1>Operators</h1>
+<h3><a id="strx28xx29">str(x)</a></h3>
+<p> Object representation as string</p>
+<p><b>Usage:</b> <code>str(x)</font></p>
+<p><b>Description</b>:<br/>    </p><hr/>
+<h1>Object Methods</h1>
+<h3><a id="toRational">toRational</a></h3>
+<p> <b>toRational(n=0)</b><br/></p>
+<p><b>Usage:</b> <code>self.toRational(n=0)</code></p>
+<p><b>Description</b>:<br/>        <i>Rational number defined by the first n list elements</i><br/>
+        Converts the continued fraction int a rational number.<br/>
+        <b>Example</b>:<br/>
+        <code>ContFrac(pi).toRational(2)</code> returns 22/7.</p><hr/>
+</body></html>

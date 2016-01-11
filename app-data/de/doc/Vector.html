@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Vector</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="../styles/doc.css"/>
+</head>
+<body>
+<p><a href="mathguide.html">Hauptübersicht</a></p>
+<h1>Klasse <code>Vector</code></h1>
+<p> Klasse <code>Vector</code> (mit arithmetischen Operatoren)<br/>
+        <b>Vector(v)</b> (v Liste oder Tupel)<br/>
+        Die Indizes der Elemente von Vector werden (wie in Python-Listen etc.) ab 0 gezählt.
+        <b>Beispiel:</b><br/>
+        <code>Vector([1,2,3])</code></p>
+<p><b>Basisklasse:</b> <code>list</code></p>
+<div id="overview"><p style="margin-top:0">Übersicht:</p>
+<h2>Konstruktor</h2>
+<p><a href="#constr">Vector</a> (n)</p>
+<h2>Klassenmethoden (statische Methoden)</h2>
+<table><tr><td><b>Methode</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#fromFunction">fromFunction</a> (n, fn, offset=0)</td><td>Vector, dessen Elemente mit der Funktion fn berechnet werden</td></tr>
+<tr><td><a href="#fromString">fromString</a> (s)</td><td>Vector aus String</td></tr>
+</table>
+<h2>Operatoren</h2>
+<table><tr><td><b>Operator</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#xx20x2bx20y">x + y</a></td><td>    </td></tr>
+<tr><td><a href="#xx20x2ax20y">x * y</a></td><td></td></tr>
+<tr><td><a href="#x7ex">~x</a></td><td>    </td></tr>
+<tr><td><a href="#xx20x2ax20y">x * y</a></td><td>        Multiplikation
+        if both operands are vektors sind: inner product,
+        otherwise scalar multiplication (elementwise)
+    </td></tr>
+<tr><td><a href="#x2dx">-x</a></td><td>    </td></tr>
+<tr><td><a href="#strx28xx29">str(x)</a></td><td>    </td></tr>
+<tr><td><a href="#xx20x2dx20y">x - y</a></td><td>    </td></tr>
+</table>
+<h2>Objektmethoden</h2>
+<table><tr><td><b>Methode</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#join">join</a> (y)</td><td>Verkettung mit dem Vektor w</td></tr>
+<tr><td><a href="#norm">norm</a> ()</td><td>Norm of the Vector v</td></tr>
+<tr><td><a href="#operators">operators</a> ()</td><td>Nur zur Dokumentation</td></tr>
+<tr><td><a href="#transp">transp</a> ()</td><td>calculates the transposed Matrix (column vektor)</td></tr>
+</table>
+</div><h1>Konstruktor</h1>
+<h3><a id="constr">Vector</a></h3>
+<p> Konstruktor</p>
+<p><b>Aufruf:</b> <code>Vector(n)</code></p>
+<hr/>
+<h1>Klassenmethoden (statische Methoden)</h1>
+<h3><a id="fromFunction">fromFunction</a></h3>
+<p> <b>Vector.fromFunction(n, fn, offset=0)</b><br/></p>
+<p><b>Aufruf:</b> <code>Vector.fromFunction(n, fn, offset=0)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Vector, dessen Elemente mit der Funktion fn berechnet werden</i><br/>
+        Rückgabewert: <code>Vector([fn(i+offset) for i in range(n)])</code><br/>
+        <b>Beispiel:</b><br/>
+        <code>Vector.fromFunction(5, sqrt, 1)</code> ergibt Vector([1.0, 1.414, 1.732, 2.0, 2.236])</p><hr/>
+<h3><a id="fromString">fromString</a></h3>
+<p> <b>Vector.fromString(s)</b><br/></p>
+<p><b>Aufruf:</b> <code>Vector.fromString(s)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Vector aus String</i><br/>
+        Elemente (auch rationale Zahlen) müssen im String durch Kommas getrennt werden.<br/>
+        <b>Beispiel:</b><br/>
+        <code>Vector.fromString("1, 2/3, 2")</code></p><hr/>
+<h1>Operatoren</h1>
+<h3><a id="xx20x2bx20y">x + y</a></h3>
+<p> operators + and += (Elementwise addition)</p>
+<p><b>Aufruf:</b> <code>x + y</font></p>
+<p><b>Beschreibung</b>:<br/>    </p><hr/>
+<h3><a id="xx20x2ax20y">x * y</a></h3>
+<p></p>
+<p><b>Aufruf:</b> <code>x * y</font></p>
+<hr/>
+<h3><a id="x7ex">~x</a></h3>
+<p> Operator ~ (transposition)</p>
+<p><b>Aufruf:</b> <code>~x</font></p>
+<p><b>Beschreibung</b>:<br/>    </p><hr/>
+<h3><a id="xx20x2ax20y">x * y</a></h3>
+<p> Operators * and *=</p>
+<p><b>Aufruf:</b> <code>x * y</font></p>
+<p><b>Beschreibung</b>:<br/>        Multiplikation
+        if both operands are vektors sind: inner product,
+        otherwise scalar multiplication (elementwise)
+    </p><hr/>
+<h3><a id="x2dx">-x</a></h3>
+<p> unary oparator - (negative Vektor)</p>
+<p><b>Aufruf:</b> <code>-x</font></p>
+<p><b>Beschreibung</b>:<br/>    </p><hr/>
+<h3><a id="strx28xx29">str(x)</a></h3>
+<p> Object representation as string</p>
+<p><b>Aufruf:</b> <code>str(x)</font></p>
+<p><b>Beschreibung</b>:<br/>    </p><hr/>
+<h3><a id="xx20x2dx20y">x - y</a></h3>
+<p> operators - and -= (elementwise subtraction)</p>
+<p><b>Aufruf:</b> <code>x - y</font></p>
+<p><b>Beschreibung</b>:<br/>    </p><hr/>
+<h1>Objektmethoden</h1>
+<h3><a id="join">join</a></h3>
+<p> <b>v.join(w)</b><br/></p>
+<p><b>Aufruf:</b> <code>x.join(y)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Verkettung mit dem Vektor w</i></p><hr/>
+<h3><a id="norm">norm</a></h3>
+<p> <b>v.norm()</b><br/></p>
+<p><b>Aufruf:</b> <code>x.norm()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Norm of the Vector v</i></p><hr/>
+<h3><a id="operators">operators</a></h3>
+<p> <b>Vector.operators()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.operators()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Nur zur Dokumentation</i><br/>
+        Die Klasse <b>Vector</b> erlaubt folgende Operatoren:<br/>
+        <table>
+         <tr><th>Op.</th><th>Funktion</th><th>Beispiele</th></tr>
+         <tr><th>+</th><td>Elementweise Addition</td><td><code>a + b; a += b</code></td></tr>
+         <tr><th>-</th><td>Elementweise Subtraktion</td><td><code>a - b; a -= b</code></td></tr>
+         <tr><th>*</th><td>wenn beide Operanden Vektoren sind: Skalarprodukt,
+            sonst Skalarmultiplikation (elementweise)</td><td><code>a * b; a *= b</code></td></tr>
+         <tr><th>-</th><td>unäres Minus</td><td><code>-a</code></td></tr>
+         <tr><th>[ ]</th><td>Indexoperator</td><td><code>A[i]</code> (Element)</td></tr>
+        </table>
+        <font color="#000080" size="-2">Diese Methode dient nur zur Dokumentation. Sie hat keine Wirkung.</font></p><hr/>
+<h3><a id="transp">transp</a></h3>
+<p> <b>v.transp()</b><br/></p>
+<p><b>Aufruf:</b> <code>v.transp()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>calculates the transposed Matrix (column vektor)</i><br/>
+        shorter: ~v</p><hr/>
+</body></html>

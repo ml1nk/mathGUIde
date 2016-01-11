@@ -1,0 +1,114 @@
+<html>
+<head>
+ <title>Kurzanleitung zu mathGUIde</title>
+ <meta name="author"       content="Hartmut Ring"/>
+ <meta name="author-email" content="ring@mathematik.uni-siegen.de"/>
+ <meta name="keywords"     content="mathGUIde, Python"/>
+</head>
+<body>
+
+<h1><font color="#376092">math</font><font color="#558ED5">GUIde</font></h1>
+
+<p><b>Version 2.0 Beta 2</b><br/>
+Autor und Copyright &copy; 2004-2009 &nbsp;Hartmut Ring</p>
+
+<font size="-2">
+<p>Dieses Programm verwendet <b>Python 3.0</b>
+(Copyright &copy; Python Software Foundation).</p>
+
+<p>mathGUIde ist freie Software. Sie können es unter den Bedingungen der GNU
+General Public License, wie von der Free Software Foundation veröffentlicht,
+weitergeben und/oder modifizieren, entweder gemäß Version 3 der Lizenz oder
+(nach Ihrer Option) jeder späteren Version.<br/>
+Die Veröffentlichung dieses Programms erfolgt in der Hoffnung, dass es Ihnen
+von Nutzen sein wird, aber OHNE IRGENDEINE GARANTIE, sogar ohne die implizite
+Garantie der MARKTREIFE oder der VERWENDBARKEIT FÜR EINEN BESTIMMTEN ZWECK.
+Details finden Sie in der GNU General Public License.<br/>
+Sie sollten ein Exemplar der GNU General Public License zusammen mit diesem
+Programm erhalten haben. Falls nicht, siehe
+<code>http://www.gnu.org/licenses/</code>.</p>
+</font>
+
+<h2><font color="#376092">Einstieg in mathGUIde</font></h2>
+<p>Die folgenden drei kurzen Abschnitte führen Sie in wenigen Minuten
+in den Umgang mit mathGUIde ein.<br/>
+Wenn Sie darüberhinaus eigene Funktionen und Klassen definieren möchten,
+sollten Sie das Tutorial zu Python durcharbeiten.</p>
+
+<h3><font color="#558ED5">1. Globale Funktionen</font></h3>
+
+<font color="#376092">
+<p>Unterhalb dieses Fensters sehen Sie das Eingabefenster.
+Es bleibt immer sichtbar, egal welche Registerkarte Sie hier oben wählen.<br/>
+Sie können die Eingabe beliebig umbrechen (mit Return).<br/>
+Zum Auswerten des Eingabefensters klicken Sie auf das Abakus-Symbol
+oder drücken Ctrl+Return.</p>
+</font>
+
+<p>Um das an einem Beispiel zu testen, klicken bitte in das Eingabefenster (unten)
+und tippen Sie [Strg] + [Leertaste].</p>
+<p>Es öffnet sich eine Liste aller in mathGUIde verfügbaren Klassen und globalen Funktionen.
+Wir wollen die Funktion <code>isPrime</code> testen.
+Tippen Sie den Anfangsbuchstaben [I]. Die Liste rollt zur ersten Funktion
+(oder Klasse), die mit i anfängt. Um zur gewünschten Funktion zu gelangen, tippen Sie
+weiter: [S] und [P]. Jetzt ist der Name <code>isPrime</code> markiert.
+Mit [Return] übernehmen Sie diese Funktion ins Eingabefenster.</p>
+<p>Wenn Sie jetzt eine öffnende Klammer eintippen, erscheint ein kleines Hilfsfenster ("Tooltip"),
+das Sie über die Parameter und die Bedeutung der Funktion informiert.</p>
+<p>Ergänzen Sie die Zeile so:</p>
+<p><code>isPrime(31)</code></p>
+<p>Wenn Sie jetzt Ctrl+Return drücken, erscheint das Ergebnis: <code>True</code>.</p>
+<p><code>isPrime</code> ist eine in mathGUIde definierte globale Funktion.
+Weil mathGUIde auf Python aufbaut, können Sie natürlich auch alle Python-Funktionen verwenden.
+Die Funktionen des Pakets <code>math</code> sind standardmäßig schon importiert.<br/>
+Wenn Sie weitere mathGUIde-Funktionen kennenlernen möchten, schlagen Sie im Referenzfenster nach.</p>
+
+<h3><font color="#558ED5">2. Klassen</font></h3>
+<p>Neben globalen Funktionen gibt es einige Klassen, wie z. B. <code>Matrix</code>
+oder <code>Rational</code>.<br/>
+Klassenobjekte können erzeugt werden, indem der Klassenname wie eine Funktion
+verwendet wird ("Konstruktor").</p>
+<p>Tippen sie zum Beispiel folgendes ins Eingabefenster:</p>
+<p><code>A = Matrix([[1,2],[3,4]])</code></p>
+
+<p>Die Klasse Matrix besitzt neben dem eben verwendeteten Konstruktor einige Klassenmethoden
+zum Erzeugen eines Objekts. Tippen Sie dazu bitte folgendes ein:</p>
+<p><code>Matrix.</code></p>
+<p>Das Tippen des Punkts veranlasst mathGUIde, alle Klassenmethoden in einem Listenfeld anzuzeigen.</p>
+<p>Wählen Sie z. B. die Methode <code>random</code> durch Klick auf den entsprechenden Eintrag
+und tippen Sie nun die öffnende Klammer der Methode:</p>
+<p><code>A = Matrix.random(</code></p>
+<p>Wieder sehen Sie einen "Tooltip". Vervollständigen Sie die Zeile so:</p>
+<p><code>A = Matrix.random(3,5,100)</code></p>
+
+<p>A ist jetzt eine 3*5-Matrix mit Zufallselementen zwischen 0 und 99.
+Um zu erfahren, welche Objektmethoden es gibt, tippen Sie einfach:</p>
+<p><code>A.</code></p>
+<p>Nun werden alle Methoden des Objekts im Listenfeld angezeigt.</p>
+<p>Wählen Sie z. B. die Methode <code>transp</code>:</p>
+<p><code>A.transp()</code></p>
+<p>Wenn Sie den Hinweis im Tooltip gelesen haben, wissen Sie jetzt auch, dass Sie
+eine Matrix mit dem Präfix-Operator <code>~</code> transponieren können.<br/>
+Vielleicht kombinieren Sie das gleich einmal mit Matrizenmultiplikation:</p>
+<p><code>A * ~A</code></p>
+<p>Matrizen können Sie übrigens auch sehr komfortabel mit dem Befehl <em>Matrix</em> im Menü <em>Einfügen</em> definieren.</p>
+<p>Bitte blättern Sie jetzt noch einmal durch das Referenzfenster
+und verschaffen Sie sich einen Überblick über die vorhandenen mathGUIde-Klassen.</p>
+
+<h3><font color="#558ED5">3. Präsentationen</font></h3>
+<p>Im Protokollfenster sehen Sie alle bisherigen Eingaben (schwarz) und Ergebnisse (blau).
+Sie können alle Eingaben des Protokolls als "Präsentation" abspeichern (Datei -- Als Präsentation speichern).</p>
+<p>Einige solche Präsentationen gehören zum Lieferumfang von mathGUIde.<br/>
+Bitte öffnen Sie jetzt eine dieser Präsentationen (mit Datei -- Präsentation öffnen).<br/>
+Die erste Eingabe erscheint sofort im Eingabefenster.<br/>
+Mit Datei -- nächster Schritt/Letzter Schritt (oder den entsprechenden Symbolen)
+können Sie sich durch die Präsentation bewegen.
+Die einzelnen Schritte führen Sie mit Ctrl+Return aus.</p>
+
+<p>Wenn Sie alle mitgelieferten Präsentationen durcharbeiten, lernen Sie nicht nur
+weitere Funktionen und Klassen von mathGUIde kennen, sondern erfahren auch, wie man mit 
+mathGUIde übersichtliche Tabellen und Funktionsplots
+(für diskrete Funktionen auch als Balkendiagramm) erzeugen kann.</p>
+
+</body>
+</html>

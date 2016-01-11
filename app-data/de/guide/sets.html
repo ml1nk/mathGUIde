@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Mengenlehre</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../styles/guide.css"/>
+ <script type="text/javascript" src="../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../jsMath/plugins/spriteImageFonts.js"/>
+ <script type="text/javascript" src="../listingButtons.js"/>
+</head>
+
+<body>
+<h1>Mengenlehre</h1>
+
+<p class="intro">In dieser Präsentation lernen Sie, wie man Mengenoperationen in mathGUIde darstellt
+und wie man die Gleichheit zweier Mengen durch eine Fallunterscheidung ermitteln kann.</p>
+
+<h2>Mengenoperatoren in mathGUIde</h2>
+
+<!-- listing-01 -->
+<pre>
+A = Set([1,2])
+B = Set([2,3])
+
+A + B        <span class="comment"># Vereinigung</span>
+A &amp; B        <span class="comment"># Durchschnitt</span>
+A ^ B        <span class="comment"># Symmetrische Differenz</span>
+A * B        <span class="comment"># Kartesisches Produkt</span>
+A.powerset() <span class="comment"># Potenzmenge</span>
+A.card()     <span class="comment"># Mächtigkeit (Kardinalzahl)</span></pre>
+<script type="text/javascript">listingButtons("01")</script>
+
+
+<h2>Gleichheit zweier Mengen</h2>
+
+<p>Zwei Teilmengen <var>A</var> und <var>B</var> (einer Grundmenge <var>M</var>) sind gleich,
+wenn für alle möglichen Elemente <var>x</var> (aus <var>M</var>) gilt:</p>
+
+<div class="math">x \in A \Leftrightarrow x \in B</div>
+
+<p>Um die Richtigkeit einer Mengengleichung wie z. B. des folgenden Distributivgesetzes</p>
+<div class="math">A \cap (B \cup C) = (A \cap B) \cup (A \cap C)</div>
+<p>zu entscheiden, formen wird die Gleichung in eine logische Aussage um:</p>
+<div class="math">
+ \def\blue{\bbox[#c0e0ff,2pt]}
+ \def\green{\bbox[#d0ffd0,2pt]}
+ x \in (A \green\cap (B \cup C)) \Leftrightarrow x \in ((A \cap B) \blue\cup (A \cap C))
+</div>
+<p>Mit den Definitionen von <span class="bgGreen">Durchschnitt</span>
+und <span class="bgBlue">Vereinigung</span> ergibt sich daraus</p>
+<div class="math">x \in A \green\wedge x \in (B \cup C) \Leftrightarrow x \in (A \cap B) \blue\vee x \in (A \cap C)</div>
+<p>Die verbleibenden Vereinigungs- und Durchschnittsoperatoren lassen sich ebenso ersetzen:</p>
+<div class="math">x \in A \wedge (x \in B \vee x \in C) \Leftrightarrow (x \in A \wedge x \in B) \vee (x \in A \vee x \in C)</div>
+
+<p>Wenn wir jetzt die drei Aussagen durch Variablen ersetzen</p>
+<div class="math">
+  \begin{eqnarray}
+        &amp; x \in A &amp; \; \small\textrm{durch}\normalsize \; a \\
+        &amp; x \in B &amp; \; \small\textrm{durch}\normalsize \; b \\
+        &amp; x \in C &amp; \; \small\textrm{durch}\normalsize \; c \\
+  \end{eqnarray}
+</div>
+<p>bekommen wir</p>
+<div class="math">a \wedge (b \vee c) \Leftrightarrow (a \wedge b) \vee (a \vee c)</div>
+
+<p>Die Richtigkeit dieser Aquivalenz kann mathGUIde überprüfen:</p>
+
+<!-- listing-01a -->
+<pre>
+Logic.equivalent(<span class="literal">"a and (b or c)"</span>, <span class="literal">"(a and b) or (a and c)"</span>)</pre>
+<script type="text/javascript">listingButtons("01a")</script>
+
+<p>Wie hat mathGUIde das entschieden? Ganz einfach, durch eine Fallunterscheidung.
+Wir nehmen diese Fallunterscheidung nun direkt vor: Dazu betrachten wir ein beliebiges Element
+<var>x</var> und fragen, in welchen der drei Mengen <var>A</var>, <var>B</var> und <var>C</var> es enthalten ist.
+Es gibt 2<sup>3</sup> = 8 Möglichkeiten, die wir in den rechten 8 Spalten der folgenden
+Tabelle unterscheiden (0 für nicht enthalten, 1 für enthalten):</p>
+
+<div class="left-img"><img alt="3 sets" src="img/3sets.png"/></div>
+
+<!--p><img src="img/3sets.png"/></p-->
+<p>In der ersten hellblauen Tabellenzeile stehen die Werte für die Vereinigung
+von <var>B</var> und <var>C</var>. Hier steht (nach Def. der Vereinigung)
+also genau dann eine Eins, wenn in der zweiten oder in der dritten Zeile eine Eins steht.
+In den beiden anderen hellblauen Tabellenzeilen sind die Bestandteile der rechten Seite
+der Mengengleichung ausgewertet.<br/>
+Die linke Seite der Mengengleichung ergibt sich nun aus der ersten grauen
+und der ersten hellblauen Zeile (erste dunkelblaue Zeile). Die rechte Seite der Mengengleichung ergibt
+sich aus den beiden unteren hellblauen Zeilen (zweite dunkelblaue Zeile).</p>
+<p>In allen acht Fällen stimmen die Ergebnisse überein (punktierte Linie!).
+Die beiden Mengen sind also gleich!</p>
+
+<div class="right-img"><img alt="venn diagram"src="img/venn.png"/></div>
+
+<h2>Venn-Diagramme: Fallunterscheidung mit „repräsentativen“ Mengen</h2>
+<p>Die Fallunterscheidung lässt sich geometrisch darstellen:</p>
+<ul>
+ <li>Wir wählen für die acht Fälle je ein Element.<br/>
+  Dafür verwenden wir die acht dreistelligen Binärzahlen 000, 001, 010, ..., 111.<br/>
+  Die drei Ziffern stehen für das Enthaltensein in den Mengen <var>A</var>, <var>B</var>, <var>C</var>. 
+ </li>
+ <li>Diese acht Elemente packen wir so in drei Mengen, dass sich alle acht Fälle unterscheiden lassen.</li>
+</ul>
+<p>Eine geometrische Darstellung dieser Mengen wird als „Venn-Diagramm“ bezeichnet.</p>
+
+<div class="right-img"><img alt="venn diagram (4 sets)" src="img/venn4.png"/></div>
+<p>Venn-Diagramme sind sehr praktisch für Mengengleichungen, in denen bis zu drei
+oder notfalls noch vier Mengen vorkommen. Für fünf und mehr Mengen wird es sehr aufwendig,
+die 2<sup>5</sup> und mehr Fälle übersichtlich abzugrenzen und zu überprüfen.</p>
+
+<p>Wir beschränken uns auf die drei Mengen <var>A</var>, <var>B</var>, <var>C</var>.
+Wenn ein Element in <var>A</var> liegt, gibt es folgende Möglichkeiten (vgl. Abb.):</p>
+<ul>
+ <li>Es liegt weder in <var>B</var> noch in <var>C</var> ("100")</li>
+ <li>Es liegt in <var>C</var>, aber nicht in <var>B</var> ("101")</li>
+ <li>Es liegt in <var>B</var>, aber nicht in <var>C</var> ("110")</li>
+ <li>Es liegt <var>B</var> und in <var>C</var> ("111")</li>
+</ul>
+
+<p>Mit den gleichen Überlegungen für <var>B</var> und <var>C</var> können wir 
+die folgenden repräsentativen Mengen definieren:</p>
+<!-- listing-02 -->
+<pre>
+A = Set([<span class="literal">"100"</span>, <span class="literal">"101"</span>, <span class="literal">"110"</span>, <span class="literal">"111"</span>])
+B = Set([<span class="literal">"010"</span>, <span class="literal">"011"</span>, <span class="literal">"110"</span>, <span class="literal">"111"</span>])
+C = Set([<span class="literal">"001"</span>, <span class="literal">"011"</span>, <span class="literal">"101"</span>, <span class="literal">"111"</span>])</pre>
+<script type="text/javascript">listingButtons("02")</script>
+
+<h3>Überprüfung des Distributivgesetzes</h3>
+<p>Unser Ausgangsbeispiel</p>
+<div class="math">A \cap (B \cup C) = (A \cap B) \cup (A \cap C)</div>
+<p>lässt sich jetzt ganz einfach überpüfen:</p>
+
+<!-- listing-03 -->
+<pre>
+<span class="comment"># Ist A &amp; (B+C) == (A &amp; B) + (A &amp; C) ?</span>
+print(A &amp; (B+C))
+print((A &amp; B) + (A &amp; C))</pre>
+<script type="text/javascript">listingButtons("03")</script>
+
+<p>Die Ausgabe von mathGUIde zeigt die Gleichheit der beiden Mengen</p>
+<p>Als Übung versuchen Sie es bitte einmal mit dem anderen Distributivgesetz:</p>
+<div class="math">A \cup (B \cap C) = (A \cup B) \cap (A \cup C)</div>
+
+<div class="right-img"><img alt="symmetric difference" src="img/symm-diff.png"/></div>
+
+<h3>Assoziativität der symmetrischen Differenz:</h3>
+<p>Die symmetrische Differenz ist definiert durch</p>
+<div class="math">x \in A \bigtriangleup B \quad\Leftrightarrow\quad x \in A \quad \textrm{xor} \quad x \in B</div>
+<p>Wir überprüfen die Assoziativität der symmetrischen Differenz:</p>
+<div class="math">(A \bigtriangleup B) \bigtriangleup C = A \bigtriangleup (B \bigtriangleup C)</div>
+
+<!-- listing-04 -->
+<pre>
+<span class="comment"># Ist (A ^ B) ^ C == A ^ (B ^ C) ?</span>
+print((A ^ B) ^ C)
+print(A ^ (B ^ C))</pre>
+<script type="text/javascript">listingButtons("04")</script>
+
+<p>Wieder sehen Sie dass die beiden Mengen gleich sind.</p>
+
+
+</body>
+</html>

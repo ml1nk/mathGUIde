@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Logic</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="../styles/doc.css"/>
+</head>
+<body>
+<p><a href="mathguide.html">Hauptübersicht</a></p>
+<h1>Klasse <code>Logic</code></h1>
+<p> Klasse <code>Logic</code>: Aussagenlogik<br/>
+        Statische Klasse: nur Klassenmethoden<br/>
+        Aussagenlogische Formeln, die den Klassenmethoden übergeben werden,
+        müssen wie folgt aufgebaut sein:<br/>
+        <b>Variablen</b> müssen einzelne Buchstaben sein.<br/>
+        <b>Junktoren</b>: "<code>not</code>", "<code>and</code>", "<code>or</code>", "<code>xor</code>", "<code>-></code>", "<code>&lt;-></code>".</p>
+<div id="overview"><p style="margin-top:0">Übersicht:</p>
+<h2>Klassenmethoden (statische Methoden)</h2>
+<table><tr><td><b>Methode</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#equivalent">equivalent</a> (f1, f2)</td><td>Sind die Formeln <b>f1</b> und <b>f2</b> äquivalent?</td></tr>
+<tr><td><a href="#implies">implies</a> (f1, f2)</td><td>Folgt aus der Formel <b>f1</b> die Formel <b>f2</b>?</td></tr>
+<tr><td><a href="#satisfiable">satisfiable</a> (f)</td><td>Ist die Formel <b>f</b> erfüllbar?</td></tr>
+<tr><td><a href="#satisfies">satisfies</a> (f, truthTable)</td><td>Wird die Formel <b>f</b> unter der Belegung <b>truthTable</b> wahr?</td></tr>
+<tr><td><a href="#truthTables">truthTables</a> (formula)</td><td>        <i>Alle möglichen Wahrheitswerttabellen für im Ausdruck
+        <b>formula</b> vorkommenden Variablen</i><br/>
+        Das Ergebnis wird als Generatorobjekt (zur einmaligen Iteration) ausgegeben.<br/>
+        <b>Beispiel</b><br/>
+        <code>for t in Logic.truthTables("A and B"): print(t)</code><br/>
+        gibt folgendes aus:<br/>
+        <code>{'A': False, 'B': False}<br/>
+        {'A': False, 'B': True}<br/>
+        {'A': True, 'B': False}<br/>
+        {'A': True, 'B': True}</code></td></tr>
+<tr><td><a href="#valid">valid</a> (f)</td><td>Ist die Formel <b>f</b> allgemeingültig?</td></tr>
+</table>
+</div><h1>Klassenmethoden (statische Methoden)</h1>
+<h3><a id="equivalent">equivalent</a></h3>
+<p> <b>equivalent(f1, f2)</b><br/></p>
+<p><b>Aufruf:</b> <code>Logic.equivalent(f1, f2)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Sind die Formeln <b>f1</b> und <b>f2</b> äquivalent?</i><br/>
+        <b>Beispiel</b><br/>
+        <code>Logic.equivalent("not (A and B)", "not A or not B"))</code>
+        gibt <code>True</code> zurück.</p><hr/>
+<h3><a id="implies">implies</a></h3>
+<p> <b>implies(f1, f2)</b><br/></p>
+<p><b>Aufruf:</b> <code>Logic.implies(f1, f2)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Folgt aus der Formel <b>f1</b> die Formel <b>f2</b>?</i><br/>
+        <b>Beispiel</b><br/>
+        <code>Logic.implies("A and B", "A or B")</code>
+        gibt <code>True</code> zurück.</p><hr/>
+<h3><a id="satisfiable">satisfiable</a></h3>
+<p> <b>satisfiable(f)</b><br/></p>
+<p><b>Aufruf:</b> <code>Logic.satisfiable(f)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Ist die Formel <b>f</b> erfüllbar?</i><br/>
+        <b>Beispiel</b><br/>
+        <code>Logic.satisfiable("A and not A")</code>
+        gibt <code>False</code> zurück.</p><hr/>
+<h3><a id="satisfies">satisfies</a></h3>
+<p> <b>satisfies(f, truthTable)</b><br/></p>
+<p><b>Aufruf:</b> <code>Logic.satisfies(f, truthTable)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Wird die Formel <b>f</b> unter der Belegung <b>truthTable</b> wahr?</i><br/>
+        <b>Beispiel</b><br/>
+        <code>Logic.satisfies("A or B", {"A":True, "B":False})</code>
+        gibt <code>True</code> zurück.</p><hr/>
+<h3><a id="truthTables">truthTables</a></h3>
+<p> <b>truthTables(formula)</b><br/></p>
+<p><b>Aufruf:</b> <code>Logic.truthTables(formula)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Alle möglichen Wahrheitswerttabellen für im Ausdruck
+        <b>formula</b> vorkommenden Variablen</i><br/>
+        Das Ergebnis wird als Generatorobjekt (zur einmaligen Iteration) ausgegeben.<br/>
+        <b>Beispiel</b><br/>
+        <code>for t in Logic.truthTables("A and B"): print(t)</code><br/>
+        gibt folgendes aus:<br/>
+        <code>{'A': False, 'B': False}<br/>
+        {'A': False, 'B': True}<br/>
+        {'A': True, 'B': False}<br/>
+        {'A': True, 'B': True}</code></p><hr/>
+<h3><a id="valid">valid</a></h3>
+<p> <b>satisfies(f, truthTable)</b><br/></p>
+<p><b>Aufruf:</b> <code>Logic.valid(f)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Ist die Formel <b>f</b> allgemeingültig?</i><br/>
+        <b>Beispiel</b><br/>
+        <code>Logic.valid("A or not A")</code>
+        gibt <code>True</code> zurück.</p><hr/>
+</body></html>

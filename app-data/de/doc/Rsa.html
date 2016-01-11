@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Rsa</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="../styles/doc.css"/>
+</head>
+<body>
+<p><a href="mathguide.html">Hauptübersicht</a></p>
+<h1>Klasse <code>Rsa</code></h1>
+<p> Klasse <code>Rsa</code>: RSA-Verschlüsselung<br/>
+        Statische Klasse: nur Klassenmethoden.</p>
+<div id="overview"><p style="margin-top:0">Übersicht:</p>
+<h2>Klassenmethoden (statische Methoden)</h2>
+<table><tr><td><b>Methode</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#createKeys">createKeys</a> (bits=768)</td><td>liefert ein RSA-Schlüsselpaar</td></tr>
+<tr><td><a href="#encrypt">encrypt</a> (m, key)</td><td>RSA-Verschlüsselung</td></tr>
+</table>
+</div><h1>Klassenmethoden (statische Methoden)</h1>
+<h3><a id="createKeys">createKeys</a></h3>
+<p> <b>createKeys(bits=768)</b><br/></p>
+<p><b>Aufruf:</b> <code>Rsa.createKeys(bits=768)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>liefert ein RSA-Schlüsselpaar</i><br/>
+        Das Paar wird als Tupel <code>((e,n),(d,n))</code> zurückgegeben.<br/>
+        <b>Beispiel</b>:<br/>
+        <code>public, private = Rsa.createKeys(24)<br/>
+              m = 12345 # Nachricht<br/>
+              c = Rsa.encrypt(m, public) # verschlüsselte Nachricht<br/>
+              assert Rsa.encrypt(c, private) == m</code><br/>
+        <b>Siehe auch</b> <a href="#Rsa.encrypt"><code>Rsa.encrypt</code></a>.</p><hr/>
+<h3><a id="encrypt">encrypt</a></h3>
+<p> <b>encrypt(m, key)</b><br/></p>
+<p><b>Aufruf:</b> <code>Rsa.encrypt(m, key)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>RSA-Verschlüsselung</i><br/>
+        Verschlüsselt m mit dem Schlüssel key = (e,n)<br/>
+        <b>Siehe auch</b> <a href="#Rsa.createKeys"><code>Rsa.createKeys</code></a>.</p><hr/>
+</body></html>

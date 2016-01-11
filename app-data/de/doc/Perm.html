@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Perm</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="../styles/doc.css"/>
+</head>
+<body>
+<p><a href="mathguide.html">Hauptübersicht</a></p>
+<h1>Klasse <code>Perm</code></h1>
+<p> Klasse <code>Perm</code><br/>
+        <i>Permutationen (aus Dictionary oder Zyklendarstellung)</i>
+        <b>Beispiele</b> (dreimal die gleiche Permutation:<br/>
+        <code>Perm({1:4, 2:3, 3:2, 4:1})</code><br/>
+        <code>Perm("(1,4)(2,3)")</code><br/>
+        <code>Perm([[1,4],[2,3]])</code></p>
+<div id="overview"><p style="margin-top:0">Übersicht:</p>
+<h2>Konstruktor</h2>
+<p><a href="#constr">Perm</a> (p)</p>
+<h2>Operatoren</h2>
+<table><tr><td><b>Operator</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#xx20x3dx3dx20y">x == y</a></td><td></td></tr>
+<tr><td><a href="#xx5bix5d">x[i]</a></td><td></td></tr>
+<tr><td><a href="#xx20x2ax20y">x * y</a></td><td>    </td></tr>
+<tr><td><a href="#xx20x21x3dx20y">x != y</a></td><td></td></tr>
+<tr><td><a href="#strx28xx29">str(x)</a></td><td>    </td></tr>
+</table>
+<h2>Objektmethoden</h2>
+<table><tr><td><b>Methode</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#check">check</a> ()</td><td>Konsistenzprüfung</td></tr>
+<tr><td><a href="#cycles">cycles</a> ()</td><td>Zyklendarstellung</td></tr>
+<tr><td><a href="#fromVector">fromVector</a> (v)</td><td>Erzeugung aus Vektor v mit Argument-Wert-Paaren.</td></tr>
+<tr><td><a href="#inverse">inverse</a> ()</td><td>Umkehrpermutation</td></tr>
+<tr><td><a href="#inversions">inversions</a> ()</td><td>Inversionszahl (Anzahl der "vertauschten Paare")</td></tr>
+<tr><td><a href="#members">members</a> ()</td><td>Liste der permutierten Elemente</td></tr>
+<tr><td><a href="#odd">odd</a> ()</td><td>ungerade Permutation?</td></tr>
+<tr><td><a href="#reduce">reduce</a> ()</td><td>entfernt Fixpunkte</td></tr>
+<tr><td><a href="#sign">sign</a> ()</td><td>Signum</td></tr>
+</table>
+</div><h1>Konstruktor</h1>
+<h3><a id="constr">Perm</a></h3>
+<p> Konstruktor</p>
+<p><b>Aufruf:</b> <code>Perm(p)</code></p>
+<hr/>
+<h1>Operatoren</h1>
+<h3><a id="xx20x3dx3dx20y">x == y</a></h3>
+<p></p>
+<p><b>Aufruf:</b> <code>x == y</font></p>
+<hr/>
+<h3><a id="xx5bix5d">x[i]</a></h3>
+<p></p>
+<p><b>Aufruf:</b> <code>x[i]</font></p>
+<hr/>
+<h3><a id="xx20x2ax20y">x * y</a></h3>
+<p> product of two Permutations (left first, then right!)</p>
+<p><b>Aufruf:</b> <code>x * y</font></p>
+<p><b>Beschreibung</b>:<br/>    </p><hr/>
+<h3><a id="xx20x21x3dx20y">x != y</a></h3>
+<p></p>
+<p><b>Aufruf:</b> <code>x != y</font></p>
+<hr/>
+<h3><a id="strx28xx29">str(x)</a></h3>
+<p> Object representation as string (as cycles)</p>
+<p><b>Aufruf:</b> <code>str(x)</font></p>
+<p><b>Beschreibung</b>:<br/>    </p><hr/>
+<h1>Objektmethoden</h1>
+<h3><a id="check">check</a></h3>
+<p> <b>p.check()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.check()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Konsistenzprüfung</i></p><hr/>
+<h3><a id="cycles">cycles</a></h3>
+<p> <b>p.cycles()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.cycles()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Zyklendarstellung</i></p><hr/>
+<h3><a id="fromVector">fromVector</a></h3>
+<p> <b>p.fromVector(v)</b><br/></p>
+<p><b>Aufruf:</b> <code>self.fromVector(v)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Erzeugung aus Vektor v mit Argument-Wert-Paaren.</i><br/>
+        Beispiel: <code>p.fromVector([[1,4],[2,3]])</code></p><hr/>
+<h3><a id="inverse">inverse</a></h3>
+<p> <b>p.inverse()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.inverse()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Umkehrpermutation</i></p><hr/>
+<h3><a id="inversions">inversions</a></h3>
+<p> <b>p.inversions()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.inversions()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Inversionszahl (Anzahl der "vertauschten Paare")</i></p><hr/>
+<h3><a id="members">members</a></h3>
+<p> <b>p.members()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.members()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Liste der permutierten Elemente</i></p><hr/>
+<h3><a id="odd">odd</a></h3>
+<p> <b>p.odd()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.odd()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>ungerade Permutation?</i> (bool)</p><hr/>
+<h3><a id="reduce">reduce</a></h3>
+<p> <b>p.reduce()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.reduce()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>entfernt Fixpunkte</i></p><hr/>
+<h3><a id="sign">sign</a></h3>
+<p> <b>p.sign()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.sign()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Signum</i><br/>
+        1 bzw. -1 für gerade bzw. ungerade Permutation</p><hr/>
+</body></html>

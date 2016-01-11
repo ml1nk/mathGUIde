@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Mod</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="../styles/doc.css"/>
+</head>
+<body>
+<p><a href="mathguide.html">Hauptübersicht</a></p>
+<h1>Klasse <code>Mod</code></h1>
+<p> Klasse <code>Mod</code><br/>
+        <i>Elemente der Restklassenringe Z[m]</i><br/>
+        <code>Mod(n, m)</code> liefert Element n des Restklassenrings Z[m]<br/>
+        Die Objekte können mit arithmetischen Operatoren verknüpft werden.<br/>
+        Einige Operationen sind nur definiert,
+        wenn Z[m] ein Körper ist (&lt;==> m ist Primzahl)<br/>
+        <b>Siehe auch</b> <a href="mathguide.html#mod"><code>Mod</code></a></p>
+<div id="overview"><p style="margin-top:0">Übersicht:</p>
+<h2>Konstruktor</h2>
+<p><a href="#constr">Mod</a> (n, m)</p>
+<h2>Operatoren</h2>
+<table><tr><td><b>Operator</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#absx28xx29">abs(x)</a></td><td>    </td></tr>
+<tr><td><a href="#xx20x2bx20y">x + y</a></td><td>Addition</td></tr>
+<tr><td><a href="#"></a></td><td></td></tr>
+<tr><td><a href="#xx20x2fx20y">x / y</a></td><td></td></tr>
+<tr><td><a href="#xx20x3dx3dx20y">x == y</a></td><td>        with other Mod object or 0
+    </td></tr>
+<tr><td><a href="#intx28xx29">int(x)</a></td><td></td></tr>
+<tr><td><a href="#xx20x2ax20y">x * y</a></td><td>        a * b  <span style="font-family:Wingdings">à</span> a.__mul__(b), if a is of type Mod
+                   b.__rmul__(a), otherwise
+    </td></tr>
+<tr><td><a href="#xx20x21x3dx20y">x != y</a></td><td>        with other Mod object or 0
+    </td></tr>
+<tr><td><a href="#x2dx">-x</a></td><td>        -a <span style="font-family:Wingdings">à</span> a.__neg__()
+    </td></tr>
+<tr><td><a href="#strx28xx29">str(x)</a></td><td>    </td></tr>
+<tr><td><a href="#xx20x2dx20y">x - y</a></td><td>        a - b  <span style="font-family:Wingdings">à</span> a.__sub__(b), if a is of type Mod
+                   b.__rsub__(a), otherwise
+    </td></tr>
+<tr><td><a href="#xx20x2fx20y">x / y</a></td><td>        a / b  <span style="font-family:Wingdings">à</span> a.__div__(b), if a is of type Mod
+                   b.__rdiv__(a), otherwise
+    </td></tr>
+</table>
+<h2>Objektmethoden</h2>
+<table><tr><td><b>Methode</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#copy">copy</a> ()</td><td>unabhängige Kopie von A</td></tr>
+<tr><td><a href="#inverse">inverse</a> ()</td><td>Multiplikatives Inverses</td></tr>
+<tr><td><a href="#operators">operators</a> ()</td><td>Nur zur Dokumentation</td></tr>
+</table>
+</div><h1>Konstruktor</h1>
+<h3><a id="constr">Mod</a></h3>
+<p> Konstruktor</p>
+<p><b>Aufruf:</b> <code>Mod(n, m)</code></p>
+<hr/>
+<h1>Operatoren</h1>
+<h3><a id="absx28xx29">abs(x)</a></h3>
+<p> Absolute value</p>
+<p><b>Aufruf:</b> <code>abs(x)</font></p>
+<p><b>Beschreibung</b>:<br/>    </p><hr/>
+<h3><a id="xx20x2bx20y">x + y</a></h3>
+<p> <b>a.__add__(b)</b><br/></p>
+<p><b>Aufruf:</b> <code>x + y</font></p>
+<p><b>Beschreibung</b>:<br/>        <i>Addition</i><br/>
+        Also operator notation: <b>a + b</b><br/>
+        Instead of <code>a = a + b</code> you can write <code>a += b</code>.
+    </p><hr/>
+<h3><a id=""></a></h3>
+<p></p>
+<p><b>Aufruf:</b> <code></font></p>
+<hr/>
+<h3><a id="xx20x2fx20y">x / y</a></h3>
+<p></p>
+<p><b>Aufruf:</b> <code>x / y</font></p>
+<hr/>
+<h3><a id="xx20x3dx3dx20y">x == y</a></h3>
+<p> Test for equality (operator ==)</p>
+<p><b>Aufruf:</b> <code>x == y</font></p>
+<p><b>Beschreibung</b>:<br/>        with other Mod object or 0
+    </p><hr/>
+<h3><a id="intx28xx29">int(x)</a></h3>
+<p></p>
+<p><b>Aufruf:</b> <code>int(x)</font></p>
+<hr/>
+<h3><a id="xx20x2ax20y">x * y</a></h3>
+<p> Multiplication:</p>
+<p><b>Aufruf:</b> <code>x * y</font></p>
+<p><b>Beschreibung</b>:<br/>        a * b  <span style="font-family:Wingdings">à</span> a.__mul__(b), if a is of type Mod
+                   b.__rmul__(a), otherwise
+    </p><hr/>
+<h3><a id="xx20x21x3dx20y">x != y</a></h3>
+<p> Test for unequality (Operator !=)</p>
+<p><b>Aufruf:</b> <code>x != y</font></p>
+<p><b>Beschreibung</b>:<br/>        with other Mod object or 0
+    </p><hr/>
+<h3><a id="x2dx">-x</a></h3>
+<p> Unary Operator -</p>
+<p><b>Aufruf:</b> <code>-x</font></p>
+<p><b>Beschreibung</b>:<br/>        -a <span style="font-family:Wingdings">à</span> a.__neg__()
+    </p><hr/>
+<h3><a id="strx28xx29">str(x)</a></h3>
+<p> Object representation as string</p>
+<p><b>Aufruf:</b> <code>str(x)</font></p>
+<p><b>Beschreibung</b>:<br/>    </p><hr/>
+<h3><a id="xx20x2dx20y">x - y</a></h3>
+<p> Subtraction:</p>
+<p><b>Aufruf:</b> <code>x - y</font></p>
+<p><b>Beschreibung</b>:<br/>        a - b  <span style="font-family:Wingdings">à</span> a.__sub__(b), if a is of type Mod
+                   b.__rsub__(a), otherwise
+    </p><hr/>
+<h3><a id="xx20x2fx20y">x / y</a></h3>
+<p> exact division:</p>
+<p><b>Aufruf:</b> <code>x / y</font></p>
+<p><b>Beschreibung</b>:<br/>        a / b  <span style="font-family:Wingdings">à</span> a.__div__(b), if a is of type Mod
+                   b.__rdiv__(a), otherwise
+    </p><hr/>
+<h1>Objektmethoden</h1>
+<h3><a id="copy">copy</a></h3>
+<p> <b>A.copy()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.copy()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>unabhängige Kopie von A</i></p><hr/>
+<h3><a id="inverse">inverse</a></h3>
+<p> <b>p.inverse()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.inverse()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Multiplikatives Inverses</i><br/>
+        Nur in Körpern definiert. Deshalb muss der Modul Primzahl sein!</p><hr/>
+<h3><a id="operators">operators</a></h3>
+<p> <b>Mod.operators()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.operators()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Nur zur Dokumentation</i><br/>
+        Die Klasse <b>Mod</b> erlaubt folgende Operatoren:<br/>
+        <table>
+         <tr><th>Op.</th><th>Funktion</th><th>Beispiele</th></tr>
+         <tr><th>+</th><td>Addition</td><td><code>a + b; a += b</code></td></tr>
+         <tr><th>-</th><td>Subtraktion</td><td><code>a - b; a -= b</code></td></tr>
+         <tr><th>*</th><td>Multiplikation</td><td><code>a * b; a *= b</code></td></tr>
+         <tr><th>/</th><td>Division (nur in Körpern, d.h. Primzahlmodul)</td><td><code>a / b; a /= b</code></td></tr>
+         <tr><th>%</th><td>Modulo (nur in Körpern, d.h. Primzahlmodul)</td><td><code>a &amp; b; a &amp;= b</code></td></tr>
+         <tr><th>-</th><td>unäres Minus</td><td>-a</td></tr>
+        </table>
+        <font color="#000080" size="-2">Diese Methode dient nur zur Dokumentation. Sie hat keine Wirkung.</font></p><hr/>
+</body></html>

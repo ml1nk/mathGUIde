@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Summen von natürlichen Zahlen – Lösung der Übungsaufgabe</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../../styles/guide.css"/>
+ <script type="text/javascript" src="../../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../../jsMath/plugins/spriteImageFonts.js"/>
+ <script type="text/javascript" src="../../listingButtons.js"/>
+</head>
+
+<body>
+<h1>Summen von natürlichen Zahlen</h1>
+
+<h2>Lösung der Übungsaufgabe</h2>
+
+<p>Schreiben Sie ein mathGUIde-Programm, das für beliebige natürliche <var>k</var> die
+Koeffizienten des Polynoms der Summenformel</p>
+<div class="math">
+  \sum_{i=1}^n{i^k}
+</div>
+<p>berechnet.</p>
+<hr/>
+
+<p>Wir wissen, dass die Summe der <var>k</var>-ten Potenzen ein Polynom
+vom Grad <var>k</var>+1, mit <var>a</var><sub>0</sub> = 0 ist:</p>
+ <div class="math">
+ \sum_{i=1}^n{i^k} = a_1 n + a_2 n^2 + \ldots + a_{k+1} n^{k+1}
+ </div>
+
+<p>Um die unbekannten Koeffizienten zu bestimmen, setzen wir die Zahlen 1, 2, ..., <var>k</var>+1 ein:</p>
+
+<div class="math">
+ \eqalign{1^1 a_1 &amp; + 1^2 a_2 + &amp; \ldots &amp; + 1^{k+1} a_{k+1} &amp; = \sum_{i=1}^1{i^k}\cr
+          2^1 a_1 &amp; + 2^2 a_2 + &amp; \ldots &amp; + 2^{k+1} a_{k+1} &amp; = \sum_{i=1}^2{i^k}  \cr
+          \cdots &amp; \cr
+          (k+1)a_1 &amp; + (k+1)^2 a_2 &amp; + \ldots &amp; + (k+1)^{k+1} a_{k+1} &amp; = \sum_{i=1}^{k+1}{i^k} \cr }
+</div>
+
+<p>Dieses Gleichungssystem lässt sich schreiben als <var>A</var><b>x</b> = <b>b</b> mit:</p>
+
+<div class="math">
+ A = \pmatrix{1^1 &amp; 1^2 &amp; \ldots &amp; 1^{k+1} \cr
+              2^1 &amp; 2^2 &amp; \ldots &amp; 2^{k+1} \cr
+              \cdots &amp; \cr
+              (k+1)^1 &amp; (k+1)^2 &amp; \ldots &amp; (k+1)^{k+1} }
+</div>
+<div class="math">
+     \textbf x = \pmatrix{a_1 \cr a_2 \cr \vdots \cr a_{k+1}}
+     \quad
+     \textbf b = \pmatrix{\sum_{i=1}^1{i^k} \cr \sum_{i=1}^2{i^k} \cr \vdots \cr \sum_{i=1}^{k+1}{i^k}}
+</div>
+<p>Wir definieren nun diese Matrizen und lösen das Gleichungssystem:</p>
+
+<!-- listing-01 -->
+<pre>
+<span class="keyword">def</span> polySum(i,k):
+    <span class="keyword">return</span> sum(<span class="keyword">lambda</span> j:j^k, 1,i)
+
+<span class="keyword">def</span> sumSolve(k):
+    A = Matrix.fromFunction(k+1,k+1, <span class="keyword">lambda</span> i,j: i^j, 1)
+    b = Vector.fromFunction(k+1, <span class="keyword">lambda</span> i: polySum(i,k), 1)
+    <span class="keyword">return</span> A.solve(b)    
+    </pre>
+<script type="text/javascript">listingButtons("01")</script>
+
+<p>Zur Probe: Die Koeffizienten für <var>k</var>=2 und für <var>k</var>=5:</p>
+
+<!-- listing-02 -->
+<pre>
+sumSolve(2)
+sumSolve(5)</pre>
+<script type="text/javascript">listingButtons("02")</script>
+
+<p>Das zweite Ergebnis besagt:</p>
+
+<div class="math">
+  \sum_{i=1}^n{i^5} = -\frac 1 {12}n^2 + \frac 5 {12}n^4 + \frac 1 2 n^5 + \frac 1 6 n^6
+</div>
+
+</body>
+</html>

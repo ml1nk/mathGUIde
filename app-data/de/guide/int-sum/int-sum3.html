@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Summen von natürlichen Zahlen — 3</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../../styles/guide.css"/>
+ <script type="text/javascript" src="../../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../../jsMath/plugins/spriteImageFonts.js"/>
+ <script type="text/javascript" src="../../listingButtons.js"/>
+</head>
+
+<body>
+<h1>Summen von natürlichen Zahlen</h1>
+
+<p class="overview"><a href="int-sum1.html">1. Die ersten hundert natürlichen Zahlen</a><br/>
+<a href="int-sum2.html">2. Summen von Quadrat- und Kubikzahlen</a><br/>
+3. Summen höherer Potenzen</p>
+
+<h2>3. Summen höherer Potenzen</h2>
+<p class="remark">Bisher haben wir unsere Formeln durch geometrische Überlegungen gewonnen.
+Die lassen sich aber nicht anschaulich auf höhere Dimensionen übertragen.
+Für die geometrische Darstellung der Summe von vierten Potenzen müssten wir
+zum Beispiel eine Reihe von wachsenden Hyperwürfeln im fünfdimensionalen Raum stapeln.</p>
+
+<p>Unsere bisherigen Erkennnisse sind:</p>
+<ul>
+ <li>Die Summe der ersten <var>n</var> natürlichen Zahlen ist ein Polynom vom Grad 2.</li>
+ <li>Die Summe der ersten <var>n</var> Quadratzahlen ist ein Polynom vom Grad 3.</li>
+ <li>Die Summe der ersten <var>n</var> Kubikzahlen ist ein Polynom vom Grad 4.</li>
+</ul>
+<p>Was liegt also näher als die Vermutung:</p>
+
+<h3>Die Summe <var>k</var>-ter Potenzen ist ein Polynom vom Grad <var>k</var>+1</h3>
+
+<p>Dass die folgende Gleichung richtig ist, sehen Sie, wenn Sie den grün unterlegten Bereich spaltenweise betrachten:
+In jeder Spalte heben sich die beiden Terme auf!</p>
+<div class="math"> \def\green{\bbox[#d0ffd0,2pt]}
+ \matrix{
+   \matrix{n^3 = n^3 \cr \quad \cr \quad \cr \quad \cr \quad \cr \quad \cr \quad}
+   \green{\matrix{
+      - (n-1)^3 &amp;           &amp;           &amp;      &amp; &amp; &amp; \cr
+      + (n-1)^3 &amp; {}- (n-2)^3 &amp;           &amp;      &amp; &amp; &amp; \cr
+                &amp; {}+ (n-2)^3 &amp; {}- (n-3)^3 &amp;      &amp; &amp; &amp; \cr
+                &amp;           &amp; {}+ \ldots \quad\quad  &amp;      &amp; &amp; &amp; \cr
+                &amp;           &amp;           &amp; {}+3^3 &amp; {}-2^3  &amp; \cr
+                &amp;           &amp;           &amp;      &amp; {}+2^3 &amp; {}-1^3 \cr
+                &amp;           &amp;           &amp;      &amp;      &amp; {}+1^3 \cr }}
+   \matrix{\quad  \cr \quad \cr \quad \cr \quad \cr \quad \cr \quad \cr {}-0^3}}
+</div>
+
+<p>Durch zeilenweises Aufsummieren (von unten nach oben) ergibt sich damit:</p>
+<div class="math"> \def\pink{\bbox[#ffe0e0,2pt]}
+  \eqalign{n^3 &amp; = \sum_{i=1}^n \pink{(i^3 - (i-1)^3)} = \sum_{i=1}^n(3i^2-3i+1) \cr
+               &amp; = 3 \sum_{i=1}^n{i^2} - 3 \sum_{i=1}^n i + n }
+</div>
+ 
+<p>Damit erhalten wir:</p>
+<div class="math">
+ \sum_{i=1}^n{i^2} = \frac{n^3}3 + \sum_{i=1}^n i - \frac n 3
+</div>
+
+<p>Wir haben hier zwar nur festgestellt, was wir schon wissen: Die Summe der Quadratzahlen muss ein Polynom vom Grad 3 sein.
+Die Überlegung lässt sich aber ganz einfach (zu einem <a class="web" href="http://de.wikipedia.org/wiki/Induktion_(Mathematik)">
+Induktionsbeweis</a>) verallgemeinern:
+Wenn wir die Gleichung statt für <var>n</var><sup>3</sup> für <var>n<sup>k</sup></var>
+schreiben, wird der rötlich unterlegte Term zu  <span style="background:#ffe0e0">(<var>i</var><sup><var>k</var></sup> - (<var>i</var>-1)<sup><var>k</var></sup>)</span>.
+Beim Ausmultplizieren von (<var>i</var>-1)<sup><var>k</var></sup> kommt die Potenz <var>i<sup>k</sup></var> genau einmal vor.
+In der Differenz bleiben also nur noch Potenzen bis <var>k</var>-1, deren Summen nach Induktionsvoraussetzung 
+Polynome vom Grad <var>k</var> sind.</p>
+
+<h3>Bestimmung der Polynomkoeffizienten</h3>
+
+<p>Nachdem wir nun wissen, dass die Summe der Quadratzahlen ein kubisches Polynom von <var>n</var> sein muss, machen wir den Ansatz</p>
+<div class="math">
+ \sum_{i=1}^n{i^2} = a_0 + a_1 n + a_2 n^2 + a_3 n^3
+</div>
+<p>Wie können wir die Koeffizienten <var>a</var><sub>0</sub> bis <var>a</var><sub>0</sub> bestimmen?<br/>
+Wenn wir <var>n</var> = 0 einsetzen, ergibt sich</p>
+<div class="math">
+ \sum_{i=1}^0{i^2} = a_0
+</div>
+<p>und damit <var>a</var><sub>0</sub> = 0, weil die leere Summe den Wert Null hat!</p>
+
+<p>Es liegt nahe, drei weitere Spezialfälle heranzuziehen, um die verbleibenden Unbekannten
+<var>a</var><sub>1</sub> bis <var>a</var><sub>3</sub> zu bestimmen.
+Wir probieren es mit <var>n</var> = 1, 2, und 3:</p>
+
+<div class="math"> \def\green{\bbox[#d0ffd0,2pt]} \def\ocher{\bbox[#ffe0a0,2pt]}
+ \eqalign{\sum_{i=1}^1{i^2} &amp; = \ocher{1^2}             &amp; = a_0 + \green 1 a_1 + \green{1^2} a_2 + \green{1^3} a_3 \cr
+          \sum_{i=1}^2{i^2} &amp; = \ocher{1^2 + 2^2}       &amp; = a_0 + \green 2 a_1 + \green{2^2} a_2 + \green{2^3} a_3 \cr
+          \sum_{i=1}^3{i^2} &amp; = \ocher{1^2 + 2^2 + 3^2} &amp; = a_0 + \green 3 a_1 + \green{3^2} a_2 + \green{3^3} a_3 \cr
+ }                                                                                                         
+</div>
+
+<p>Damit ergibt sich das Gleichungssystem</p>
+<div class="math"> \def\green{\bbox[#d0ffd0,2pt]} \def\ocher{\bbox[#ffe0a0,2pt]}
+ \eqalign{\green1 a_1 &amp; + &amp; \green1 a_2 &amp; + &amp; \green1 a_3 &amp; = \ocher 1 \cr
+          \green2 a_1 &amp; + &amp; \green4 a_2 &amp; + &amp; \green8 a_3 &amp; = \ocher 5 \cr
+          \green3 a_1 &amp; + &amp; \green9 a_2 &amp; + &amp; \green{27} a_3 &amp; = \ocher{14} }
+</div>
+
+<p>Die Lösung des Gleichungssystems delegieren wir an mathGUIde:<br/>
+Zunächst packen wir die farbig unterlegten Zahlen in eine Matrix und einen Spaltenvektor:</p>
+
+<div class="math"> \def\green{\bbox[#d0ffd0,2pt]} \def\ocher{\bbox[#ffe0a0,2pt]}
+ A = \green{\pmatrix{1 &amp; 1 &amp; 1 \cr 2 &amp; 4 &amp; 8 \cr 3 &amp; 9 &amp; 27}}, \quad \textbf b = \ocher{\pmatrix{1 \cr 5 \cr 14}}
+</div>
+
+<!-- listing-01 -->
+<pre>
+A = Matrix.fromString("1,1,1; 2,4,8; 3,9,27")
+b = Matrix.fromString("1; 5; 14")</pre>
+<script type="text/javascript">listingButtons("01")</script>
+
+<p>Jetzt lassen wir uns die unbekannten Polynomkoefizienten geben:</p>
+
+<!-- listing-02 -->
+<pre>A.solve(b)</pre>
+<script type="text/javascript">listingButtons("02")</script>
+
+<p>Die drei ausgegebenen Zahlen sind die gesuchten Werte <var>a</var><sub>1</sub>, <var>a</var><sub>2</sub>, <var>a</var><sub>3</sub>.
+Damit ergibt sich:</p>
+
+<div class="math">
+  \sum_{i=1}^n{i^2} = \frac 1 6 n + \frac 1 2 n^2 + \frac 1 3 n^3
+</div>
+
+<p>Bitte überzeugen Sie sich, dass das mit der über den Pyramidentrick gefundenen Formel übereinstimmt!</p>
+
+<h3>Übungsaufgabe</h3>
+<p>Schreiben Sie ein mathGUIde-Programm, das für beliebige natürliche <var>k</var> die
+Koeffizienten des Polynoms der Summenformel</p>
+<div class="math">
+  \sum_{i=1}^n{i^k}
+</div>
+<p>berechnet.</p>
+
+<p>Zur <a href="int-sum4.html">Lösung</a>.</p>
+
+</body>
+</html>

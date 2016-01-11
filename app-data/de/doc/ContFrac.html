@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>ContFrac</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="../styles/doc.css"/>
+</head>
+<body>
+<p><a href="mathguide.html">Hauptübersicht</a></p>
+<h1>Klasse <code>ContFrac</code></h1>
+<p> <b>ContFrac(number, steps=5)</b><br/>
+        <i>Kettenbruch aus <b>number</b> mit Maximallänge <b>steps</b></i><br/>
+        <b>Beispiel</b>:<br/>
+        <code>ContFrac(pi, 3)</code> ergibt
+        <code>ContFrac(3, 7, 15)</code>.<br/>
+        Das steht für die Zahl 3 + 1/(7 + 1/15).</p>
+<div id="overview"><p style="margin-top:0">Übersicht:</p>
+<h2>Konstruktor</h2>
+<p><a href="#constr">ContFrac</a> (number, steps=5)</p>
+<h2>Operatoren</h2>
+<table><tr><td><b>Operator</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#strx28xx29">str(x)</a></td><td>    </td></tr>
+</table>
+<h2>Objektmethoden</h2>
+<table><tr><td><b>Methode</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#toRational">toRational</a> (n=0)</td><td>Rationale Zahl aus den ersten n Gliedern</td></tr>
+</table>
+</div><h1>Konstruktor</h1>
+<h3><a id="constr">ContFrac</a></h3>
+<p> Konstruktor</p>
+<p><b>Aufruf:</b> <code>ContFrac(number, steps=5)</code></p>
+<hr/>
+<h1>Operatoren</h1>
+<h3><a id="strx28xx29">str(x)</a></h3>
+<p> Object representation as string</p>
+<p><b>Aufruf:</b> <code>str(x)</font></p>
+<p><b>Beschreibung</b>:<br/>    </p><hr/>
+<h1>Objektmethoden</h1>
+<h3><a id="toRational">toRational</a></h3>
+<p> <b>toRational(n=0)</b><br/></p>
+<p><b>Aufruf:</b> <code>self.toRational(n=0)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Rationale Zahl aus den ersten n Gliedern</i><br/>
+        Wandelt den Kettenbruch in eine rationale Zahl um.<br/>
+        <b>Beispiel</b>:<br/>
+        <code>ContFrac(pi).toRational(2)</code> ergibt 22/7.</p><hr/>
+</body></html>

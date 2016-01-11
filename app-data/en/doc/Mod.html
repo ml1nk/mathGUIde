@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Mod</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="../styles/doc.css"/>
+</head>
+<body>
+<p><a href="mathguide.html">Main Overview</a></p>
+<h1>Class <code>Mod</code></h1>
+<p> Class <code>Mod</code><br/>
+        <i>Elements of the residue class rings Z[m]</i><br/>
+        <code>Mod(n, m)</code> returns element n des of the residue class ring Z[m]<br/>
+        Arithmetic operators may be applied to the objects.<br/>
+        Some operations are defined only,
+        if Z[m] is a field (&lt;==> m is prime number)<br/>
+        <b>See also</b> <a href="mathguide.html#mod"><code>Mod</code></a></p>
+<div id="overview"><p style="margin-top:0">Overview:</p>
+<h2>Constructor</h2>
+<p><a href="#constr">Mod</a> (n, m)</p>
+<h2>Operators</h2>
+<table><tr><td><b>Operator</b></td><td><b>Meaning</b></td></tr>
+<tr><td><a href="#absx28xx29">abs(x)</a></td><td>    </td></tr>
+<tr><td><a href="#xx20x2bx20y">x + y</a></td><td>Addition</td></tr>
+<tr><td><a href="#"></a></td><td></td></tr>
+<tr><td><a href="#xx20x2fx20y">x / y</a></td><td></td></tr>
+<tr><td><a href="#xx20x3dx3dx20y">x == y</a></td><td>        with other Mod object or 0
+    </td></tr>
+<tr><td><a href="#intx28xx29">int(x)</a></td><td></td></tr>
+<tr><td><a href="#xx20x2ax20y">x * y</a></td><td>        a * b  <span style="font-family:Wingdings">à</span> a.__mul__(b), if a is of type Mod
+                   b.__rmul__(a), otherwise
+    </td></tr>
+<tr><td><a href="#xx20x21x3dx20y">x != y</a></td><td>        with other Mod object or 0
+    </td></tr>
+<tr><td><a href="#x2dx">-x</a></td><td>        -a <span style="font-family:Wingdings">à</span> a.__neg__()
+    </td></tr>
+<tr><td><a href="#strx28xx29">str(x)</a></td><td>    </td></tr>
+<tr><td><a href="#xx20x2dx20y">x - y</a></td><td>        a - b  <span style="font-family:Wingdings">à</span> a.__sub__(b), if a is of type Mod
+                   b.__rsub__(a), otherwise
+    </td></tr>
+<tr><td><a href="#xx20x2fx20y">x / y</a></td><td>        a / b  <span style="font-family:Wingdings">à</span> a.__div__(b), if a is of type Mod
+                   b.__rdiv__(a), otherwise
+    </td></tr>
+</table>
+<h2>Object Methods</h2>
+<table><tr><td><b>Method</b></td><td><b>Meaning</b></td></tr>
+<tr><td><a href="#copy">copy</a> ()</td><td>independent copy ("clone") of A</td></tr>
+<tr><td><a href="#inverse">inverse</a> ()</td><td>Multiplicative inverse</td></tr>
+<tr><td><a href="#operators">operators</a> ()</td><td>For documentation only</td></tr>
+</table>
+</div><h1>Constructor</h1>
+<h3><a id="constr">Mod</a></h3>
+<p> Constructor</p>
+<p><b>Usage:</b> <code>Mod(n, m)</code></p>
+<hr/>
+<h1>Operators</h1>
+<h3><a id="absx28xx29">abs(x)</a></h3>
+<p> Absolute value</p>
+<p><b>Usage:</b> <code>abs(x)</font></p>
+<p><b>Description</b>:<br/>    </p><hr/>
+<h3><a id="xx20x2bx20y">x + y</a></h3>
+<p> <b>a.__add__(b)</b><br/></p>
+<p><b>Usage:</b> <code>x + y</font></p>
+<p><b>Description</b>:<br/>        <i>Addition</i><br/>
+        Also operator notation: <b>a + b</b><br/>
+        Instead of <code>a = a + b</code> you can write <code>a += b</code>.
+    </p><hr/>
+<h3><a id=""></a></h3>
+<p></p>
+<p><b>Usage:</b> <code></font></p>
+<hr/>
+<h3><a id="xx20x2fx20y">x / y</a></h3>
+<p></p>
+<p><b>Usage:</b> <code>x / y</font></p>
+<hr/>
+<h3><a id="xx20x3dx3dx20y">x == y</a></h3>
+<p> Test for equality (operator ==)</p>
+<p><b>Usage:</b> <code>x == y</font></p>
+<p><b>Description</b>:<br/>        with other Mod object or 0
+    </p><hr/>
+<h3><a id="intx28xx29">int(x)</a></h3>
+<p></p>
+<p><b>Usage:</b> <code>int(x)</font></p>
+<hr/>
+<h3><a id="xx20x2ax20y">x * y</a></h3>
+<p> Multiplication:</p>
+<p><b>Usage:</b> <code>x * y</font></p>
+<p><b>Description</b>:<br/>        a * b  <span style="font-family:Wingdings">à</span> a.__mul__(b), if a is of type Mod
+                   b.__rmul__(a), otherwise
+    </p><hr/>
+<h3><a id="xx20x21x3dx20y">x != y</a></h3>
+<p> Test for unequality (Operator !=)</p>
+<p><b>Usage:</b> <code>x != y</font></p>
+<p><b>Description</b>:<br/>        with other Mod object or 0
+    </p><hr/>
+<h3><a id="x2dx">-x</a></h3>
+<p> Unary Operator -</p>
+<p><b>Usage:</b> <code>-x</font></p>
+<p><b>Description</b>:<br/>        -a <span style="font-family:Wingdings">à</span> a.__neg__()
+    </p><hr/>
+<h3><a id="strx28xx29">str(x)</a></h3>
+<p> Object representation as string</p>
+<p><b>Usage:</b> <code>str(x)</font></p>
+<p><b>Description</b>:<br/>    </p><hr/>
+<h3><a id="xx20x2dx20y">x - y</a></h3>
+<p> Subtraction:</p>
+<p><b>Usage:</b> <code>x - y</font></p>
+<p><b>Description</b>:<br/>        a - b  <span style="font-family:Wingdings">à</span> a.__sub__(b), if a is of type Mod
+                   b.__rsub__(a), otherwise
+    </p><hr/>
+<h3><a id="xx20x2fx20y">x / y</a></h3>
+<p> exact division:</p>
+<p><b>Usage:</b> <code>x / y</font></p>
+<p><b>Description</b>:<br/>        a / b  <span style="font-family:Wingdings">à</span> a.__div__(b), if a is of type Mod
+                   b.__rdiv__(a), otherwise
+    </p><hr/>
+<h1>Object Methods</h1>
+<h3><a id="copy">copy</a></h3>
+<p> <b>A.copy()</b><br/></p>
+<p><b>Usage:</b> <code>self.copy()</code></p>
+<p><b>Description</b>:<br/>        <i>independent copy ("clone") of A</i></p><hr/>
+<h3><a id="inverse">inverse</a></h3>
+<p> <b>p.inverse()</b><br/></p>
+<p><b>Usage:</b> <code>self.inverse()</code></p>
+<p><b>Description</b>:<br/>        <i>Multiplicative inverse</i><br/>
+        defined in fields only. Therefore modulus must be prime number!</p><hr/>
+<h3><a id="operators">operators</a></h3>
+<p> <b>Mod.operators()</b><br/></p>
+<p><b>Usage:</b> <code>self.operators()</code></p>
+<p><b>Description</b>:<br/>        <i>For documentation only</i><br/>
+        The following operators are defined in the class <b>Mod</b>:<br/>
+        <table>
+         <tr><th>Op.</th><th>Function</th><th>Examples</th></tr>
+         <tr><th>+</th><td>Addition</td><td><code>a + b; a += b</code></td></tr>
+         <tr><th>-</th><td>Subtraction</td><td><code>a - b; a -= b</code></td></tr>
+         <tr><th>*</th><td>Multiplication</td><td><code>a * b; a *= b</code></td></tr>
+         <tr><th>/</th><td>Division</td><td><code>a / b; a /= b</code></td></tr>
+         <tr><th>%</th><td>Modulo (in fields only , i.e. modulus is prime)</td><td><code>a &amp; b; a &amp;= b</code></td></tr>
+         <tr><th>-</th><td>Unary minus</td><td><code>-a</code></td></tr>
+        </table>
+        <font color="#000080" size="-2">This method is for documentation only. It has no effect.</font></p><hr/>
+</body></html>

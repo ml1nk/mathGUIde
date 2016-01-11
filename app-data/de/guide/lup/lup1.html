@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>LUP-Zerlegung — 1</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../../styles/guide.css"/>
+ <script type="text/javascript" src="../../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../../jsMath/plugins/spriteImageFonts.js"/>
+</head>
+
+<body>
+<h1>LUP-Zerlegung</h1>
+
+<div class="overview">
+1. Lösung linearer Gleichungen mit LU-Zerlegung<br/>
+<a href="./lup2.html">2. Ein einfacher rekursiver Algorithmus mit einem Schönheitsfehler</a><br/>
+<a href="./lup3.html">3. Umformung in eine Iteration</a><br/>
+<a href="./lup4.html">4. Beseitigung des Schönheitsfehlers: LUP-Zerlegung</a>
+</div>
+
+<h2>1. Lösung linearer Gleichungen mit LU-Zerlegung</h2>
+<h3>Ein erstes Beispiel</h3>
+
+<p>Betrachten wir das folgende lineare Gleichungssystem:</p>
+<div class="math">
+ \pmatrix{1 &amp; 2 &amp; 3 \cr
+          2 &amp; 9 &amp; 10 \cr
+          3 &amp; 26 &amp; 24 } \pmatrix{x_1 \cr x_2 \cr x_3} = \pmatrix{3 \cr 7 \cr 15}
+</div>
+<p>Die Koeffizientenmatrix lässt sich folgendermaßen als Produkt aus einer unteren (linken)
+und einer oberen (rechten) Dreiecksmatrix schreiben:</p>
+<div class="math">
+  \pmatrix{1 &amp; 2 &amp; 3 \cr
+           2 &amp; 9 &amp; 10 \cr
+           3 &amp; 26 &amp; 24 }
+= \pmatrix{1 &amp; 0 &amp; 0 \cr
+           2 &amp; 1 &amp; 0 \cr
+           3 &amp; 4 &amp; 1 }
+  \pmatrix{1 &amp; 2 &amp; 3 \cr
+           0 &amp; 5 &amp; 4 \cr
+           0 &amp; 0 &amp; -1 }
+</div>
+<p>Hilft uns dies bei der Lösung des Gleichungssystems?</p>
+<p>Das Gleichungssystem lässt sich damit so schreiben:</p>
+
+<div class="math">
+ \def\pink{\bbox[#ffe0e0,2pt]}
+ \def\green{\bbox[#c0ffc0,2pt]}
+ \pink{
+ \pmatrix{1 &amp; 0 &amp; 0 \cr
+          2 &amp; 1 &amp; 0 \cr
+          3 &amp; 4 &amp; 1 }}
+ \cdot
+ \green{
+ \pmatrix{1 &amp; 2 &amp; 3 \cr
+          0 &amp; 5 &amp; 4 \cr
+          0 &amp; 0 &amp; -1 }
+ \pmatrix{x_1 \cr x_2 \cr x_3}}
+ = \pmatrix{3 \cr 7 \cr 15}           
+</div>
+<p>Wenn wir das grüne Produkt <span class="textbf">y</span> nennen,
+haben wir die Gleichung</p>
+<div class="math">
+ \def\pink{\bbox[#ffe0e0,2pt]}
+ \def\green{\bbox[#c0ffc0,2pt]}
+ \pink{
+ \pmatrix{1 &amp; 0 &amp; 0 \cr
+          2 &amp; 1 &amp; 0 \cr
+          3 &amp; 4 &amp; 1 }
+ }
+ \cdot
+ \green{\textbf y}
+ = \pmatrix{3 \cr 7 \cr 15}           
+</div>
+<p>zu lösen: Aus der ersten Zeile können wir direkt <span class="math">y_1 = 3</span> ablesen.<br/>
+Dies in die zweite Zeile eingesetzt, ergibt <span class="math">y_2 = 7 - 2y_1 = 1</span>.<br/>
+Entsprechend ergibt sich <span class="math">y_3 = 15 - 3y_1 - 4y_2 = 2</span>.</p>
+
+
+<h3>Das Prinzip</h3>
+<p>Wir halten fest: Wenn sich die Matrix <var>A</var> als Produkt aus einer
+unteren Dreiecksmatrix <var>L</var> und einer oberen Dreiecksmatrix
+<var>U</var> schreiben lässt, dann wird das Gleichungssystem
+<span class="math">A \textbf x = \textbf b</span> zu</p>
+
+<div class="math">
+  L U \textbf x = \textbf b
+</div>
+<p>und mit dem Ansatz</p>
+<div class="math"> U \textbf x = \textbf y</div>
+<p>wird daraus</p>
+<div class="math"> L \textbf y = \textbf b</div>
+
+<p>Das Gleichungssystem lässt sich besonders einfach in zwei Schritten lösen:</p>
+<ol>
+ <li>Das Gleichungssystem <span class="math">L \textbf y = \textbf b</span>
+  nach <span class="math">\textbf y</span> auflösen,</li>
+ <li>Das Gleichungssystem <span class="math">U \textbf x = \textbf y</span>
+  nach <span class="math">\textbf y</span> auflösen.</li>
+</ol>
+<p>Aber wie kann man eine Matrix in die beiden Faktoren <span class="math">L</span> und <span class="math">U</span> zerlegen?</p>
+
+<h3>LR-Zerlegung für 2·2-Matrizen</h3>
+<p>Wir versuchen es zunächst für den einfachen Fall einer 2·2-Matrix.
+In unserem Beispiel hatte die untere Dreiecksmatrix auf der Hauptdiagonalen nur Einsen.
+Das wollen wir hier wieder erreichen.<br/>
+Damit bleiben nur noch vier unbekannte Elemente:</p>
+
+<div class="math">
+ \def\yellow{\bbox[#ffffa0,2pt]}
+ \def\pink{\bbox[#ffe0e0,2pt]}
+ \def\green{\bbox[#c0ffc0,2pt]}
+ \yellow{
+ \pmatrix{a_{11} &amp; a_{12}  \cr
+          a_{21} &amp; a_{22}}}
+ =
+ \pink{
+ \pmatrix{1 &amp; 0  \cr
+          x &amp; 1}}
+ \cdot
+ \green{
+ \pmatrix{u &amp; v  \cr
+          0 &amp; w}}
+ =
+ \yellow{
+ \pmatrix{u &amp; v  \cr
+          ux &amp; xv+w}}
+</div>
+
+<p>Der Vergleich beider Varianten der gelben Matrix ergibt:</p>
+<div class="math">
+ \def\pink{\bbox[#ffe0e0,2pt]}
+ \def\green{\bbox[#c0ffc0,2pt]}
+ \eqalign{
+  \green u &amp; = a_{11} \cr
+  \green v &amp; = a_{12}  \cr
+  ux=a_{21} \Rightarrow \pink x &amp; = \frac{a_{21}}{a_{11}}  \cr
+  xv+w=a_{22} \Rightarrow \green w &amp; = a_{22} - \frac{a_{21}}{a_{11}} a_{12}
+ }
+</div>
+<p>und damit</p>
+<div class="math">
+ \def\yellow{\bbox[#ffffa0,2pt]}
+ \def\pink{\bbox[#ffe0e0,2pt]}
+ \def\green{\bbox[#c0ffc0,2pt]}
+ \yellow{
+ \pmatrix{a_{11} &amp; a_{12}  \cr
+          a_{21} &amp; a_{22}}}
+ =
+ \pink{
+ \pmatrix{1 &amp; 0  \cr
+          \frac{a_{21}}{a_{11}} &amp; 1}}
+ \cdot
+ \green{
+ \pmatrix{a_{11} &amp; a_{12}  \cr
+          0 &amp; a_{22} - \frac{a_{21}}{a_{11}} a_{12}}}
+</div>
+
+<p>Leider funktioniert das nicht für alle invertierbaren Matrizen,
+denn die beiden Divisionen durch Null verlangen, dass <var>a</var><sub>11</sub>
+von Null verschieden ist, was z.B. bei der invertierbaren Matrix</p>
+<div class="math">
+ \pmatrix{0 &amp; 1 \cr 1 &amp; 0}
+</div>
+<p>nicht der Fall ist. Die Umgehung dieses Problems verschieben wir und
+erweitern zunächst unsere Methode auf beliebige <var>n·n</var>-Matrizen.</p>
+
+<p><b>Fortsetzung</b>: <a href="lup2.html">2. Ein einfacher rekursiver Algorithmus mit einem Schönheitsfehler</a></p>
+
+</body>
+</html>

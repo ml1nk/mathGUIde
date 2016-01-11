@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>LUP-Zerlegung — 3</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../../styles/guide.css"/>
+ <script type="text/javascript" src="../../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../../jsMath/plugins/spriteImageFonts.js"/>
+ <script type="text/javascript" src="../../listingButtons.js"/>
+</head>
+
+<body>
+<h1>LUP-Zerlegung</h1>
+
+<div class="overview">
+<a href="./lup1.html">1. Lösung linearer Gleichungen mit LU-Zerlegung</a><br/>
+<a href="./lup2.html">2. Ein einfacher rekursiver Algorithmus mit einem Schönheitsfehler</a><br/>
+3. Umformung in eine Iteration<br/>
+<a href="./lup4.html">4. Beseitigung des Schönheitsfehlers: LUP-Zerlegung</a>
+</div>
+
+<h2>3. Umformung in eine Iteration</h2>
+
+<p class="intro">Dieser Teil folgt in Kürze.</p>
+
+
+<p>Wenn wir die Matrix <var>A</var> so in das Produkt <var>L·U</var> zerlegen,
+dass <var>L</var> eine untere Dreiecksmatrix mit Einsen auf der Hauptdiagonalen ist
+und <var>U</var> eine obere Dreiecksmatrix, können wir die relevaten Informationen
+in eine einzige Matrix packen:</p>
+
+<div class="math">
+ \def\pink{\bbox[#ffe0e0,2pt]}
+ \def\green{\bbox[#c0ffc0,2pt]}
+  \pmatrix{\green{u_{11}} &amp; \green{u_{12}} &amp; \green{u_{13}} &amp; \ldots &amp; \green{u_{1n}} \cr
+           \pink{l_{21}} &amp; \green{u_{22}} &amp; \green{u_{23}} &amp; \ldots &amp; \green{u_{2n}} \cr
+           \pink{l_{31}} &amp; \pink{l_{32}} &amp; \green{u_{33}} &amp; \ldots &amp; \green{u_{2n}} \cr
+           \vdots &amp; \vdots &amp; \vdots &amp; \ddots &amp; \vdots \cr
+           \pink{l_{n1}} &amp; \pink{l_{n2}} &amp; \pink{l_{n3}} &amp; \ldots &amp; \green{u_{nn}}}
+</div>                             
+<p>Daraus lassen sich <var>L</var> und <var>U</var> gewinnen:</p>
+<ul>
+  <li><var>L</var>, indem die Diagonalelemente (<var>u</var><sub>11</sub>
+   bis <var>u<sub>nn</sub></var>) durch 1 und die
+   übrigen grün unterlegten Elemente durch Null ersetzt werden,</li>
+  <li><var>U</var>, indem alle rötlich unterlegten
+   Elemente durch Null ersetzt werden.</li>
+</ul>
+
+<p>Wir entwerfen nun einen Algorithmus, der die Ausgangsmatrix <var>A</var>
+direkt in diese Kompaktdarstellung umformt.<br/>
+Im letzten Abschnitt haben wir die Matrix so zerlegt:</p>
+
+<div class="math">
+ \def\yellow{\bbox[#ffffa0,2pt]}
+ \def\pink{\bbox[#ffe0e0,2pt]}
+ \def\green{\bbox[#c0ffc0,2pt]}
+
+ \def\blue{\bbox[#e8f0ff,2pt;border:1px #8090ff solid]}
+ \def\white{\bbox[border:1px #8090ff solid]}
+  A = \pmatrix{a_{11} &amp; \textbf w \cr
+               \textbf v &amp; A'}
+    = \pmatrix{ 1 &amp; \textbf 0 \cr
+         \pink{\frac{1}{a_{11}} \textbf{v}} &amp; I_{n-1}}
+      \pmatrix{\green {a_{11}} &amp; \green{\textbf w} \cr
+         \textbf 0  &amp; \yellow{A' - \frac{1}{a_{11}} \textbf{v w}}}
+</div>
+
+<p>Wenn wir die relevanten Informationen zusammenpacken, erhalten wir:</p>
+
+<div class="math">
+ \def\yellow{\bbox[#ffffa0,2pt]}
+ \def\pink{\bbox[#ffe0e0,2pt]}
+ \def\green{\bbox[#c0ffc0,2pt]}
+  \pmatrix{\green {a_{11}} &amp; \green{\textbf w} \cr
+    \pink{\frac{1}{a_{11}} \textbf{v}}  &amp; \yellow{A' - \frac{1}{a_{11}} \textbf{v w}}}
+</div>
+
+<p>Im den rötlichen und grünen Bereichen stehen schon Teile der Dreicksmatrizen,
+ der gelb unterlegte Bereich muss weiter zerlegt werden.<br/>
+ Dies bekommen wir durch folgende Operationen aus der Ausgangsmatrix
+ (machen Sie sich dazu bitte klar, wie das Produkt 
+ <span class="textbf">vw</span> gebildet wird):</p>
+<ul>
+  <li>Die <span class="bgGreen">erste Zeile</span> bleibt unverändert</li>
+  <li>Der <span class="bgPink">Rest der ersten Spalte</span> wird durch
+   <var>a</var><sub>11</sub> dividiert</li>
+  <li>Im <span class="bgYellow">Rest der Matrix</span> wird von jedem Element
+   das Produkt aus dem links davon stehenden Element der ersten Spalte
+   (das schon durch <var>a</var><sub>11</sub> dividiert ist!)
+   und dem darüber stehenden Element der ersten Zeile subtrahiert.</li>
+</ul>
+<p>In mathGUIde (Matrizen werden hier ab Null indiziert!) sieht das so aus:</p>
+
+<pre>
+<span class="bgPink">for i in fromTo(1, n-1):
+    A[i,0] /= A[0,0]</span>
+<span class="bgYellow">for i in fromTo(1, n-1):
+    for j in fromTo(1, n-1):
+        A[i,j] -= A[i,0] * A[0,j]</span>
+</pre>
+
+<p>Jetzt ist es nur noch ein kleiner Schritt, dieses Verfahren
+auf den <span class="bgYellow">Rest der Matrix</span> zu erweitern.
+Dazu führen wir eine äußere Schleifenvariable <code>k</code> für 
+den linken (und oberen) Index der zu bearbeitenden
+<span class="bgYellow">Restmatrix</span> ein:</p>
+
+<!-- listing-01 -->
+<pre>
+<span class="keyword">def</span> luIter(A):
+    n = A.height()
+    <span class="keyword">for</span> k <span class="keyword">in</span> fromTo(0, n-2):
+        <span class="keyword">assert</span> A[k,k] != 0 <span class="comment"># sonst gescheitert!</span>
+        <span class="keyword">for</span> i <span class="keyword">in</span> fromTo(k+1, n-1):
+            <span class="bgPink">A[i,k] /= A[k,k]</span>
+            <span class="keyword">for</span> j <span class="keyword">in</span> fromTo(k+1,n-1):
+                <span class="bgYellow">A[i,j] -= A[i,k] * A[k,j]</span></pre>
+<script type="text/javascript">listingButtons("01")</script>
+
+<p>Wir testen die Funktion am Beispiel aus dem ersten Abschnitt:</p>
+<div class="math">
+ \def\yellow{\bbox[#ffffa0,2pt]}
+ \def\pink{\bbox[#ffe0e0,2pt]}
+ \def\green{\bbox[#c0ffc0,2pt]}
+  \yellow{\pmatrix{1 &amp; 2 &amp; 3 \cr
+           2 &amp; 9 &amp; 10 \cr
+           3 &amp; 26 &amp; 24 }}
+= \pink{\pmatrix{1 &amp; 0 &amp; 0 \cr
+           2 &amp; 1 &amp; 0 \cr
+           3 &amp; 4 &amp; 1 }}
+  \green{\pmatrix{1 &amp; 2 &amp; 3 \cr
+           0 &amp; 5 &amp; 4 \cr
+           0 &amp; 0 &amp; -1 }}
+</div>
+
+<!-- listing-02 -->
+<pre>
+A = Matrix.fromString("1, 2, 3;  2, 9, 10;  3, 26, 24")
+luIter(A)
+print(A)</pre>
+<script type="text/javascript">listingButtons("02")</script>
+
+<p>Bitte überzeugen Sie sich, dass nun in <var>A</var> die gesuchte linke und die rechte
+Dreiecksmatrix stecken!</p>
+
+<p><b>Fortsetzung</b>: <a href="lup4.html">4. Beseitigung des Schönheitsfehlers: LUP-Zerlegung</a></p>
+
+</body>
+</html>

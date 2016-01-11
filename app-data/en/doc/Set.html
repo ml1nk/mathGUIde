@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Set</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="../styles/doc.css"/>
+</head>
+<body>
+<p><a href="mathguide.html">Main Overview</a></p>
+<h1>Class <code>Set</code></h1>
+<p> Class <code>Set</code><br/>
+        <i>Polymorphic sets</i><br/>
+        <b>Example</b>: <code>A = Set([1,2,3])</code><br/>
+        The class Set allows the following operations:<br/>
+        <ul>
+          <li>Intersection (operator &amp;)</li>
+          <li>Union (operator +)</li>
+          <li>Set difference (operator -)</li>
+          <li>Symmetric difference (operator ^)</li>
+          <li>Power set (method powerset)</li>
+          <li>Cartesian product (Operator *)</li>
+          <li>Element test (Operator <code>in</code>)</li>
+          <li>Cardinality (Python function <code>len</code>)</li>
+        </ul></p>
+<p><b>Base Class:</b> <code>list</code></p>
+<div id="overview"><p style="margin-top:0">Overview:</p>
+<h2>Constructor</h2>
+<p><a href="#constr">Set</a> (el)</p>
+<h2>Operators</h2>
+<table><tr><td><b>Operator</b></td><td><b>Meaning</b></td></tr>
+<tr><td><a href="#xx20x2bx20y">x + y</a></td><td>        a + b  <span style="font-family:Wingdings">à</span> __add__ (a, b), if a is of type Set
+                   __radd__(b, a), otherwise
+    </td></tr>
+<tr><td><a href="#"></a></td><td>        Elements, wihch are sets themself come first and are sorted by length (cardinality)
+
+        simultaneous overloading of  &lt; &lt;=, >, >=, == and !=
+
+        If A is a Set and b not, A.__cmp__(b)  is called for comparing A with b (or vice versa)!
+
+    </td></tr>
+<tr><td><a href="#xx20x3dx3dx20y">x == y</a></td><td></td></tr>
+<tr><td><a href="#xx20x2ax20y">x * y</a></td><td>    </td></tr>
+<tr><td><a href="#xx20x21x3dx20y">x != y</a></td><td></td></tr>
+<tr><td><a href="#strx28xx29">str(x)</a></td><td>    </td></tr>
+<tr><td><a href="#xx20x2dx20y">x - y</a></td><td>    </td></tr>
+<tr><td><a href="#xx20x5ex20y">x ^ y</a></td><td>    </td></tr>
+</table>
+<h2>Object Methods</h2>
+<table><tr><td><b>Method</b></td><td><b>Meaning</b></td></tr>
+<tr><td><a href="#card">card</a> ()</td><td>Cardinality</td></tr>
+<tr><td><a href="#difference">difference</a> (B)</td><td>Set difference</td></tr>
+<tr><td><a href="#insert">insert</a> (e)</td><td>Inserts an additional element ti the set</td></tr>
+<tr><td><a href="#intersection">intersection</a> (B)</td><td>Intersection</td></tr>
+<tr><td><a href="#issubset">issubset</a> (B)</td><td>Is A subset of (oder equal to) B?</td></tr>
+<tr><td><a href="#issuperset">issuperset</a> (B)</td><td>Is A superset of (oder equal to) B?</td></tr>
+<tr><td><a href="#operators">operators</a> ()</td><td>For documentation only</td></tr>
+<tr><td><a href="#powerset">powerset</a> ()</td><td>Powerset (set of alle subsets)</td></tr>
+<tr><td><a href="#product">product</a> (B)</td><td>Cartesian product</td></tr>
+<tr><td><a href="#symmDiff">symmDiff</a> (B)</td><td>Symmetric difference</td></tr>
+<tr><td><a href="#union">union</a> (B)</td><td>Union set</td></tr>
+</table>
+</div><h1>Constructor</h1>
+<h3><a id="constr">Set</a></h3>
+<p> Constructor</p>
+<p><b>Usage:</b> <code>Set(el)</code></p>
+<hr/>
+<h1>Operators</h1>
+<h3><a id="xx20x2bx20y">x + y</a></h3>
+<p> Union (operators + and +=):</p>
+<p><b>Usage:</b> <code>x + y</font></p>
+<p><b>Description</b>:<br/>        a + b  <span style="font-family:Wingdings">à</span> __add__ (a, b), if a is of type Set
+                   __radd__(b, a), otherwise
+    </p><hr/>
+<h3><a id=""></a></h3>
+<p> For ordering sets</p>
+<p><b>Usage:</b> <code></font></p>
+<p><b>Description</b>:<br/>        Elements, wihch are sets themself come first and are sorted by length (cardinality)
+
+        simultaneous overloading of  &lt; &lt;=, >, >=, == and !=
+
+        If A is a Set and b not, A.__cmp__(b)  is called for comparing A with b (or vice versa)!
+
+    </p><hr/>
+<h3><a id="xx20x3dx3dx20y">x == y</a></h3>
+<p></p>
+<p><b>Usage:</b> <code>x == y</font></p>
+<hr/>
+<h3><a id="xx20x2ax20y">x * y</a></h3>
+<p> Cartesian product (operator *)</p>
+<p><b>Usage:</b> <code>x * y</font></p>
+<p><b>Description</b>:<br/>    </p><hr/>
+<h3><a id="xx20x21x3dx20y">x != y</a></h3>
+<p></p>
+<p><b>Usage:</b> <code>x != y</font></p>
+<hr/>
+<h3><a id="strx28xx29">str(x)</a></h3>
+<p> Object representation as string (in curly braces)</p>
+<p><b>Usage:</b> <code>str(x)</font></p>
+<p><b>Description</b>:<br/>    </p><hr/>
+<h3><a id="xx20x2dx20y">x - y</a></h3>
+<p> Set difference (operators - and -=)</p>
+<p><b>Usage:</b> <code>x - y</font></p>
+<p><b>Description</b>:<br/>    </p><hr/>
+<h3><a id="xx20x5ex20y">x ^ y</a></h3>
+<p> Symmetric difference (operators ^ and ^=)</p>
+<p><b>Usage:</b> <code>x ^ y</font></p>
+<p><b>Description</b>:<br/>    </p><hr/>
+<h1>Object Methods</h1>
+<h3><a id="card">card</a></h3>
+<p> <b>A.card()</b><br/></p>
+<p><b>Usage:</b> <code>self.card()</code></p>
+<p><b>Description</b>:<br/>        <i>Cardinality</i><br/>
+        Same as len(A)</p><hr/>
+<h3><a id="difference">difference</a></h3>
+<p> <b>A.difference(B)</b><br/></p>
+<p><b>Usage:</b> <code>.difference(B)</code></p>
+<p><b>Description</b>:<br/>        <i>Set difference</i><br/>
+        Also operator notation: <b>A - B</b><br/>
+        Instead of <code>A = A - B</code> you can write <code>A -= B</code>.</p><hr/>
+<h3><a id="insert">insert</a></h3>
+<p> <b>A.insert(e)</b><br/></p>
+<p><b>Usage:</b> <code>self.insert(e)</code></p>
+<p><b>Description</b>:<br/>        <i>Inserts an additional element ti the set</i><br/>
+        A.insert(e) is equivalent to A += Set(e)</p><hr/>
+<h3><a id="intersection">intersection</a></h3>
+<p> <b>A.intersection(B)</b><br/></p>
+<p><b>Usage:</b> <code>.intersection(B)</code></p>
+<p><b>Description</b>:<br/>        <i>Intersection</i><br/>
+        Also operator notation: <b>A - B</b><br/>
+        Instead of <code>A = A &amp; B</code> you can write <code>A &amp;= B</code>.</p><hr/>
+<h3><a id="issubset">issubset</a></h3>
+<p> <b>A.issubset(B)</b><br/></p>
+<p><b>Usage:</b> <code>A.issubset(B)</code></p>
+<p><b>Description</b>:<br/>        <i>Is A subset of (oder equal to) B?</i><br/>
+        Return value: bool</p><hr/>
+<h3><a id="issuperset">issuperset</a></h3>
+<p> <b>A.issuperset(B)</b><br/></p>
+<p><b>Usage:</b> <code>A.issuperset(B)</code></p>
+<p><b>Description</b>:<br/>        <i>Is A superset of (oder equal to) B?</i><br/>
+        Return value: bool</p><hr/>
+<h3><a id="operators">operators</a></h3>
+<p> <b>Set.operators()</b><br/></p>
+<p><b>Usage:</b> <code>self.operators()</code></p>
+<p><b>Description</b>:<br/>        <i>For documentation only</i><br/>
+        The following operators are defined in the class <b>Set</b>:<br/>
+        <table>
+         <tr><th>Op.</th><th>Function</th><th>Examples</th></tr>
+         <tr><th>&amp;</th><td>Intersection</td><td><code>A &amp; B; A &amp;= B</code></td></tr>
+         <tr><th>+</th><td>Union</td><td><code>A + B; A += B</code></td></tr>
+         <tr><th>-</th><td>Set difference</td><td><code>A - B; A -= B</code></td></tr>
+         <tr><th>^</th><td>Symmetric difference</td><td><code>A ^ B; A ^= B</code></td></tr>
+         <tr><th>*</th><td>Cartesian product</td><td><code>A * B; A *= B</code></td></tr>
+         <tr><th>in</th><td>is element of</td><td><code>x in A</code></td></tr>
+        </table>
+        <font color="#000080" size="-2">This method is for documentation only. It has no effect.</font></p><hr/>
+<h3><a id="powerset">powerset</a></h3>
+<p> <b>A.powerset()</b><br/></p>
+<p><b>Usage:</b> <code>self.powerset()</code></p>
+<p><b>Description</b>:<br/>        <i>Powerset (set of alle subsets)</i><br/></p><hr/>
+<h3><a id="product">product</a></h3>
+<p> <b>A.product(B)</b><br/></p>
+<p><b>Usage:</b> <code>.product(B)</code></p>
+<p><b>Description</b>:<br/>        <i>Cartesian product</i><br/>
+        Also operator notation: <b>A * B</b><br/>
+        Instead of <code>A = A * B</code> you can write <code>A *= B</code>.</p><hr/>
+<h3><a id="symmDiff">symmDiff</a></h3>
+<p> <b>A.symmDiff(B)</b><br/></p>
+<p><b>Usage:</b> <code>.symmDiff(B)</code></p>
+<p><b>Description</b>:<br/>        <i>Symmetric difference</i><br/>
+        Also operator notation: <b>A ^ B</b><br/>
+        Instead of <code>A = A ^ B</code> you can write <code>A ^= B</code>.</p><hr/>
+<h3><a id="union">union</a></h3>
+<p> <b>A.union(B)</b><br/></p>
+<p><b>Usage:</b> <code>.union(B)</code></p>
+<p><b>Description</b>:<br/>        <i>Union set</i><br/>
+        Also operator notation: <b>A + B</b><br/>
+        Instead of <code>A = A + B</code> you can write <code>A += B</code>.</p><hr/>
+</body></html>

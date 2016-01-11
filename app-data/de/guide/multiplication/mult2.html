@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Multiplikation — 2</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../../styles/guide.css"/>
+ <script type="text/javascript" src="../../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../../jsMath/plugins/spriteImageFonts.js"/>
+ <script type="text/javascript" src="../../listingButtons.js"/>
+</head>
+
+<body>
+<h1>Eine kurze Geschichte der Multiplikation</h1>
+
+<p class="overview"><a href="mult1.html">1. Multiplikation durch Addition</a><br/>
+2. Binäre Multiplikation<br/>
+<a href="mult3.html">3. Parallele Multiplikation</a><br/>
+<a href="mult4.html">4. Karatsuba-Multiplikation</a></p>
+
+<h2>2. Binäre Multiplikation</h2>
+
+<!--p>Sicher kennen Sie noch das schriftliche Multiplizieren,
+wie Sie es vielleicht in der Schule gelernt haben.
+Das Prinzip sieht an einem Beispiel so aus:</p>
+
+<pre class="pure">1234·5678 = 1234·(5·1000 + 6·100 + 7·10 + 8)
+          = 1234·5·1000
+          + 1234·6·100
+          + 1234·7·10
+          + 1234·8·1</pre>
+
+<p>Daraus ergibt sich das schriftliche Multiplizieren
+(wobei die grünen Zahlen hier nur zur Erklärung dienen):</p>
+
+<pre class="pure"><b>1234·5678</b>
+─────────
+     <b>9872</b>   <span style="color:green">(1234·8·1)</span>
+    <b>8638</b><span style="color:green">0   (1234·7·10</span>
+   <b>7404</b><span style="color:green">00   (1234·6·100)</span>
+  <b>6170</b><span style="color:green">000   (1234·5·1000)</span>
+─────────
+  <b>7006652</b></pre-->
+
+<p>Eine interessante Variante der schriftlichen Multiplikation entwickeln wir
+am Beispiel <span style="color:red">102</span>·<span style="color:blue">5</span>.<br/>Es gilt:</p>
+
+<p><code><span style="color:red">102</span>   = <span style="color:red">2</span>·10<sup>0</sup>   + <span style="color:red">0</span>·10<sup>1</sup>   + <span style="color:red">1</span>·10<sup>2</sup><br/>
+<span style="color:red">102</span>·<span style="color:blue">5</span> = <span style="color:red">2</span>·10<sup>0</sup>·<span style="color:blue">5</span> + <span style="color:red">0</span>·10<sup>1</sup>·<span style="color:blue">5</span> + <span style="color:red">1</span>·10<sup>2</sup>·<span style="color:blue">5</span><br/>
+      = <span style="color:red">2</span>·<span style="color:blue">5</span>     + <span style="color:red">0</span>·<span style="color:blue">50</span>    + <span style="color:red">1</span>·<span style="color:blue">500</span></code></p>
+
+<p>Das führt zu folgendem Schema:</p>
+
+<pre class="pure">
+ a     b   (a mod 10)·b
+───────────────────────
+10<span style="color:red">2</span>  <span style="color:blue">  5</span>     10
+ 1<span style="color:red">0</span>  <span style="color:blue"> 50</span>      0
+  <span style="color:red">1</span>  <span style="color:blue">500</span>    500
+───────────────
+            <b>510</b></pre>
+
+<p>Wir schreiben also die beiden Faktoren nebeneinander und markieren die letzte Ziffer des ersten Faktors. Diese multiplizieren wir mit dem zweiten Faktor.
+Das wiederholen wir mit dem ganzzahlig durch 10 dividierten ersten Faktor und dem mit mit 10 multiplizierten zweiten Faktor, bis wir links die letzte Stelle des ersten Faktors haben.
+Das Multiplikationsergebnis ist die Summe der dritten Spalte.</p>
+
+<!-- listing-00 -->
+<pre>
+<span class="keyword">def</span> Mult10(a, b):
+    p = 0
+    <span class="keyword">while</span> a > 0:
+        p += (a % 10) * b
+        a //= 10
+        b *= 10
+    <span class="keyword">return</span> p
+
+print(Mult10(102, 5))    
+</pre>
+<script type="text/javascript">listingButtons("00")</script>
+
+<p>Natürlich können wir statt der Basis 10 des hier verwendeten Stellenwertsystems
+eine beliebige andere Basis wählen.
+Wenn wir 10 durch 2 ersetzen, bekommen wir:</p>
+
+<!-- listing-00a -->
+<pre>
+<span class="keyword">def</span> Mult2(a, b):
+    p = 0
+    <span class="keyword">while</span> a > 0:
+        <span class="bgYellow">p += (a % 2) * b</span>
+        a //= 2
+        b *= 2
+    <span class="keyword">return</span> p
+
+print(Mult2(102, 5))    
+</pre>
+<script type="text/javascript">listingButtons("00a")</script>
+
+<p>Jetzt nutzen wir die Tatsache, dass es im Binärsystem nur zwei Ziffern (0 und 1) gibt
+und optimieren die <span class="bgYellow">gelb unterlegte Zeile</span>.
+<var>a</var> % 2 ist entweder 0 (dann brauchen wir zu <var>p</var> nichts zu addieren
+oder 1 (dann müssen wir 1 · <var></var>b addieren). Damit ergibt sich:</p>
+
+<!-- listing-00b -->
+<pre>
+<span class="keyword">def</span> Mult2(a, b):
+    p = 0
+    <span class="keyword">while</span> a > 0:
+        <span class="bgYellow"><span class="keyword">if</span> a % 2 == 1:</span>
+        <span class="bgYellow">    p += b</span>
+        a //= 2
+        b *= 2
+    <span class="keyword">return</span> p
+
+print(Mult2(102, 5))    
+</pre>
+<script type="text/javascript">listingButtons("00b")</script>
+
+<p>Daraus ergibt sich das praktische Verfahren,
+das u.a. als russische Bauernmultiplikation bekannt ist:
+Wir halbieren <var>a</var> und verdoppeln <var>b</var>, solange <var>a</var> > 0.
+Alle <var>b</var>-Werte, bei denen <span class="bgPink"><var>a</var> ungerade</span> ist werden aufaddiert:</p>
+
+<pre class="pure">
+ <b>a</b>      <b>b</b>
+─────────
+102     <span style="color:gray">5</span>
+<span class="bgPink"> 5<strong>1</strong></span>    <strong>10</strong>
+<span class="bgPink"> 2<strong>5</strong></span>    <strong>20</strong>
+ 12    <span style="color:gray">40</span>
+  6    <span style="color:gray">80</span>
+<span class="bgPink">  <strong>3</strong></span>   <strong>160</strong>
+<span class="bgPink">  <strong>1</strong></span>   <strong>320</strong>
+─────────
+      <strong><span class="bgBlue">510</span></strong></pre>
+
+<p class="remark">Dieses Verfahren lässt sich auch sehr effizient implementieren.
+Da auf dem Computer Zahlen binär dargestellt sind, lassen sich die
+Verdoppelungen bzw. Halbierungen durch Verschiebungen
+um ein Bit nach links bzw. rechts darstellen, die jeder Prozessor sehr schnell
+ausführen kann.</p>
+
+<p><b>Fortsetzung</b>: <a href="mult3.html">Parallele Multiplikation</a></p>
+
+</body>
+</html>

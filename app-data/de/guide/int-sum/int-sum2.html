@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Summen von natürlichen Zahlen — 2</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../../styles/guide.css"/>
+ <script type="text/javascript" src="../../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../../jsMath/plugins/spriteImageFonts.js"/>
+</head>
+
+<body>
+<h1>Summen von natürlichen Zahlen</h1>
+
+<p class="overview"><a href="int-sum1.html">1. Die ersten hundert natürlichen Zahlen</a><br/>
+2. Summen von Quadrat- und Kubikzahlen<br/>
+<a href="int-sum3.html">3. Summen höherer Potenzen</a></p>
+
+<div class="right-img"><img alt="square sum" src="square-sum.png"/></div>
+
+<h2>2. Summen von Quadrat- und Kubikzahlen</h2>
+
+<p>In der nebenstehenden Abbildung sehen Sie die Summe der Quadratzahlen
+1<sup>2</sup> + 2<sup>2</sup> + 3<sup>2</sup> + 4<sup>2</sup> aus Einheitswürfeln.<br/>
+Mit <span class="bgGreen">Halbwürfeln</span> und
+<span class="bgOcher">Mini-Pyramiden</span> können wir die
+<span class="bgBlue">Stufenpyramide</span> zu einer glatten Pyramide mit der Grundfläche (<var>n</var>+1)·(<var>n</var>+1)
+und der Höhe <var>n</var>+1 ergänzen.
+Diese <a class="web" href="http://de.wikipedia.org/wiki/Pyramide_(Mathematik)">
+Pyramide</a> hat also das Volumen (<var>n</var>+1)<sup>3</sup>/3.</p>
+<p>Dazu brauchen wir am Rand der Ebene <var>i</var> (von oben gezählt)
+<span class="bgGreen">2·<var>i</var> Halbwürfel</span>,
+außerdem je eine <span class="bgOcher">Mini-Pyramide</span>
+(Volumen 1/3) in jeder Etage und noch eine ganz oben.</p>
+
+<p style="clear:both" >Damit ergibt sich:</p>
+
+<div class="math">
+ \def\blue{\bbox[#c0e0ff,2pt]}
+ \def\green{\bbox[#d0ffd0,2pt]}
+ \def\ocher{\bbox[#ffe0a0,2pt]}
+ \frac{(n+1)^3} 3 = \blue{\sum_{i=1}^n {i^2}}
+                   + \green{\sum_{i=1}^n i}
+                   + \ocher{\frac{(n+1)} 3}
+</div>
+Wir lösen die Gleichung nach der gesuchten (blauen) Summe auf und setzen für die grüne Summe
+die schon bekannte Formel ein:
+
+<div class="math">
+\def\blue{\bbox[#c0e0ff,2pt]}
+\def\green{\bbox[#d0ffd0,2pt]}
+\def\ocher{\bbox[#ffe0a0,2pt]}
+\def\gray{\bbox[#f0f0f0,2pt]}
+ \eqalign{
+  \blue{\sum_{i=1}^n {i^2}} &amp; = \frac{(n+1)^3} 3
+        - \green{\frac{n(n+1)} 2} - \ocher{\frac{(n+1)} 3} \cr
+    &amp; = \gray{\frac{(n+1)} 6} (2(n+1)^2 - \green{3n} -\ocher2)) \cr
+    &amp; = \frac{(n+1) (2n^2 + n)} 6 \cr
+    &amp; = \blue{\frac{n(n+1)(2n+1)} 6}
+  }
+</div>
+
+<hr/>
+
+<div class="right-box" style="width:325px; clear:both">
+  Die Summe 1<sup>3</sup> + 2<sup>3</sup> + 3<sup>3</sup> + 4<sup>3</sup> + 5<sup>3</sup> passt genau in ein Quadrat
+  mit der Kantenlänge 1 + 2 + 3 + 4 + 5.<br/>
+  <object data="int-sum3.svg" type="image/svg+xml"  width="320" height="320"/>
+</div>
+
+<h2>Summen von Kubikzahlen</h2>
+<p>Mit dem nebenstehend abgebildeten Trick kann man sogar Summen von Kubikzahlen geometrisch
+darstellen:</p>
+<span class="bgBlue">Die blauen Rahmen</span> umfassen (von links unten nach rechts oben)
+<ul>
+ <li>ein einzelnes Quadrat (Fläche: 1<sup>3</sup>),</li>
+ <li>3 Quadrate mit der Kantenlänge 3 (Gesamtfläche: 3<sup>3</sup>),</li>
+ <li>5 Quadrate mit der Kantenlänge 5 (Gesamtfläche: 5<sup>3</sup>).</li>
+</ul>
+<p>Das kann man so für alle ungeraden Zahlen fortsetzen.</p>
+<p><span class="bgPink">In die Zwischenräume</span> packen wir
+die geraden Kubikzahlen 2<sup>3</sup> und 4<sup>3</sup> in Form von
+2 Quadraten mit der Kantenlänge 2 und 4 Quadraten mit der Kantenlänge 4.
+Die Quadrate passen zwar nicht genau, aber die frei bleibenden Flächen werden
+exakt durch die doppelt belegten Flächen ausgeglichen.</p>
+<p>Offenbar ist also 1<sup>3</sup> + 2<sup>3</sup> + 3<sup>3</sup> + 4<sup>3</sup> + 5<sup>3</sup> 
+= (1 + 2 + 3 + 4 + 5)<sup>2</sup>.<br/>
+Allgemein gilt demnach die erstaunliche Formel:</p>
+<div class="math">
+  \sum_{i=1}^n{i^3} = {\left( \sum_{i=1}^n i \right) }^2
+</div>
+<p>Mit der schon bekannten Formel</p>
+<div class="math">
+  \sum_{i=1}^n i = \frac{n(n+1)} 2
+</div>
+<p>ergibt sich daraus</p>
+<div class="math">
+  \sum_{i=1}^n{i^3}
+  = {\left(\frac{n(n+1)} 2 \right)}^2
+  = \frac{n^2(n+1)^2} 4
+</div>
+
+<p><b>Fortsetzung</b>: <a href="int-sum3.html">Summen höherer Potenzen</a></p>
+
+</body>
+</html>

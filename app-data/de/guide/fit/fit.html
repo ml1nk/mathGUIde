@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Die Gauß'sche Methode der kleinsten Quadrate</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../../styles/guide.css"/>
+ <script type="text/javascript" src="../../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../../jsMath/plugins/spriteImageFonts.js"/>
+ <script type="text/javascript" src="../../listingButtons.js"/>
+</head>
+
+<body>
+<div class="right-img"><img alt="gauss" src="../img/gauss.png"/></div>
+
+<h1>Die Gauß'sche Methode der kleinsten Quadrate</h1>
+
+<p class="intro">Die folgenden Beispiele verwenden die Gauß'sche Methode
+der kleinsten Quadrate, um eine Linearkombination gegebener
+Funktionen zu bestimmen, die eine bestimmte Funktion möglichst
+gut approximiert.</p>
+
+<h2>Das Problem</h2>
+
+<div class="left-img"><img alt="linear fit" src="fit-lin.png"/></div>
+<p>Angenommen, wir beobachten ein Objekt, das sich auf einer Geraden
+durch die Ebene bewegt. Drei aufeinanderfolgende Messungen liefern die
+Bahnpunkte (3,3), (6,3) und (9,6).<br/>
+Wie die Abbildung zeigt, gibt es keine Gerade durch diese drei Messpunkte.
+Man könnte nun einfach einen Messwert ignorieren und bekäme je nach Wahl eine
+der drei roten Geraden. Bei einem fehlerbehafteten Messgerät werden aber alle
+Messungen ähnliche Abweichungen haben, so dass eine vermittelnde Gerade in der
+Regel zu einem besseren Ergebnis führt.<br/>
+In der Abbildung ist die maximale Abweichung der blauen Geraden von den
+Messpunkten kleiner als bei jeder der drei roten Geraden.</p>
+
+<p>Konkret suchen wir eine Gerade</p>
+<div class="math">
+ \def\yellow{\bbox[#ffffa0,2pt]}
+ \def\green{\bbox[#c0ffc0,2pt]}
+ \green{f(x)} = a\yellow x + b
+</div>
+<p>mit den unbekannten Koeffizienten <var>a</var><sub>0</sub> und <var>a</var><sub>1</sub>.<br/>
+Durch Einsetzen der drei Messwerte bekommen wir:</p>
+
+<div class="math">
+ \def\yellow{\bbox[#ffffa0,2pt]}
+ \def\green{\bbox[#c0ffc0,2pt]}
+ \begin{eqnarray}
+  \yellow 3 a + b &amp; = \green 3 \cr
+  \yellow 6 a + b  &amp; = \green 3 \cr
+  \yellow 9 a + b &amp; = \green 6
+ \end{eqnarray}
+</div>
+
+<p>In Matrixform bekommen wir
+<var>A</var><span class="textbf">x</span> = <span class="textbf">b</span>
+mit</p>
+
+<div class="math">
+A = \pmatrix{3 &amp; 1 \cr
+             6 &amp; 1 \cr
+             9 &amp; 1 }
+\quad                
+\textbf x = \pmatrix{a \cr b}
+\quad
+\textbf b = \pmatrix{3 \cr 3 \cr 6}
+</div>
+
+<p>Dieses Gleichungssystem ist überbestimmt und nicht lösbar.</p>
+
+<h2>Die Lösung</h2>
+
+<p>In der Vorlesung
+<i>Lineare Algebra für Informatiker</i> wird der folgende Satz gezeigt:</p>
+
+<div class="theorem">
+ <p class="title">Satz</p>
+ <p>Das Normalsystem <var>A</var><sup>T</sup><var>A</var><span class="textbf">x</span>
+  = <var>A</var><sup>T</sup> <span class="textbf">b</span> eines linearen Gleichungssystems
+ <var>A</var><span class="textbf">x</span> = <span class="textbf">b</span>
+ ist konsistent.<br/>
+ Seine Lösungen sind die Näherungslösungen von 
+ <var>A</var><span class="textbf">x</span> = <span class="textbf">b</span>
+ mit proj<var><sub>W</sub></var>(<span class="textbf">b</span>) = <var>A</var><span class="textbf">x</span><br/>
+ wobei <var>W</var> der Spaltenraum von <var>A</var> ist.</p>
+</div>
+
+<p>Wir wenden nun den Satz auf unser Beispiel an.<br/>
+Für <var>A</var><sup>T</sup> schreibt man in mathGUIde <code>A.transp()</code>
+oder kürzer <code>~A</code></p>
+
+<!-- listing-11 -->
+<pre>
+A = Matrix([[3,1], [6,1], [9,1]])
+b = ~Vector([3, 3, 6])
+(~A*A).solve(~A*b)</pre>
+<script type="text/javascript">listingButtons("11")</script>
+
+<p>Damit erhalten wir die Gerade f(<var>x</var>) = 0.5 <var>x</var> + 1<br/>
+Wir plotten diese Funktion und zeigen dazu die Messpunkte an:</p>
+
+<!-- listing-12 -->
+<pre>plot(["1+0.5*x"], 3.0, 9.0, mark=[(3,3),(6,3),(9,6)])</pre>
+<script type="text/javascript">listingButtons("12")</script>
+
+<h2>Mehr Komfort: Die Funktion <code>fit</code></h2>
+<p>Um uns den Matrixansatz zu ersparen, bietet mathGUIde die Funktion <code>fit</code>
+an, die aus den Messwerten und dem Funktionstyp direkt die fertige Funktion berechnet.</p>
+<p>Die Funktion <code>fit</code> erwartet zwei Parameter</p>
+<ol>
+<li>Eine Liste mit den Datenpunkten, jeweils (x,y)</li>
+<li>Eine Liste mit Elementarfunktionen (als Zeichenkette geschrieben!),
+aus denen die gesuchte Funktion als Linearkombination
+zusammengesetzt wird (Variable <var>x</var>)</li>
+</ol>
+<p>Für unser Beispiel übergeben wir:</p>
+
+<!-- listing-13 -->
+<pre>fit([(3,3),(6,3),(9,6)], ["1", "x"])</pre>
+<script type="text/javascript">listingButtons("13")</script>
+
+<h2>Weitere Beispiele</h2>
+
+<h3>Beispiel 1</h3>
+<p>Gesucht ist eine Gerade der Form f(<var>x</var>) = <var>ax</var> + <var>b</var>, die die drei
+Punkte (3,3), (6,4) und (9,6) möglichst gut approximiert (<em>Regressionsgerade</em>).</p>
+
+<!-- listing-01 -->
+<pre>
+points = [(3,3), (6,4), (9,6)]
+<span class="comment"># Gerade ist Linearkombination der beiden folgenden Funktionen:</span>
+functions = [<span class="literal">"x"</span>, <span class="literal">"1"</span>]
+print(fit(points, functions))</pre>
+<script type="text/javascript">listingButtons("01")</script>
+
+
+<p>mathGUIde hat (hier in etwas vereinfachter Form) die Funktion
+f(<var>x</var>) = <var>x</var>/2 + 4/3 geliefert.<br/>
+Zur Kontrolle der Approximation schauen wir uns einen Funktionsplot an:</p>
+
+<!-- listing-02 -->
+<pre>
+points = [(3,3), (6,4), (9,6)]
+functions = [<span class="literal">"x"</span>, <span class="literal">"1"</span>]
+plot(fit(points, functions), 3.0, 9.0, mark=points)</pre>
+<script type="text/javascript">listingButtons("02")</script>
+
+
+<h3>Beispiel 2</h3>
+<p>Eine Parabel soll an vier Punkte angenähert werden:</p>
+
+<!-- listing-03 -->
+<pre>
+points = [(-1,2), (0,2), (1,1), (2,0)]
+functions = [<span class="literal">"1"</span>, <span class="literal">"x"</span>, <span class="literal">"x^2"</span>]
+print(fit(points, functions))</pre>
+<script type="text/javascript">listingButtons("03")</script>
+
+
+<p>Kontrolle des Ergebnisses:</p>
+
+<!-- listing-04 -->
+<pre>
+points = [(-1,2), (0,2), (1,1), (2,0)]
+functions = [<span class="literal">"1"</span>, <span class="literal">"x"</span>, <span class="literal">"x^2"</span>]
+plot(fit(points, functions), -1.0, 2.0, mark=points)</pre>
+<script type="text/javascript">listingButtons("04")</script>
+
+
+
+<h3>Beispiel 3</h3>
+<p>Transzendente Funktion: <code>f(x) = a + b*x*log(x) + c*exp(x)</code><br/>
+Gesucht sind die Koeffizienten <var>a</var>, <var>b</var>, <var>c</var></p>
+
+<!-- listing-05 -->
+<pre>
+functions = [<span class="literal">"1"</span>, <span class="literal">"x*log(x)"</span>, <span class="literal">"exp(x)"</span>]
+<span class="comment"># Die Funktion sollte die folgenden 4 Punkte approximieren:</span>
+points = [(1,1), (2,1), (3,3), (4,8)]
+print(fit(points, functions))</pre>
+<script type="text/javascript">listingButtons("05")</script>
+
+
+<p>Kontrolle des Ergebnisses:</p>
+
+<!-- listing-06 -->
+<pre>
+functions = [<span class="literal">"1"</span>, <span class="literal">"x*log(x)"</span>, <span class="literal">"exp(x)"</span>]
+points = [(1,1), (2,1), (3,3), (4,8)]
+plot(fit(points, functions), 1.0, 4.0, mark=points)</pre>
+<script type="text/javascript">listingButtons("06")</script>
+
+
+</body>
+</html>

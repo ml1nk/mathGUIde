@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Rechnen in Polynomringen</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../styles/guide.css"/>
+ <script type="text/javascript" src="../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../jsMath/plugins/spriteImageFonts.js"/>
+ <script type="text/javascript" src="../listingButtons.js"/>
+</head>
+
+<body>
+<h1>Rechnen in Polynomringen</h1>
+
+<p class="intro">Diese Präsentation zeigt einige der in mathGUIde eingebauten
+Möglichkeiten des Rechnens in Polynomringen</p>
+
+<p>Die Beispiele stammen aus dem Buch <i>Teschl, Gerald; Teschl, Susanne</i>:
+Mathematik für Informatiker, Band 1: Diskrete Mathematik und Lineare Algebra,
+Springer, Berlin, 3. Aufl., 2008, ISBN: 978-3-540-77431-0.</p>
+
+
+<h2>Teschl, Beispiel 4.19</h2>
+<p>Wir untersuchen die Addition und Multiplikation im Polynomring</p>
+<div class="math">
+\mathbb Z_2[x]_{x^2+x+1} = \{ 0, 1, x, x+1 \}
+</div>
+<p>Die folgenden Programmzeilen geben die Additionstafel
+und die Multiplikationstafel in diesem Ring aus.</p>
+<p class="remark">Der mathGUIde-Funktion <code>printTable</code> werden Funktionen
+zur Berechnung der Zellelemente übergeben.
+Wir ersparen uns die separate Definition dieser Funktionen, indem wir sogenannte
+anonyme Funktionen verwenden.
+Diese werden mit dem Schlüsselwort <span class="keyword">lambda</span> definiert:
+Nach dem <span class="keyword">lambda</span> kommt die Parameterliste,
+danach ein Doppelpunkt und der Funktionswert.</p>
+
+<!-- listing-02 -->
+<pre>
+m = Poly([1,1,1], 2) <span class="comment"># 1 + x + x²</span>
+<span class="comment"># Alle Polynome mod m</span>
+<span class="comment">#          0            1              x            1+x</span>
+P = [Poly([0],2), Poly([1],2), Poly([0,1],2), Poly([1,1],2)]
+
+printTable(4, 4,
+    <span class="keyword">lambda</span> i,k: ((P[i] + P[k]) % m).pretty(), <span class="comment"># allgemeines Tabellenelement</span>
+    rowHeadFn = <span class="keyword">lambda</span> i: P[i].pretty(),      <span class="comment"># Zeilenköpfe</span>
+    colHeadFn = <span class="keyword">lambda</span> k: P[k].pretty(),      <span class="comment"># Spaltenköpfe</span>
+    cellAlign = <span class="literal">"left"</span>,
+    title = <span class="literal">"Addition i­n <b>Z</b><sub>2</sub>[x]<sub>x²+x+1</sub>"</span>, corner = <span class="literal">"+"</span>)
+
+printTable(4, 4,
+    <span class="keyword">lambda</span> i,k: ((P[i] * P[k]) % m).pretty(),
+    rowHeadFn = <span class="keyword">lambda</span> i: P[i].pretty(),
+    colHeadFn = <span class="keyword">lambda</span> k: P[k].pretty(),
+    cellAlign = "left",
+    title = <span class="literal">"Multiplikation i­n <b>Z</b><sub>2</sub>[x]<sub>x²+x+1</sub>"</span>, corner = <span class="literal">"*"</span>)</pre>
+<script type="text/javascript">listingButtons("02")</script>
+
+<p>In der Multiplikationstabelle finden Sie in jeder Zeile (außer für Null)
+eine Eins als Multiplikationsergebnis. Mit anderen Worten: Jedes von Null
+verschiedene Element hat ein multiplikatives Inverses. Daher ist der Ring sogar
+ein Körper.</p>
+
+<p>Zum Vergleich machen wir das gleiche Experiment modulo eines anderen Polyonms:</p>
+
+<div class="math">
+\mathbb Z_2[x]_{x^2+1} = \{ 0, 1, x, x+1 \}
+</div>
+
+<!-- listing-03 -->
+<pre>
+m = Poly([1,0,1], 2) <span class="comment"># 1 + x²</span>
+<span class="comment"># Alle Polynome mod m</span>
+<span class="comment">#          0            1              x            1+x</span>
+P = [Poly([0],2), Poly([1],2), Poly([0,1],2), Poly([1,1],2)]
+
+printTable(4, 4,
+    <span class="keyword">lambda</span> i,k: ((P[i] + P[k]) % m).pretty(),
+    rowHeadFn = <span class="keyword">lambda</span> i: P[i].pretty(),
+    colHeadFn = <span class="keyword">lambda</span> k: P[k].pretty(),
+    cellAlign = "left",
+    title = <span class="literal">"Addition i­n <b>Z</b><sub>2</sub>[x]<sub>x²+1</sub>"</span>, corner = <span class="literal">"+"</span>)
+
+printTable(4, 4,
+    <span class="keyword">lambda</span> i,k: ((P[i] * P[k]) % m).pretty(),
+    rowHeadFn = <span class="keyword">lambda</span> i: P[i].pretty(),
+    colHeadFn = <span class="keyword">lambda</span> k: P[k].pretty(),
+    cellAlign = "left",
+    title = <span class="literal">"Multiplikation i­n <b>Z</b><sub>2</sub>[x]<sub>x²+1</sub>"</span>, corner = <span class="literal">"*"</span>)</pre>
+<script type="text/javascript">listingButtons("03")</script>
+
+<p>Hier sieht man, dass es zu <var>x</var>+1 kein multiplikatives Inverses gibt und
+der Ring daher kein Körper ist.</p>
+
+<!--
+# Satz 4.21: Ein Polynom a(x) hat in K[x]_m(x) genau dann
+# ein multiplikatives Inverses, wenn ggT(a,m) = 1 ist.
+#- - - - - - - - - -
+Poly([1,1],2).inverse(Poly([1,1,1],2))
+#- - - - - - - - - -
+Poly([1,1],2).inverse(Poly([1,0,1],2))</pre>
+-->
+
+<h2>Weitere Beispiele</h2>
+
+<h3>Teschl: Beispiel 4.3</h3>
+<div class="math">
+p(x) = x^3 + x,\; q(x) = x + 1 \; \textrm{in} \; \mathbb Z_2[x]
+</div>
+
+<!-- listing-04 -->
+<pre>
+p, q = Poly([0,1,0,1], 2), Poly([1,1], 2)
+p + q   <span class="comment"># 4.3 a)</span>
+q + q   <span class="comment"># 4.3 b)</span>
+p * q   <span class="comment"># 4.3 c)</span></pre>
+<script type="text/javascript">listingButtons("04")</script>
+
+<div class="math">
+p(x) = x^2 + 2x + 1,\; q(x) = x + 2 \; \textrm{in} \; \mathbb Z_3[x]
+</div>
+
+<!-- listing-05 -->
+<pre>
+p, q = Poly([1,2,1], 3), Poly([2,1], 3)
+p + q   <span class="comment"># 4.3 d)</span>
+p * q   <span class="comment"># 4.3 e)</span></pre>
+<script type="text/javascript">listingButtons("05")</script>
+
+<h3>Teschl: Beispiel 4.5</h3>
+
+<!-- listing-06 -->
+<pre>
+<span class="comment"># Teschl: Beispiel 4.5 a): Division und Rest:</span>
+print(Poly([0,-2,0,1,3]) / Poly([1,0,1]))
+print(Poly([0,-2,0,1,3]) % Poly([1,0,1]))</pre>
+<script type="text/javascript">listingButtons("06")</script>
+
+<!-- listing-07 -->
+<pre>
+<span class="comment"># Teschl: Beispiel 4.5 b)</span>
+print(Poly([-2,1,1]) / Poly([-1,1]))
+print(Poly([-2,1,1]) % Poly([-1,1]))</pre>
+<script type="text/javascript">listingButtons("07")</script>
+
+<h3>Teschl: Beispiel 4.9</h3>
+
+<!-- listing-08 -->
+<pre>
+<span class="comment"># Teschl: Beispiel 4.9 a)</span>
+a = 4 * Poly([-1,1])^2
+b = 8 * Poly([-1,1])
+Poly.gcd(a, b)</pre>
+<script type="text/javascript">listingButtons("08")</script>
+
+<!-- listing-09 -->
+<pre><span class="comment"># Teschl: Beispiel 4.9 b)</span>
+a = Poly([-1,3]) * Poly([2,1])^4
+b = Poly([Rational(-1,3),1]) * Poly([2,5])
+print(a.pretty())
+print(b.pretty())
+print(Poly.gcd(a, b).pretty())</pre>
+<script type="text/javascript">listingButtons("09")</script>
+
+<!-- listing-10 -->
+<pre>
+<span class="comment"># Teschl: Beispiel 4.9 c)</span>
+a = 5 * Poly([-1,1])
+b = 5 * Poly([1,1])
+Poly.gcd(a, b)</pre>
+<script type="text/javascript">listingButtons("10")</script>
+
+<h3>Teschl: Beispiel 4.11</h3>
+
+<!-- listing-11 -->
+<pre>
+a = Poly([1,-2,0,1])
+b = Poly([-1,0,1])
+Poly.gcd(a, b)</pre>
+<script type="text/javascript">listingButtons("11")</script>
+
+
+<h2>Irreduzible Polynome</h2>
+
+<p/>
+<div class="def">
+ <p class="title">Definition</p>
+ <p>Ein Polynom vom Grad > 0 heißt <em>irreduzibel</em> (Primpolynom),
+  wenn es nicht Produkt von Polynomen niedrigerer Grade ist.</p>
+</div>
+
+<p>Das folgende Programmstück findet alle irreduziblen Polynome
+aus <span class="textbf">Z</span><sub>2</sub>[<var>x</var>] bis zum Grad 5.<br/>
+Dazu erzeugt es der Reihe nach die Polynome aus den Bitmustern der Binärzahlen
+bis 63 (2<sup>6</sup>-1) und prüft, ob es durch eines der bisher gefundenen
+irreduziblen Polynome teilbar ist:</p>
+
+<!-- listing-12 -->
+<pre>
+primeList = []
+<span class="keyword">for</span> i <span class="keyword">in</span> fromTo(2, 63):
+    f = Poly(NumeralSystem.toBase(i, 2, <span class="keyword">True</span>), 2)
+    divisible = <span class="keyword">False</span>
+    <span class="comment"># Teiler suchen:</span>
+    <span class="keyword">for</span> p <span class="keyword">in</span> primeList:
+        <span class="keyword">if</span> f % p == 0:
+            divisible = <span class="keyword">True</span>
+            <span class="keyword">break</span>
+    <span class="keyword">if not</span> divisible:
+        primeList.append(f)
+        print(<span class="literal">"{0:3d} --> {1}"</span>.format(i, f.pretty()))</pre>
+<script type="text/javascript">listingButtons("12")</script>
+
+<h2>Zyklische Codes (CRC = Cyclic Redundancy Code)</h2>
+<p class="remark">Dieser Abschnitt ist noch unfertig.</p>
+
+<p>Um Blöcke von <var>n</var> Bits zu codieren, wählt man zunächst
+eine Faktorisierung dex Polynoms <var>x<sup>n</sup></var> + 1:</p>
+
+<div class="math">x^n + 1 = g(x) * h(x)</div>
+
+<!-- listing-21 -->
+<pre>
+# Z_2[x]_x^7+1
+x7_1 = Poly([1,0,0,0,0,0,0,1], 2)</pre>
+<script type="text/javascript">listingButtons("21")</script>
+
+
+<p>Wir testen, ob <var>g</var>(<var>x</var>)
+ = <var>x</var><sup>4</sup> + <var>x</var><sup>3</sup> + <var>x</var><sup>2</sup> + 1 ein Teiler ist</p>
+
+<!-- listing-22 -->
+<pre>
+g = Poly([1,0,1,1,1], 2)
+print(x7_1 % g)</pre>
+<script type="text/javascript">listingButtons("22")</script>
+
+<p>Ja. <var>g</var> ist das Generatorpolynom, der andere Faktor das Kontrollpolynom.</p>
+
+<!-- listing-24 -->
+<pre>
+h = x7_1 / g
+print(h)</pre>
+<script type="text/javascript">listingButtons("24")</script>
+
+<p>Wir haben den zyklischen Code</p>
+<div class="math">
+C = \{ f(x) * g(x) | f(x) \in \mathbb Z_2[x]_{x^7+1} \}
+</div>
+
+<p>Da deg(<var>g</var>) = 4 und <var>x</var><sup>7</sup> = 1
+in <span class="textbf">Z</span><sub>2</sub>[<var>x</var>]<sub><var>x</var></sub><span
+  style="font-size:0.5em">7</span><sub>+1</sub>,
+kommen für <var>f</var>(<var>x</var>) nur die Polynome vom Grad &lt; 3 in Frage.</p>
+ 
+<!-- listing-25 -->
+<pre>
+# Beispiel: Codierung des Worts 101 --> f(x) = x² + 1
+m = Poly([1, 0, 1], 2)
+
+c = m * g % x7_1
+
+# Probe: Ist c ein gültiges Codewort?
+c * h % x7_1
+
+# Decodierung
+c / g
+
+# Alle Codewörter:
+for m in fromTo(0,7):
+    f = Poly(NumeralSystem.binary(m, True), 2)
+    c = f * g
+    print(m, " --> ", c)</pre>
+<script type="text/javascript">listingButtons("25")</script>
+
+</body>
+</html>

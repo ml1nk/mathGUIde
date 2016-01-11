@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>LUP-Zerlegung — 2</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../../styles/guide.css"/>
+ <script type="text/javascript" src="../../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../../jsMath/plugins/spriteImageFonts.js"/>
+ <script type="text/javascript" src="../../listingButtons.js"/>
+</head>
+
+<body>
+<h1>LUP-Zerlegung</h1>
+
+<div class="overview">
+<a href="lup1.html">1. Lösung linearer Gleichungen mit LU-Zerlegung</a><br/>
+2. Ein einfacher rekursiver Algorithmus mit einem Schönheitsfehler<br/>
+<a href="lup3.html">3. Umformung in eine Iteration</a><br/>
+<a href="lup4.html">4. Beseitigung des Schönheitsfehlers: LUP-Zerlegung</a>
+</div>
+
+<p class="intro">Diese Präsentation ist unfertig. Sie zeigt einige
+Möglichkeiten des T<sub>E</sub>X-Formelsatzes in mathGUIde
+(unter Verwendung von <a class="web" href="http://www.math.union.edu/~dpvc/jsMath/">jsMath</a>).</p>
+
+<h2>2. Ein einfacher rekursiver Algorithmus mit einem Schönheitsfehler</h2>
+<p>Wir gliedern die quadratische <var>n</var>·<var>n</var>-Matrix</p>
+<div class="math">
+  A = \pmatrix{{a_{11}} &amp;  a_{12} &amp; \ldots &amp; a_{1n} \cr
+               a_{21} &amp; a_{22} &amp; \ldots &amp; a_{2n} \cr
+               \vdots &amp; \vdots &amp; \ddots &amp; \vdots \cr
+               a_{n1} &amp; a_{n2} &amp; \ldots &amp; a_{nn}}
+</div>
+<p>in vier Teilmatrizen:</p>
+<div class="math">
+ \def\blue{\bbox[#e8f0ff,2pt;border:1px #8090ff solid]}
+ \def\white{\bbox[border:1px #8090ff solid]}
+  A = \pmatrix{
+        \white {\matrix{a_{11}}} &amp;
+        \blue  {\matrix{a_{12} &amp; \ldots &amp; a_{1n}}} \cr
+        \blue  {\matrix{a_{21} \cr \vdots \cr a_{n1}}} &amp;
+        \white {\matrix{a_{22} &amp; \ldots &amp; a_{2n} \cr
+                        \vdots &amp; \ddots &amp; \vdots \cr
+                        a_{n2} &amp; \ldots &amp; a_{nn}}}}
+    = \pmatrix{a_{11} &amp; \textbf w \cr
+               \textbf v &amp; A'}
+</div>
+<p>Die Elemente dieser Zerlegung (statt <var>A</var>' schreiben wir <code>A1</code>)
+können wir in mathGUIde so schreiben:</p>
+
+<pre><span style="background-color:#e8f0ff">v = A.submatrix(1,0, n-1,1)
+w = A.submatrix(0,1, 1,n-1)</span>
+A1 = A.submatrix(1,1, n-1,n-1)</pre>
+
+<p class="remark">Zum Verständnis: Die Matrizen-Indizes zählen in mathGUIde nicht ab 1 sondern
+ab Null (um mit den Python-Listen kompatibel zu bleiben).
+Der <code>submatrix</code>-Methode übergibt man in den ersten beiden Parametern
+die Zeile und Spalte des linken oberen Elements der Untermatrix, dann die
+Anzahl der zu übernehmenden Zeilen und Spalten.</p>
+
+<p>Durch Ausmultiplizieren sieht man, dass diese Matrix in folgendes Produkt
+zerlegt werden kann, vorausgesetzt, dass <var>a</var><sub>11</sub> von Null verschieden ist:</p>
+<div class="math">
+ \def\yellow{\bbox[#ffffa0,2pt]}
+  A = \pmatrix{1 &amp; \textbf 0 \cr \frac{1}{a_{11}} \textbf{v} &amp; I_{n-1}}
+      \pmatrix{a_{11} &amp; \textbf w \cr \textbf 0  &amp; \yellow{A' - \frac{1}{a_{11}} \textbf{v w}}}
+</div>
+<p>Wir ziehen uns jetzt an den eigenen Haaren aus dem Sumpf, indem wir das
+Problem auf eine kleinere Matrix abwälzen, nämlich auf die gelb unterlegte
+(<var>n</var>-1)·(<var>n</var>-1)-Matrix. Nehmen wir also einmal an,
+dass wir die als Produkt einer unteren (linken) und einer oberen (rechten) Dreiecksmatrix 
+darstellen können:</p>
+<div class="math">
+ \def\yellow{\bbox[#ffffa0,2pt]}
+ B = \yellow{A' - \frac{1}{a_{11}} \textbf{v w}} = L' U'
+</div>
+<p>Damit erhalten wir</p>
+<div class="math">
+ \def\yellow{\bbox[#ffffa0,2pt]}
+ \def\pink{\bbox[#ffe0e0,2pt]}
+ \def\green{\bbox[#c0ffc0,2pt]}
+  A = \pmatrix{1 &amp; \textbf 0 \cr \frac{1}{a_{11}} \textbf v &amp; I_{n-1}}
+      \pmatrix{a_{11} &amp; \textbf w \cr \textbf 0  &amp; \yellow{L'U'}}
+    = \pink{\pmatrix{1 &amp; \textbf 0 \cr \frac{1}{a_{11}} \textbf{v} &amp; L'}}
+      \green{\pmatrix{a_{11} &amp; \textbf w \cr \textbf 0  &amp; U'}}
+</div>
+<p>Man sieht leicht, dass die rötlich unterlegte Matrix eine untere Dreiecksmatrix
+ist und die grün unterlegte eine obere Dreiecksmatrix.</p>
+
+<p>Vorausgesetzt, dass wir  nicht auf eine Division durch Null stoßen
+(das ist ein wunder Punkt, den wir noch klären müssen),
+können wir also durch rekursive Anwendung dieser Zerlegung eine
+<var>n</var>·<var>n</var>-Matrix in eine untere und eine obere Dreiecksmatrix zerlegen.<br/>
+Wir müssen nur dafür sorgen, dass die Rekursion abbricht. Dazu behandeln wir
+die 1·1-Matrizen separat: Jede 1·1-Matrix ist ja immer gleichzeitig eine
+untere und auch eine obere Dreiecksmatrix, da sie nur aus der Hauptdiagonale
+besteht.<br/>
+Wir können dann einfach schreiben:</p>
+<div class="math">
+ \def\pink{\bbox[#ffe0e0,2pt]}
+ \def\green{\bbox[#c0ffc0,2pt]}
+ \pmatrix{a_{11}} = \pink{\pmatrix{1}} \green{\pmatrix{a_{11}}}
+</div>
+
+<p>Diese Rekursion können wir nun fast direkt in eine mathGUIde-Funktion übernehmen.
+Die farbig unterlegten Programmzeilen entsprechen den farbigen Unterlegungen in den Formeln:</p>
+
+<!-- listing-01 -->
+<pre>
+<span class="keyword">def</span> luRecursive(A):
+    n = A.height()
+    <span class="keyword">if</span> n == 1: <span class="comment"># Rekursionsabbruch: 1·1-Matrix</span>
+        <span class="keyword">return</span> Matrix.identity(1), A.copy()
+<span class="bgBlue">    v = A.submatrix(1,0, n-1,1)
+    w = A.submatrix(0,1, 1,n-1)</span>
+    A1 = A.submatrix(1,1, n-1,n-1)
+<span class="bgYellow">    B = A1 - (1/A[0,0]) * v * w</span>
+    L1, U1 = luRecursive(B) <span class="comment"># Rekursiver Aufruf für (n-1)·(n-1)-Matrix</span>
+<span class="bgPink">    L_top = Matrix.identity(1).joinRight(Matrix.null(1,n-1))
+    L_btm = ((1/A[0,0]) * v).joinRight(L1)
+    L = L_top.joinBottom(L_btm)</span>
+<span class="bgGreen">    U_top = A.submatrix(0,0, 1,1).joinRight(w)
+    U_btm = Matrix.null(n-1,1).joinRight(U1)
+    U = U_top.joinBottom(U_btm)</span>
+    <span class="keyword">return</span> L,U</pre>
+<script type="text/javascript">listingButtons("01")</script>
+
+<p>Wir testen den Algorithmus mit einer 3·3-Matrix:</p>
+
+<!-- listing-02 -->
+<pre>
+A = Matrix.fromString("5,4,2; 1,9,7; 3,0,6")
+L, U = luRecursive(A)
+print(L, U)</pre>
+<script type="text/javascript">listingButtons("02")</script>
+
+<p>Zur Kontrolle vergleichen wir nun die Originalmatrix mit dem Produkt
+der beiden Dreiecksmatrizen:</p>
+
+<!-- listing-03 -->
+<pre>print(A, L*U)</pre>
+<script type="text/javascript">listingButtons("03")</script>
+
+<p><b>Fortsetzung</b>: <a href="lup3.html">3. Umformung in eine Iteration</a></p>
+
+</body>
+</html>

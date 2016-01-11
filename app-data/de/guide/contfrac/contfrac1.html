@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Kettenbrüche – 1</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../../styles/guide.css"/>
+ <script type="text/javascript" src="../../listingButtons.js"/>
+</head>
+
+<body>
+<h1>Kettenbrüche</h1>
+
+<p class="overview">1. Wir basteln einen Mondkalender<br/>
+<a href="./contfrac2.html">2. Wie kommt man auf „optimale Brüche“?</a></p>
+
+<h2>1. Wir basteln einen Mondkalender</h2>
+
+<div class="right-box" style="width:250px">
+  <img alt="gear" src="gear.gif"/><br/>
+  Ein einfaches Getriebe...
+</div>
+
+<h3>Das Innenleben</h3>
+
+<p>Im nebenstehenden Getriebe muss man das rechte Zahnrad etwas mehr
+als viermal herumdrehen, damit sich das linke Zahnrad einmal herumdreht.</p>
+<p>Genauer: Die roten Zahnräder haben 18 und 8 Zähne, die grauen 15 und 8 Zähne.
+Damit ergibt sich von links nach rechts eine Übersetzung von
+(18/8) · (15/8) = 135/32. Das ist rund 4,22.</p>
+
+<div class="right-box" style="width:250px; clear:both">
+  ... und ein Zifferblatt für die äußeren Achsen.<br/>
+  <object data="monduhr.svg" type="image/svg+xml" width="230" height="120"/>
+</div>
+
+<h3>Das Zifferblatt</h3>
+
+<p>Wir wollen dieses Getriebe für einen einfachen Mondkalender verwenden.
+Da die Zeit von Neumond zu Neumond (synodischer Monat) etwas länger als vier
+Wochen ist, könnten wir an der rechten Achse einen Wochenzeiger
+und an der  linken Achse einen Mondphasenzeiger anbringen.
+Dieses Gerät arbeitet unkompliziert und ohne CO<sub>2</sub>-Ausstoß.
+Sie brauchen einfach nur jeden Morgen den Tageszeiger um einen Wochentag
+weiterzudrehen.</p>
+
+<h3>Wie genau ist dieser Kalender?</h3>
+
+<p>Wenn Sie sich das einfache Übersetzungsverhältnis anschauen, werden Sie sicher
+nicht erwarten, dass dieses Lowtech-Gerät längere Zeit genau geht.
+Um das nachzuprüfen, benötigen wir die mittlere Dauer eines Mondmonats so
+genau wie möglich. Die finden Sie z.B. in der Wikipedia unter
+<a class="web" href ="http://de.wikipedia.org/wiki/Synodischer_Monat">
+Synodischer Monat</a>. Es sind gerundet 29,53059 Tage.</p>
+
+<p>Vergleichen wir einmal diesen wirklichen Wert mit dem unseres Getriebes:</p>
+
+<!-- listing-01 -->
+<pre>echteMondwochen = 29.53059 / 7
+getriebeMondwochen = (18/8) * (15/8)
+relativeAbweichung = getriebeMondwochen/echteMondwochen - 1
+print(relativeAbweichung)</pre>
+<script type="text/javascript">listingButtons("01")</script>
+
+<p>Wir multiplizieren nun die relative Abweichung mit der mittleren Dauer
+eines Jahres in Tagen. Der Kehrwert davon ergibt die Jahre, die vergehen müssen,
+bis die Mondphase um einen Tag falsch angezeigt wird (was noch kaum auffällt!):
+</p>
+
+<!-- listing-02 -->
+<pre>tageAbweichungProJahr = relativeAbweichung * 365.24
+jahreBisTagAbweichung = 1/tageAbweichungProJahr
+print(jahreBisTagAbweichung)
+</pre>
+<script type="text/javascript">listingButtons("02")</script>
+
+<div class="right-box" style="width:240px">
+  <!--embed src="monduhr2.svg" width="220" height="220"/><br/-->
+  <object data="monduhr2.svg" type="image/svg+xml" width="220" height="220"/>
+
+  Wochentags- und Mondphasen-Anzeige einer Armbanduhr.<br/>
+  Auf der drehbaren Himmelsscheibe befinden sich zwei gegenüberliegende Monde,
+  die durch die herzförmige Blende abgedeckt werden.
+</div>
+
+<p>Sie sehen, dass unser einfaches Getriebe erstaunlich genau ist: Erst nach 122
+Jahren ist die Mondphase um nur einen Tag verschoben. Getriebe mit dieser Genauigkeit
+werden auch in vielen Armbanduhren mit Mondphasenanzeige verwendet.</p>
+
+<p>Da die Himmelsscheibe sich wegen der zwei Monde in einem (synodischen) Monat
+nur halb drehen darf, muss für die Übersetzung vom Wochenzeiger auf die
+Mondscheibe unser berechnetes Verhältnis auf 135/16 verdoppelt werden.</p>
+<p class="remark">Solche Anzeigen sind übrigens etwas unrealistisch, weil sie immer eine kreisförmige
+Beleuchtungsgrenze zeigen. In Wirklichkeit ist diese Grenze natürlich elliptisch
+(und im ersten und letzten Viertel geradlinig)!</p>
+
+<p><b>Fortsetzung</b>:<br/>
+<a href="./contfrac2.html">2. Wie kommt man auf „optimale Brüche“?</a></p>
+
+</body>
+</html>

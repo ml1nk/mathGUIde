@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Rational</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="../styles/doc.css"/>
+</head>
+<body>
+<p><a href="mathguide.html">Hauptübersicht</a></p>
+<h1>Klasse <code>Rational</code></h1>
+<p> Klasse <code>Rational</code>: Rationale Zahl<br/>
+        <b>Rational(p, q)</b> Beispiel: <code>Rational(3,17)</code><br/>
+        <b>Rational(n)</b> Beispiel: <code>Rational(3)</code><br/>
+        <b>Rational(s)</b> Beispiel: <code>Rational("3/17")</code><br/>
+        <code>Rational</code>-Objekte können mit den
+        arithmetischen Operatoren +, -, *, / verknüpft werden.</p>
+<div id="overview"><p style="margin-top:0">Übersicht:</p>
+<h2>Konstruktor</h2>
+<p><a href="#constr">Rational</a> (p, q=1)</p>
+<h2>Operatoren</h2>
+<table><tr><td><b>Operator</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#absx28xx29">abs(x)</a></td><td></td></tr>
+<tr><td><a href="#xx20x2bx20y">x + y</a></td><td>Addition</td></tr>
+<tr><td><a href="#xx20x2fx20y">x / y</a></td><td>        a / b  <span style="font-family:Wingdings">à</span> a.__div__(b),  if a is of type Rational
+                   b.__rdiv__(a), otherwise
+    </td></tr>
+<tr><td><a href="#xx20x3dx3dx20y">x == y</a></td><td></td></tr>
+<tr><td><a href="#floatx28xx29">float(x)</a></td><td></td></tr>
+<tr><td><a href="#xx20x2fx2fx20y">x // y</a></td><td></td></tr>
+<tr><td><a href="#intx28xx29">int(x)</a></td><td></td></tr>
+<tr><td><a href="#longx28xx29">long(x)</a></td><td></td></tr>
+<tr><td><a href="#xx20x2ax20y">x * y</a></td><td>        a * b  <span style="font-family:Wingdings">à</span> a.__mul__(b),  if a is of type Rational
+                   b.__rmul__(a), otherwise
+    </td></tr>
+<tr><td><a href="#xx20x21x3dx20y">x != y</a></td><td></td></tr>
+<tr><td><a href="#x2dx">-x</a></td><td>        -a <span style="font-family:Wingdings">à</span> a.__neg__()
+    </td></tr>
+<tr><td><a href="#strx28xx29">str(x)</a></td><td>    </td></tr>
+<tr><td><a href="#xx20x2dx20y">x - y</a></td><td>        a - b  <span style="font-family:Wingdings">à</span> a.__sub__(b),  if a is of type Rational
+                   b.__rsub__(a), otherwise
+    </td></tr>
+<tr><td><a href="#xx20x2fx20y">x / y</a></td><td></td></tr>
+</table>
+<h2>Objektmethoden</h2>
+<table><tr><td><b>Methode</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#abs">abs</a> ()</td><td>Absolutbetrag</td></tr>
+<tr><td><a href="#copy">copy</a> ()</td><td>unabhängige Kopie von r</td></tr>
+<tr><td><a href="#isInteger">isInteger</a> ()</td><td></td></tr>
+<tr><td><a href="#operators">operators</a> ()</td><td>Nur zur Dokumentation</td></tr>
+<tr><td><a href="#toFloat">toFloat</a> ()</td><td>Konvertierung in Gleitkommazahl</td></tr>
+<tr><td><a href="#toInt">toInt</a> ()</td><td>Rundung zur nächsten ganzen Zahl</td></tr>
+<tr><td><a href="#toStr">toStr</a> ()</td><td>Darstellung als String</td></tr>
+</table>
+</div><h1>Konstruktor</h1>
+<h3><a id="constr">Rational</a></h3>
+<p> Konstruktor</p>
+<p><b>Aufruf:</b> <code>Rational(p, q=1)</code></p>
+<hr/>
+<h1>Operatoren</h1>
+<h3><a id="absx28xx29">abs(x)</a></h3>
+<p> Absolutbetrag</p>
+<p><b>Aufruf:</b> <code>abs(x)</font></p>
+<hr/>
+<h3><a id="xx20x2bx20y">x + y</a></h3>
+<p> <b>a.__add__(b)</b><br/></p>
+<p><b>Aufruf:</b> <code>x + y</font></p>
+<p><b>Beschreibung</b>:<br/>        <i>Addition</i><br/>
+        Also operator notation: <b>a + b</b><br/>
+        Instead of <code>a = a + b</code> you can write <code>a += b</code>.
+    </p><hr/>
+<h3><a id="xx20x2fx20y">x / y</a></h3>
+<p> exact Division</p>
+<p><b>Aufruf:</b> <code>x / y</font></p>
+<p><b>Beschreibung</b>:<br/>        a / b  <span style="font-family:Wingdings">à</span> a.__div__(b),  if a is of type Rational
+                   b.__rdiv__(a), otherwise
+    </p><hr/>
+<h3><a id="xx20x3dx3dx20y">x == y</a></h3>
+<p></p>
+<p><b>Aufruf:</b> <code>x == y</font></p>
+<hr/>
+<h3><a id="floatx28xx29">float(x)</a></h3>
+<p> Umwandlung in Gleitkommazahl</p>
+<p><b>Aufruf:</b> <code>float(x)</font></p>
+<hr/>
+<h3><a id="xx20x2fx2fx20y">x // y</a></h3>
+<p></p>
+<p><b>Aufruf:</b> <code>x // y</font></p>
+<hr/>
+<h3><a id="intx28xx29">int(x)</a></h3>
+<p> Auf-/Abrundung zur nächsten Ganzzahl</p>
+<p><b>Aufruf:</b> <code>int(x)</font></p>
+<hr/>
+<h3><a id="longx28xx29">long(x)</a></h3>
+<p> Auf-/Abrundung zur nächsten Ganzzahl</p>
+<p><b>Aufruf:</b> <code>long(x)</font></p>
+<hr/>
+<h3><a id="xx20x2ax20y">x * y</a></h3>
+<p> Multiplication:</p>
+<p><b>Aufruf:</b> <code>x * y</font></p>
+<p><b>Beschreibung</b>:<br/>        a * b  <span style="font-family:Wingdings">à</span> a.__mul__(b),  if a is of type Rational
+                   b.__rmul__(a), otherwise
+    </p><hr/>
+<h3><a id="xx20x21x3dx20y">x != y</a></h3>
+<p></p>
+<p><b>Aufruf:</b> <code>x != y</font></p>
+<hr/>
+<h3><a id="x2dx">-x</a></h3>
+<p> Unary operator -</p>
+<p><b>Aufruf:</b> <code>-x</font></p>
+<p><b>Beschreibung</b>:<br/>        -a <span style="font-family:Wingdings">à</span> a.__neg__()
+    </p><hr/>
+<h3><a id="strx28xx29">str(x)</a></h3>
+<p> Object representation as string</p>
+<p><b>Aufruf:</b> <code>str(x)</font></p>
+<p><b>Beschreibung</b>:<br/>    </p><hr/>
+<h3><a id="xx20x2dx20y">x - y</a></h3>
+<p> Subtraction:</p>
+<p><b>Aufruf:</b> <code>x - y</font></p>
+<p><b>Beschreibung</b>:<br/>        a - b  <span style="font-family:Wingdings">à</span> a.__sub__(b),  if a is of type Rational
+                   b.__rsub__(a), otherwise
+    </p><hr/>
+<h3><a id="xx20x2fx20y">x / y</a></h3>
+<p></p>
+<p><b>Aufruf:</b> <code>x / y</font></p>
+<hr/>
+<h1>Objektmethoden</h1>
+<h3><a id="abs">abs</a></h3>
+<p> <b>r.abs()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.abs()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Absolutbetrag</i><br/>
+        Auch globale Funktion: <b>abs(r)</b><br/></p><hr/>
+<h3><a id="copy">copy</a></h3>
+<p> <b>r.copy()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.copy()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>unabhängige Kopie von r</i></p><hr/>
+<h3><a id="isInteger">isInteger</a></h3>
+<p></p>
+<p><b>Aufruf:</b> <code>self.isInteger()</code></p>
+<hr/>
+<h3><a id="operators">operators</a></h3>
+<p> <b>Rational.operators()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.operators()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Nur zur Dokumentation</i><br/>
+        Die Klasse <b>Rational</b> erlaubt folgende Operatoren:<br/>
+        <table>
+         <tr><th>Op.</th><th>Funktion</th><th>Beispiele</th></tr>
+         <tr><th>+</th><td>Addition</td><td><code>a + b; a += b</code></td></tr>
+         <tr><th>-</th><td>Subtraktion</td><td><code>a - b; a -= b</code></td></tr>
+         <tr><th>*</th><td>Multiplikation</td><td><code>a * b; a *= b</code></td></tr>
+         <tr><th>/</th><td>Division</td><td><code>a / b; a /= b</code></td></tr>
+         <tr><th>-</th><td>unäres Minus</td><td><code>-a</code></td></tr>
+         <tr><th>&lt; > &lt;= >=</th><td>Vergleichsoperatoren</td><td></td></tr>
+        </table>
+        <font color="#000080" size="-2">Diese Methode dient nur zur Dokumentation. Sie hat keine Wirkung.</font></p><hr/>
+<h3><a id="toFloat">toFloat</a></h3>
+<p> <b>r.toFloat()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.toFloat()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Konvertierung in Gleitkommazahl</i><br/>
+        Auch globale Funktion: <b>float(r)</b><br/></p><hr/>
+<h3><a id="toInt">toInt</a></h3>
+<p> <b>r.toInt()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.toInt()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Rundung zur nächsten ganzen Zahl</i><br/>
+        Auch globale Funktion: <b>int(r)</b><br/></p><hr/>
+<h3><a id="toStr">toStr</a></h3>
+<p> <b>r.toStr()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.toStr()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Darstellung als String</i><br/>
+        Auch globale Funktion: <b>str(r)</b><br/></p><hr/>
+</body></html>

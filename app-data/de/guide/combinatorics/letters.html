@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Kombinatorik – Vertauschte Briefe</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../../styles/guide.css"/>
+ <script type="text/javascript" src="../../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../../jsMath/plugins/spriteImageFonts.js"/>
+ <script type="text/javascript" src="../../listingButtons.js"/>
+</head>
+
+<body>
+<h1>Kombinatorik</h1>
+
+<h2>2. Vertauschte Briefe</h2>
+<div class="right-img"><img alt="letters" src="letters.png"/></div>
+
+<p class="intro"><var>n</var> Briefe werden mit verbundenen Augen in ihre <var>n</var> Umschläge gesteckt.
+Wie groß ist die Wahrscheinlichkeit, dass dabei kein Brief in den richtigen Umschlag kommt?</p>
+
+<p class="remark">Wenn Sie es etwas abstrakter mögen, können Sie auch nach dem
+Anteil der fixpunktfreien Abbildungen unter allen bijektiven Abbildungen auf der
+Menge {1, 2, ..., <var>n</var>} fragen.</p>
+
+<ul>
+ <li><b><var>n</var> = 1</b>:<br/>
+  Wenn wir nur einen Brief und einen Umschlag haben,
+  können wir nichts falsch machen:<br/>
+  Die gesuchte Wahrscheinlichkeit ist also <b>0</b>.</li>
+ <li><b><var>n</var> = 2:</b><br/>
+  Hier gibt es zwei Möglichkeiten, die Wahrscheinlichkeit ist <b>1/2</b>.</li>
+ <li><b><var>n</var> = 3</b>:<br/>
+  Wir betrachten die sechs möglichen Permutationen:<br/>
+  <span class="bgGreen">1</span>, <span class="bgGreen">2</span>, <span class="bgGreen">3</span><br/>
+  <span class="bgGreen">1</span>, 3, 2<br/>
+  2, 1, <span class="bgGreen">3</span><br/>
+  2, 3, 1 (kein Brief im richtigen Umschlag)<br/>
+  3, 1, 2 (kein Brief im richtigen Umschlag)<br/>
+  3, <span class="bgGreen">2</span>, 1<br/>
+  Nur in zwei der sechs Permutationen liegt kein Brief im richtigen Umschlag.<br/>
+  Die Wahrscheinlichkeit ist also <b>1/3</b>.
+ </li>
+</ul>
+
+<p>Bevor Sie weiter lesen, schätzen Sie bitte einmal, wie groß die
+Wahrscheinlichkeit ist, dass bei einer Million Briefen
+keiner im im richtigen Umschlag steckt!</p>
+
+<p>Für einige weitere kleine <var>n</var> überlassen wir mathGUIde das
+sture Überprüfen aller Permutationen:</p>
+
+<!-- listing-05 -->
+<pre><span class="comment"># Anteil der Permutationen von 0, 1, ..., n-1,
+# in denen keine Zahl auf sich selbst abgebildet wird.</span>
+<span class="keyword">def</span> alleVertauscht(n):
+    r = fromTo(0, n-1)
+    falsche = [all([i != p[i] <span class="keyword">for</span> i <span class="keyword">in</span> r]) <span class="keyword">for</span> p <span class="keyword">in</span> permutations(r)]
+    <span class="keyword">return</span> falsche.count(True) / factorial(n)
+
+<span class="comment"># Test für n = 1, 2, ..., 8:</span>
+printValueTable(
+    [ (lambda n: <span class="literal">"{0}%"</span>.format(100*alleVertauscht(n)),
+      "alle Vertauscht")],
+    "n", 1, 8, 1)
+</pre>
+<script type="text/javascript">listingButtons("05")</script>
+
+
+<p>Die Tabelle drängt die Vermutung auf, dass die Wahrscheinlichkeit sehr
+schnell gegen einen Wert von ungefähr 0.3679 konvergiert.<br/>
+Dass diese Vermutung richtig ist, wollen wir uns nun klarmachen.</p>
+
+<p><var>A<sub>k</sub></var> sei die Menge aller Permutationen,
+bei denen der <var>k</var>-te Brief im richtigen Umschlag steckt.<br/>
+Dann ist</p>
+
+<div class="math">
+P_{\ge 1}(n) = | A_1 \cup A_2 \cup \ldots \cup A_n |
+</div>
+
+<p>die Anzahl der Permutationen, bei denen mindestens ein Brief
+im richtigen Umschlag steckt.</p>
+<p>Nach dem <a class="web"
+href="http://de.wikipedia.org/wiki/Prinzip_von_Inklusion_und_Exklusion">
+Prinzip der Ein- und Ausschließung</a> ist daher</p>
+
+<div class="math">
+ \def\green{\bbox[#c0ffc0,2pt]}
+ P_{\ge 1}(n) = \sum_{i=1}^n \left| A_i \right|
+ - \sum_{1\le i&lt;j\le n} \left| A_i \cap A_j \right|
+ +  \green{\sum_{1\le i&lt;j&lt;k\le n} \left| A_i \cap A_j \cap A_k \right|}
+ - \ldots \pm \left| \bigcap_{i=1}^n A_i \right|
+</div>
+
+<p>Den <span class="bgGreen">grün unterlegten Term</span> können wir so berechnen:
+<span class="bgBlue">3 Briefe (<var>i</var>, <var>j</var>, <var>k</var>)
+aus <var>n</var> Briefen auswählen</span> (und in die richtigen Umschläge stecken),
+<span class="bgOcher">die <var>n</var>-3 übrigen Briefe beliebig verteilen</span>:</p>
+
+<div class="math">
+ \def\blue{\bbox[#c0e0ff,2pt]}
+ \def\ocher{\bbox[#ffe0a0,2pt]}
+ \def\green{\bbox[#c0ffc0,2pt]}
+ \blue{n \choose 3} \ocher{(n-3)!}
+ = \blue{\frac{n!}{3! (n-3)!}} \ocher{(n-3)!} = \green{\frac{n!}{3!}}
+</div>
+
+<p>Ebenso ergeben sich die übrigen Terme:</p>
+
+<div class="math">
+\def\green{\bbox[#c0ffc0,2pt]}
+P_{\ge 1}(n) = \frac{n!}{1!}
+ - \frac{n!}{2!} + \green{\frac{n!}{3!}} - \ldots \pm \frac{n!}{n!}
+= \sum_{k=1}^n (-1)^{k-1} \frac{n!}{k!} 
+</div>
+
+<p>Damit ist die <b>Anzahl</b> der Möglichkeiten, bei denen <b>alle Briefe im falschen
+Umschlag</b> stecken</p>
+
+<div class="math">
+P_0(n) = n! - P_{\ge 1}(n) = \sum_{k=0}^n (-1)^k \frac{n!}{k!}
+ = \sum_{k=2}^n (-1)^k \frac{n!}{k!}
+</div>
+
+<p>Die <b>Wahrscheinlichkeit</b> dafür,
+dass alle Briefe im falschen Umschlag stecken, ist also</p>
+
+<div class="math">
+\frac{P_0(n)}{n!} = \sum_{k=2}^n \frac{(-1)^k}{k!}
+</div>
+
+<p>Die Wahrscheinlichkeit konvergiert mit <var>n</var>.
+Das erkennt man mit der Reihenentwicklung der Exponentialfunktion:</p>
+
+<div class="math">
+\begin{eqnarray}
+e^x &amp; = &amp; \sum_{n=0}^\infty \frac{x^n}{n!} \cr
+e^{-1} &amp; = &amp; \sum_{n=0}^\infty \frac{{-1}^n}{n!}
+                   = \sum_{n=2}^\infty \frac{{-1}^n}{n!}
+                   = \lim_{n\to\infty}\frac{P_0(n)}{n!}
+\end{eqnarray}
+</div>
+
+<p>Der Grenzwert für die Wahrscheinlichkeit,
+dass alle Briefe im falschen Umschlag stecken,
+ist demnach:</p>
+
+<!-- listing-06 -->
+<pre>exp(-1)</pre>
+<script type="text/javascript">listingButtons("06")</script>
+
+
+</body>
+</html>

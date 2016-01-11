@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Summen von natürlichen Zahlen — 1</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../../styles/guide.css"/>
+ <script type="text/javascript" src="../../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../../jsMath/plugins/spriteImageFonts.js"/>
+ <script type="text/javascript" src="../../listingButtons.js"/>
+</head>
+
+<body>
+<h1>Summen von natürlichen Zahlen</h1>
+
+<p class="overview">1. Die ersten hundert natürlichen Zahlen<br/>
+<a href="int-sum2.html">2. Summen von Quadrat- und Kubikzahlen</a><br/>
+<a href="int-sum3.html">3. Summen höherer Potenzen</a></p>
+
+<div class="right-img"><img alt="gauss" src="../img/gauss.png"/></div>
+
+<p class="intro">Diese Präsentation führt Sie – ausgehend von einer berühmten Anekdote –
+in die Verwendung des Summenzeichens ein und zeigt exemplarisch, wie die
+spielerische Beschäftigung mit Spezialfällen zu allgemeinen Erkenntnissen führen kann.</p>
+
+<h2>1. Die ersten hundert natürlichen Zahlen</h2>
+
+<p>Eine berühmte Anekdote über Carl Friedrich
+<a class="web" href="http://de.wikipedia.org/wiki/Carl_Friedrich_Gau%C3%9F">Gauß</a>,
+einen der größten Mathematiker aller Zeiten, beginnt in der Version aus
+<a class="web" href="http://de.wikipedia.org/wiki/Daniel_Kehlmann">Daniel Kehlmanns</a>
+Roman „<a class="web" href="http://de.wikipedia.org/wiki/Die_Vermessung_der_Welt">Die
+Vermessung der Welt</a>“ so:</p>
+
+<div class="quote"><p>Der Lehrer in der Schule hieß Büttner und prügelte gern. [...]</p>
+<p>Büttner hatte ihnen aufgetragen, alle Zahlen von eins bis hundert zusammenzuzählen.
+Das würde Stunden dauern, und es war beim besten Willen nicht zu schaffen,
+ohne irgendwann einen Additionsfehler zu machen, für den man bestraft werden konnte.
+Na los, hatte Büttner gerufen, keine Maulaffen feilhalten, anfangen, los!
+Später hätte Gauß nicht mehr sagen können, ob er an diesem Tag müder gewesen war
+als sonst oder einfach nur gedankenlos. Jedenfalls hatte er sich nicht unter Kontrolle
+gehabt und stand nach drei Minuten mit seiner Schiefertafel, auf die nur eine einzige
+Zeile geschrieben war, vor dem Lehrerpult.</p>
+</div>
+
+<p>Natürlich können wir den Computer solche Summen berechen lassen.
+Der schafft das durch stures Aufaddieren in praktisch nicht wahrnehmbarer Zeit.
+Dieser Komfort kann uns aber leider auch von der Entwicklung einer effizienten Lösung abhalten.
+Wenn wir dann nicht die Summe von 1 bis 100
+sondern z.B. bis 10<sup>100</sup> benötigen, scheitert auch der schnellste Computer.
+Nachdenken lohnt sich auch heute noch!</p>
+
+
+<h3>Das Summenzeichen</h3>
+
+<p>Die gesuchte Summe ist</p>
+ <div class="math">
+  1+2+3+\ldots+100
+ </div>
+
+<p class="question">Ist das nicht eine etwas schwammige Schreibweise?</p>
+
+<p>Tatsächlich bleibt es dem Leser überlassen, die Bedeutung der drei Punkte
+zu erfassen. Ihnen ist wahrscheinlich sofort klar, was z.B. mit</p>
+ <div class="math">
+  1+2+4+8+16+\ldots+1024
+ </div>
+<p>gemeint ist. Trotzdem verwendet man die Pünktchen-Schreibweise in der Praxis
+nur mit gleichbleibenden Abständen.</p>
+
+<p>Klarer und kürzer kann man Summen mit dem Summensymbol (großer
+griechischer Buchstabe Sigma) schreiben:</p>
+ <div class="math">
+  \sum_{i=1}^{100} i
+ </div>
+<p>Damit werden für <var>i</var> der Reihe nach alle Werte vom Anfangswert 1 bis zum Endwert 100
+eingesetzt und aufsummiert.</p>
+
+<p>Statt der Laufvariablen <var>i</var> kann rechts auch ein beliebiger Term stehen,
+der jeweils in Abhängigkeit von <var>i</var> berechnet wird:</p>
+
+<div class="math">
+  \sum_{i=n_0}^{n_1} f(i)
+</div>
+
+<p>Die Bedeutung einer solchen Summe könnte man in mathGUIde
+allgemein so definieren:</p>
+
+<!-- listing-01 -->
+<pre>
+<span class="keyword">def</span> sigma(n0, n1, f):
+    sum = 0         <span class="comment"># anfangs leere Summe</span>
+    i = n0          <span class="comment"># i auf Startwert setzen</span>
+    <span class="keyword">while</span> i &lt;= n1:  <span class="comment"># solange i den Endwert nicht überschreitet...</span>
+        sum += f(i) <span class="comment"># ...die Summe um f(i) erhöhen</span>
+        i += 1      <span class="comment"># ...und i um eins erhöhen</span>
+    <span class="keyword">return</span> sum</pre>
+<script type="text/javascript">listingButtons("01")</script>
+
+<p class="remark">Wieso kommt in der Parameterliste
+der Funktion <code>sigma</code> die Variable <var>i</var> nicht vor?
+Das hat einen guten Grund: <var>i</var> dient ja nur als Hilfsvariable für das Durchzählen
+der in die Summe einzusetzenden Werte. Man könnte dafür auch eine beliebige andere
+Variable nehmen, ohne den Wert der Summe zu verändern. In der Implementierung haben
+wir dafür willkürlich die lokale Variable <code>i</code> verwendet.</p>
+
+<p>Dass die Laufvariable nicht prinzipiell zur Summe gehört,
+sondern nur ein Hilfsmittel in der Implementierung ist,
+zeigt die folgende rekursive Implementierung, die ganz
+ohne lokale Variablen auskommt:</p>
+
+<pre>
+<span class="keyword">def</span> sigma(n0, n1, f):
+    <span class="keyword">if</span> n0 > n1:   <span class="comment"># Startwert ist schon größer als Endwert!</span>
+        <span class="keyword">return</span> 0
+    <span class="keyword">else</span>:         <span class="comment"># Summe der Funktionswerte von Startwert und Rest</span>
+        <span class="keyword">return</span> f(n0) + sigma(n0+1, n1, f)</pre>
+
+
+<p class="remark">In Python gibt es mit dieser Variante leider ein technisches Problem:
+Wegen der begrenzten Rekursionstiefe funktioniert sie nur bei nicht allzu großer Laufweite.<br/>
+Manche Programmiersprachen erkennen hier, dass der rekursive Funktionsaufruf die letzte Aktion zur Berechnung des Funktionswerts ist, und optimieren ihn weg.</p>
+
+<p>In unserem Beispiel ist f(<var>i</var>) = <var>i</var>, <var>n</var><sub>0</sub> = 1 und <var>n</var><sub>1</sub> = 100.<br/>
+Damit können wir die gesuchte Summe so berechnen:</p>
+
+<!-- listing-02 -->
+<pre>
+<span class="keyword">def</span> f(i):
+    <span class="keyword">return</span> i
+sigma(1, 100, f)</pre>
+<script type="text/javascript">listingButtons("02")</script>
+
+<p class="question">Das ist aber etwas umständlich, dass man erst eine Funktion
+definieren muss, die man nur einmal benötigt!
+
+<p>Ja, deshalb gibt es auch die Möglichkeit, eine anonyme Funktion zu verwenden:</p>
+
+<!-- listing-03 -->
+<pre>sigma(1, 100, <span class="keyword">lambda</span> i:i)</pre>
+<script type="text/javascript">listingButtons("03")</script>
+
+<p class="remark">Mit dem Schlüsselwort <code><span class="keyword">lambda</span></code>
+beginnt man in Python die Definition einer anonymen Funktion.
+Danach folgen, durch Komma getrennt, die Parameter (hier nur einer)
+und dann nach einem Doppelpunkt der Funktionswert.</p>
+
+<h3>Kleine Übungen zum Summenzeichen</h3>
+<p>Bitte prüfen Sie Ihr Verständnis des Summenzeichens an den folgenden Beispielen:</p>
+<div class="math">
+  \sum_{i=2}^4 {i^2}   \quad \quad
+  \sum_{k=-1}^1 {k^4}  \quad \quad
+  \sum_{i=1}^{10} 3    \quad \quad
+  \sum_{i=1}^{0} (i+5) \quad \quad
+</div>                    
+<p class="remark">Bevor Sie mathGUIde die Lösungen anzeigen lassen,
+versuchen Sie es bitte erst selbst!<br/>
+Als Gedächtnisstütze können Sie die Definition der Funktion
+<code>sigma</code> noch einmal ins Eingabefenster
+<a class="button" href="mathguide:listing-01">kopieren</a>.</p>
+
+<!-- listing-04 -->
+<pre>
+sigma( 2,  4, <span class="keyword">lambda</span> i: i^2)
+sigma(-1,  1, <span class="keyword">lambda</span> k: k^4)
+sigma( 1, 10, <span class="keyword">lambda</span> i: 3)
+sigma( 1,  0, <span class="keyword">lambda</span> i: i+5)</pre>
+<script type="text/javascript">listingButtons("04")</script>
+
+
+<p class="remark">Die dritte Summe sieht zwar etwas ungewöhnlich aus, ist aber durchaus korrekt:
+Im Term hinter dem Summenzeichen kommt die Laufvariable gar nicht vor.
+Hier wird also zehnmal der konstante Wert 3 aufsummiert.<br/>
+Auch die vierte Summe ist ungewöhnlich:
+Der Endwert der Laufvariable ist kleiner als der Anfangswert.
+Was passiert hier mit der <span class="keyword">while</span>-Schleife
+in der Definition von <code>sigma</code>?
+
+
+<h3>Die Gauß'sche Lösung des Problems</h3>
+
+<p class="question">Hat Gauß denn wirklich alle 100 Zahlen einzeln addiert?</p>
+
+<p>Bei Kehlmann geht die Anekdote so weiter:</p>
+
+<div class="quote"><p>So, sagte Büttner und griff nach dem Stock.
+Sein Blick fiel auf das Ergebnis, und seine Hand erstarrte.
+Er fragte, was das solle.</p>
+
+<p>Fünftausendfünfzig.</p>
+
+<p>Was?</p>
+
+<p>Gauß versagte die Stimme, er räusperte sich, er schwitzte. Er wünschte nur, er wäre noch auf seinem Platz und rechnete wie die anderen, die mit gesenktem Kopf dasaßen und taten, als hörten sie nicht zu. Darum sei es doch gegangen, eine Addition aller Zahlen von eins bis hundert. Hundert und eins ergebe hunderteins. Neunundneunzig und zwei ergebe hunderteins. Achtundneunzig und drei ergebe hunderteins. Immer hunderteins. Das könne man fünfzigmal machen. Also fünfzig mal hunderteins.
+Büttner schwieg.
+Fünftausendfünfzig, wiederholte Gauß, in der Hoffnung, daß Büttner es ausnahmsweise verstehen würde.</p>
+</div>
+
+<p>Diese Paarbildung geht auf, weil Hundert eine gerade Zahl ist.
+Damit es auch für ungerade Zahlen funktioniert, schreiben wir die Summe zweimal auf,
+einmal vorwärts und einmal rückwärts:</p>
+
+<div class="math">
+  \begin{eqnarray}
+        &amp; 1   &amp; + &amp;  2 &amp; + &amp;  3 &amp; + &amp; \ldots &amp; + &amp;98 &amp; + &amp; 99 &amp; + &amp; 100  \\
+      = &amp; 100 &amp; + &amp; 99 &amp; + &amp; 98 &amp; + &amp; \ldots &amp; + &amp; 3 &amp; + &amp; 2  &amp; + &amp; 1
+  \end{eqnarray}
+</div>
+
+<div class="right-box" style="width:160px; clear:both">
+  Die Summe von 1 bis 5 lässt sich zweimal in einem 5·6-Rechteck unterbringen.<br/>
+  <!--embed src="int-sum1.svg" width="156" height="186"/-->
+  <object data="int-sum1.svg" type="image/svg+xml"  width="156" height="186"/>
+</div>
+
+<p>so ergeben die übereinanderstehenden Zahlen jeweils 101.<br/>
+Die doppelte Summe ist also 100·101 = 10100 und damit die einfache Summe 5050.</p>
+
+<p>Für allgemeinere Summen von 1 bis <var>n</var> ergibt sich auf diese Weise:</p>
+<div class="math">
+  2 \sum_{i=1}^n i = n(n+1)
+</div>
+und damit:
+<div class="math">
+  \sum_{i=1}^n i = \frac{n(n+1)}2
+</div>
+
+<p>Zur Belohnung für unser Nachdenken rechnet mathGUIde uns jetzt mal eben die Summe
+der natürlichen Zahlen bis 10<sup>100</sup> aus.
+Der Operator <code>//</code> steht für ganzzahlige Division:</p>
+
+<!-- listing-05 -->
+<pre>
+n = 10^100
+print(n*(n+1) // 2)</pre>
+<script type="text/javascript">listingButtons("05")</script>
+
+<p><b>Fortsetzung</b>: <a href="int-sum2.html">Summen von Quadratzahlen</a></p>
+
+</body>
+</html>

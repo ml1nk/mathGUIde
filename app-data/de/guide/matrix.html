@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Matrizenrechnung</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../styles/guide.css"/>
+ <script type="text/javascript" src="../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../jsMath/plugins/spriteImageFonts.js"/>
+ <script type="text/javascript" src="../listingButtons.js"/>
+</head>
+
+<body>
+<h1>Matrizenrechnung</h1>
+
+<p class="intro">Die folgenden Beispiele zeigen einige der in mathGUIde eingebauten Möglichkeiten der Matrizenrechnung.</p>
+
+<h2>Vektoren</h2>
+<p>Die mathGUIde-Klasse <code>Vektor</code> ist von der Python-Klasse <code>list</code> abgeleitet. Einem <code>Vektor</code>-Objekt
+stehen also alle Listen-Methoden zur Verfügung, darüberhinaus aber weitere Methoden der Vektorrechnung.<br/>
+Ein <code>Vektor</code> wird in mathGUIde definiert, indem man dem Konstruktor eine Liste der Vektorkomponenten übergibt.<br/>
+Wir wollen das mit den rationalen Zahlen</p>
+<div class="math">
+ \frac 1 7 \quad \frac 2 7 \quad \frac 3 7 \quad \ldots \quad \frac 8 7
+</div>
+<p>testen. Dazu verwenden wir eine <a href="python.html#ListComprehensions">List Comprehension</a>:</p>
+<!-- listing-01 -->
+<pre>
+v =  Vector([Rational(i,7) <span class="keyword">for</span> i <span class="keyword">in</span> fromTo(1,8)])</pre>
+<script type="text/javascript">listingButtons("01")</script>
+
+<p>Um das Skalarprodukt von v mit sich selbst zu berechnen, geben Sie ein:</p>
+<!-- listing-02 -->
+<pre>v * v</pre>
+<script type="text/javascript">listingButtons("02")</script>
+
+<p>Nun wollen wir die folgende Matrix definieren:</p>
+
+<div class="math">
+A = \pmatrix{\frac 2 3 &amp; 1 &amp; 1 &amp; 0 \cr
+             3         &amp; 5 &amp; 0 &amp; 1}
+</div>
+
+<!--table border="0" style="margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px;" cellspacing="0" cellpadding="0">
+<tr>
+<td style=" vertical-align:middle;">
+<p align="center" style="margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="./img/matrix/11.png" style="vertical-align: middle;" /></p></td>
+<td style=" vertical-align:middle;">
+<p align="center" style="margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#3060c0;">2/3 </span></p></td>
+<td style=" vertical-align:middle;">
+<p align="center" style="margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#3060c0;"> 1 </span></p></td>
+<td style=" vertical-align:middle;">
+<p align="center" style="margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#3060c0;"> 1 </span></p></td>
+<td style=" vertical-align:middle;">
+<p align="center" style="margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#3060c0;"> 0</span></p></td>
+<td style=" vertical-align:middle;">
+<p align="center" style="margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="./img/matrix/12.png" style="vertical-align: middle;" /></p></td></tr>
+<tr>
+<td style=" vertical-align:middle;">
+<p align="center" style="margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="./img/matrix/31.png" style="vertical-align: middle;" /></p></td>
+<td style=" vertical-align:middle;">
+<p align="center" style="margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#3060c0;">3 </span></p></td>
+<td style=" vertical-align:middle;">
+<p align="center" style="margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#3060c0;"> 5 </span></p></td>
+<td style=" vertical-align:middle;">
+<p align="center" style="margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#3060c0;"> 0 </span></p></td>
+<td style=" vertical-align:middle;">
+<p align="center" style="margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" color:#3060c0;"> 1</span></p></td>
+<td style=" vertical-align:middle;">
+<p align="center" style="margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><img src="./img/matrix/32.png" style="vertical-align: middle;" /></p></td></tr></table-->
+
+<p>Oben links steht die rationale Zahl 2/3. Diese sollte in mathGUIde auch
+als rationale Zahl erhalten bleiben und nicht in eine Gleitkommazahl umgewandelt werden,
+denn nur so werden die Rechenergebnisse exakt.</p>
+<p>Sie können die Matrix z. B. eingeben, indem Sie dem <code>Matrix</code>-Konstruktor eine Liste
+der Zeilen (wiederum Listen) übergeben. Hier sind (nur zur besseren Übersicht) die beiden Matrixzeilen
+auf zwei Textzeilen umbrochen und Leerzeichen eingefügt:</p>
+
+<!-- listing-03 -->
+<pre>
+A = Matrix([[Rational(2,3), 1, 1, 0],
+            [     3,        5, 0, 1]])</pre>
+<script type="text/javascript">listingButtons("03")</script>
+
+<p>Alternativ können Sie die Klassenmethode <code>Matrix.fromString</code> verwenden.
+Hier werden die Zeilen durch Semikolons, die einzelnen Elemente durch Kommas getrennt.<br/>
+Ein Vorteil dieser Methode: Rationalen Zahlen können Sie einfach mit Bruchstrich schreiben.
+Auch hier dienen die Leerzeichen nur der besseren Übersicht.
+Sie könnten nach dem Semikolon auch wieder einen Zeilenumbruch einfügen:</p>
+
+<!-- listing-04 -->
+<pre>
+A = Matrix.fromString(<span class="literal">"2/3, 1, 1, 0;  3, 5, 0, 1"</span>)</pre>
+<script type="text/javascript">listingButtons("04")</script>
+
+<p>Wir wollen nun testen, ob die linke 2x2-Teilmatrix dieser Matrix invertierbar ist:</p>
+
+<!-- listing-05 -->
+<pre>
+<span class="comment"># Auswahl einer Untermatrix</span>
+B = A.submatrix(0,0,2,2)
+
+<span class="comment"># Inverse Matrix</span>
+B.inverse()</pre>
+<script type="text/javascript">listingButtons("05")</script>
+
+<p>Es folgen einige Beispiele für weitere <code>Matrix</code>-Methoden:</p>
+
+<!-- listing-06 -->
+<pre>
+<span class="comment"># Einheitsmatrix</span>
+I = Matrix.identity(2)
+print(I)
+
+<span class="comment"># 2*3-Zufallsmatrix mit Werten im Bereich 0 bis 99</span>
+R = Matrix.random(2, 3, 100)
+print(R)
+
+<span class="comment"># Transponierte Matrix</span>
+T = ~R <span class="comment"># lässt sich auch als R.transpose() schreiben</span>
+print(T)
+
+<span class="comment"># Produktmatrix</span>
+P = R * T
+print(P)
+
+<span class="comment"># Determinante von P</span>
+P.det()</pre>
+<script type="text/javascript">listingButtons("06")</script>
+
+<p>Um weitere .... TODO</p>
+
+</body>
+</html>

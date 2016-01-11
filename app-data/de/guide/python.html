@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Einführung in Python für mathGUIde</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../styles/guide.css"/>
+ <script type="text/javascript" src="../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../jsMath/plugins/spriteImageFonts.js"/>
+ <script type="text/javascript" src="../listingButtons.js"/>
+</head>
+
+<body>
+<h1>Einführung in Python für mathGUIde</h1>
+
+<p class="intro">Hier finden Sie das Grundwissen über Python,
+das Sie benötigen, um kreativ mit mathGUIde umzugehen.</p>
+
+
+<h2>Besonderheiten der Python-Syntax</h2>
+
+<p>Zwar ist Python eine vollwertige objektorientierte Sprachen, und mathGUIde
+macht davon auch regen Gebrauch: Wichtige mathematische Objekte wie z.B.
+Matrizen oder Polynome sind als Klassen definiert.<br/>
+Wenn Sie aber einfache Probleme lösen wollen, genügt es meist, diese Klassen
+passiv zu verwenden und globale Funktionen zu schreiben.<br/>
+Deshalb folgen nun zwei kleine Funktionsdefinitionen, die ihnen eine
+Vorstellung von der Python-Proigrammierung geben sollen.</p>
+
+<h3>Beispiel: Der größte gemeinsame Teiler zweier Zahlen</h3>
+
+<p>Das folgende Programm missbraucht die Spache Java zur nicht-objektorientierten Programmierung.
+Es definiert die Funktion <code>gcd</code> zur Berechnung des größten gemeinsamen Teilers
+zweier natürlicher Zahlen (Euklidischer Algorithmus) und testet sie an einem Beispiel.
+Da Java nur Klassen kennt, muss der Test auch in eine Klasse gepackt werden:</p>
+
+<table><tr><td><pre><span style="color:red"> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</span></pre></td>
+  <td><pre><span class="keyword">public class</span> GcdTest {
+    <span class="keyword">static int</span> gcd(int a, int b) {
+        <span class="keyword">while</span> (b != 0) {
+            <span class="keyword">int</span> r = a % b;
+            a = b;
+            b = r;
+        }
+        <span class="keyword">return</span> a;
+    }
+
+    <span class="keyword">public static void</span> main(String[] args) {
+        System.out.println(GcdTest.gcd(66, 42));
+    }
+}</pre></td></tr></table>
+
+<p>Hier folgt das Gleiche in Python:</p>
+<table><tr><td><pre><span style="color:red"> 2
+ 3
+ 4
+ 8
+10
+12</span></pre></td>
+  <td>
+    <!-- listing-01 -->
+    <pre><span class="keyword">def</span> gcd(a,b):
+    <span class="keyword">while</span> b != 0:
+          a, b = b, a % b
+    <span class="keyword">return</span> a
+
+print(gcd(66, 42))</pre>
+<script type="text/javascript">listingButtons("01")</script>
+</td></tr></table>
+
+<p>Bitte beachten Sie folgende Unterschiede:</p>
+<ul>
+ <li><b>Zeile 2, 3</b>: Hierarchische Syntaxelemente
+  (<code><span class="keyword">class</span></code>,
+  <code><span class="keyword">def</span></code>,
+  <code><span class="keyword">if</span></code>,
+  <code><span class="keyword">elif</span></code>,
+  <code><span class="keyword">else</span></code>,
+  <code><span class="keyword">while</span></code>,
+  <code><span class="keyword">for</span></code>)
+  werden in Python nicht durch Klammerung
+  sondern durch Doppelpunkte und logische Einrückung gegliedert.<br/>
+
+  <p class="remark">Das führt einerseits zu wesentlich besserer Lesbarkeit.
+  Andererseits muss man sehr sorgfältig aufpassen, dass Programme
+  (z.B. beim Verschicken per E-Mail) ihre Einrückungsstruktur nicht verlieren.
+  Um Ihre Programmtexte mit andern mischen zu können, sollten Sie sich
+  beim Einrücken an den Standard halten: 4 Leerzeichen
+  für jeden Einrückungsschritt (keine Tabulatoren!).</p>
+
+  <p class="remark">hier sehen Sie ein warnendes Beispiel;</p>
+  <table>
+   <tr><th>Java</th><th>Python</th></tr>
+    <tr>
+     <td><pre>a = 0;
+<span class="keyword">if</span> (a > 0)
+    a += 1;
+    a += 2;
+a += 4;</pre></td>
+  <td><pre>a = 0
+<span class="keyword">if</span> a > 0:
+    a += 1
+    a += 2
+a += 4</pre></td>
+   </tr>
+  </table>
+
+  <p class="remark">Die Java-Zeilen suggerieren, dass zwei Anweisungen zum <code><span class="keyword">if</span></code>
+  gehören.
+  Der Compiler interessiert sich aber nicht für die falsche Einrückung.
+  Nur die erste Anweisung gehört zum <code><span class="keyword">if</span></code>.
+  <code>a</code> hat also am Ende den Wert 6.<br/>
+  Da der Python-Compiler die logische Gliederung
+  wirklich der Einrückung entnimmt, wird nur die letzte Anweisung ausgeführt,
+  und <code>a</code> hat dann den Wert 4.</p>
+ </li>
+ <li><b>Zeile 2</b>: Python kennt neben Klassen auch globale Funktionen (wie z. B. auch C++).</li>
+ <li><b>Zeile 2</b>: Variablen und Parameter werden in Python nicht deklariert.
+   Sie sind dynamisch typisiert. Das könnte man in Java simulieren,
+   indem man alle Variablen als <code>Object</code> deklariert.</li>
+ <li><b>Zeile 4</b>: Python erlaubt simultane Mehrfachzuweisungen.
+   Dadurch lassen sich oft temporäre Variablen einsparen.</li>
+</ul>
+
+
+<h2>Anonyme Funktionen</h2>
+<p>In Python sind Funktionen ganz normale Objekte, die z.B. als Parameter einer
+Funktion übergeben werden können. Das nutzen auch einige mathGUIde-Funktionen, so z.B.
+<code>sum<code>:</p>
+
+<!-- listing-02 -->
+<pre><span class="keyword">def</span> square(n):
+    <span class="keyword">return</span> n*n
+print(sum(1,10, square)) <span class="comment"># Summe der Quadrate von 1 bis 10</span></pre>
+<script type="text/javascript">listingButtons("02")</script>
+
+<p>Hier wird die Funktion <code>square</code> nur für die Übergabe an die
+<code>sum</code>-Funktion definiert.<br/>
+In solchen Fällen ist es einfacher, eine <i>anonyme Funktion</i> direkt einzusetzen.<br/>
+Die Definition einer anonymen Funktion beginnt mit dem Schlüsselwort <code><span class="keyword">lambda</span></code>.
+Danach folgen – durch Komma getrennt – die Parameter (im Beispiel nur einer)
+und dann nach einem Doppelpunkt der Funktionswert.</p>
+
+<!-- listing-02a -->
+<pre>print(sum(1,10, <span class="keyword">lambda</span> n: n*n)) <span class="comment"># Summe der Quadrate von 1 bis 10</span></pre>
+<script type="text/javascript">listingButtons("02a")</script>
+
+
+<h2>Listen und List Comprehensions</h2>
+
+<h3>Listen, Iteratoren, for-Schleifen</h3>
+
+<p>Eine Liste ist in Python eine endliche Reihe von beliebigen Objekten.
+Diese können einfach in eckigen Klammern aufgezählt werden.
+Es folgen einige Beispiele:</p>
+
+<!-- listing-03 -->
+<pre>polymorpheListe = ["a", 2, [3]]
+quadratzahlen = [1,4,9,16,25]
+<span class="keyword">for</span> n <span class="keyword">in</span> quadratzahlen:
+    print(n)</pre>
+<script type="text/javascript">listingButtons("03")</script>
+
+<p>Einfache Zahlenfolgen kann man mit der mathGUIde-Funktion <code>fromTo</code> generieren:</p>
+<!-- listing-04 -->
+<pre><span class="comment"># Iteratorfunktion:</span>
+print(fromTo(1,10))
+
+<span class="comment"># Verwendung der Iteratorfunktion:</span>
+l = []
+<span class="keyword">for</span> i <span class="keyword">in</span> fromTo(1,10):
+    l.append(i)
+print(l)
+
+<span class="comment"># Oder einfacher:</span>
+print(list(fromTo(1,10)))</pre>
+<script type="text/javascript">listingButtons("04")</script>
+
+<h3>Bearbeitung von Listen</h3>
+
+<!-- listing-05 -->
+<pre>l = [2,4,6]
+l.append(8)        <span class="comment"># Element am Ende einfügen</span>
+print(l)
+l.insert(1,3)      <span class="comment"># Element an beliebiger Stelle einfügen</span>
+print(l)
+del l[1]           <span class="comment"># Element an beliebiger Stelle löschen</span>
+print(l)
+print(l + [10,11]) <span class="comment"># Listen verketten</span></pre>
+<script type="text/javascript">listingButtons("05")</script>
+
+<a id="ListComprehensions"/>
+<h3>List Comprehensions</h3>
+<p>Oft werden Zahlenlisten benötigt, die zwar nach einem einfachen Gesetz
+aufgebaut sind, aber nicht direkt mit der Funktion <code>fromTo</code> erzeugt
+werden können. Wie kann man z.B. eine Liste der ersten hundert Quadratzahlen
+erzeugen?</p>
+<p>Eine mathematische Schreibweise für die entsprechende Menge wäre</p>
+
+<div class="math">
+ A = \{ n^2 | n \in \{ 1, 2, \ldots, 10 \}\}
+</div>
+
+<p>Python erlaubt genau diese Schreibweise („List Comprehensions“) für Listen:</p>
+
+<!-- listing-06 -->
+<pre>A = [n^2 <span class="keyword">for</span> n <span class="keyword">in</span> fromTo(1,10)]</pre>
+<script type="text/javascript">listingButtons("06")</script>
+
+<p>Sogar eine Einschränkung mit bestimmten Bedingungen ist in Python ebenso
+wie in der Mengenschreibweise möglich:</p>
+
+<div class="math">
+ A = \{ n^2 | n \in \{ 1, 2, \ldots, 100 \}, n \textrm{ ist Primzahl}\}
+</div>
+
+<p>schreibt sich in mathGUIde so:</p>
+
+<!-- listing-07 -->
+<pre>A = [n^2 <span class="keyword">for</span> n <span class="keyword">in</span> fromTo(1,100) <span class="keyword">if</span> isPrime(n)]</pre>
+<script type="text/javascript">listingButtons("07")</script>
+
+<p>Oft ist es nötig, riesige Listen zu durchlaufen.
+Würde man vor dem Durchlauf die komplette Liste aufbauen,
+wäre das sehr ineffizient und könnte zu Speicherproblemen führen.<br/>
+Deshalb werden List Comprehensions nicht als fertige Listen aufgebaut,
+sondern als Iteratoren, die über <code>for</code>-Schleifen
+durchlaufen werden können.</p>
+<p class="remark">Auch die mathGUIde-Funktion <code>fromTo</code> liefert
+keine fertige Liste sondern ein iterierbares Objekt.</p>
+
+<h2>Mehr über Python</h2>
+<p>Eine ausführliche Einführung in Python finden Sie im 
+<a class="web" href="http://docs.python.org/3.1/tutorial/">Python Tutorial</a>.</p>
+
+</body>
+</html>

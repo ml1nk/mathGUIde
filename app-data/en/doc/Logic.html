@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Logic</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="../styles/doc.css"/>
+</head>
+<body>
+<p><a href="mathguide.html">Main Overview</a></p>
+<h1>Class <code>Logic</code></h1>
+<p> Class <code>Logic</code>: Propositional Logic<br/>
+        This is a static class (only static methods available)<br/>
+        Formulae of propositional logic, passed to the static methods,
+        must be composed as follows:<br/>
+        <b>Variables</b> must be single letters.<br/>
+        <b>Junctors</b>: "<code>not</code>", "<code>and</code>", "<code>or</code>", "<code>xor</code>", "<code>-></code>", "<code>&lt;-></code>".</p>
+<div id="overview"><p style="margin-top:0">Overview:</p>
+<h2>Class methods (static methods)</h2>
+<table><tr><td><b>Method</b></td><td><b>Meaning</b></td></tr>
+<tr><td><a href="#equivalent">equivalent</a> (f1, f2)</td><td>Are the formulae <b>f1</b> and <b>f2</b> equivalent?</b>?</td></tr>
+<tr><td><a href="#implies">implies</a> (f1, f2)</td><td>implies the formula <b>f1</b> the formula <b>f2</b>?</b>?</td></tr>
+<tr><td><a href="#satisfiable">satisfiable</a> (f)</td><td>Is the formula <b>f</b> satisfiable</b>?</td></tr>
+<tr><td><a href="#satisfies">satisfies</a> (f, truthTable)</td><td>Is the formula <b>f</b> true under the <b>truthTable</b>?</td></tr>
+<tr><td><a href="#truthTables">truthTables</a> (formula)</td><td>All possible truth tables for variables in formula</td></tr>
+<tr><td><a href="#valid">valid</a> (f)</td><td>Is the formula <b>f</b> valid</b>?</td></tr>
+</table>
+</div><h1>Class methods (static methods)</h1>
+<h3><a id="equivalent">equivalent</a></h3>
+<p> <b>equivalent(f1, f2)</b><br/></p>
+<p><b>Usage:</b> <code>Logic.equivalent(f1, f2)</code></p>
+<p><b>Description</b>:<br/>        <i>Are the formulae <b>f1</b> and <b>f2</b> equivalent?</b>?</i><br/>
+        <b>Example</b><br/>
+        <code>Logic.equivalent("not (A and B)", "not A or not B"))</code>
+        returns <code>True<code>.</p><hr/>
+<h3><a id="implies">implies</a></h3>
+<p> <b>implies(f1, f2)</b><br/></p>
+<p><b>Usage:</b> <code>Logic.implies(f1, f2)</code></p>
+<p><b>Description</b>:<br/>        <i>implies the formula <b>f1</b> the formula <b>f2</b>?</b>?</i><br/>
+        <b>Example</b><br/>
+        <code>Logic.implies("A and B", "A or B")</code>
+        returns <code>True<code>.</p><hr/>
+<h3><a id="satisfiable">satisfiable</a></h3>
+<p> <b>satisfiable(f)</b><br/></p>
+<p><b>Usage:</b> <code>Logic.satisfiable(f)</code></p>
+<p><b>Description</b>:<br/>        <i>Is the formula <b>f</b> satisfiable</b>?</i><br/>
+        <b>Example</b><br/>
+        <code>Logic.satisfiable("A and not A")</code>
+        returns <code>False<code>.</p><hr/>
+<h3><a id="satisfies">satisfies</a></h3>
+<p> <b>satisfies(f, truthTable)</b><br/></p>
+<p><b>Usage:</b> <code>Logic.satisfies(f, truthTable)</code></p>
+<p><b>Description</b>:<br/>        <i>Is the formula <b>f</b> true under the <b>truthTable</b>?</i><br/>
+        <b>Example</b><br/>
+        <code>Logic.satisfies("A or B", {"A":True, "B":False})</code>
+        returns <code>True<code>.</p><hr/>
+<h3><a id="truthTables">truthTables</a></h3>
+<p> <b>truthTables(formula)</b><br/></p>
+<p><b>Usage:</b> <code>Logic.truthTables(formula)</code></p>
+<p><b>Description</b>:<br/>        <i>All possible truth tables for variables in formula</i><br/>
+        The result is returned as a generator object (for a single iteration).<br/>
+        <b>Example</b><br/>
+        <code>for t in Logic.truthTables("A and B"): print(t)</code><br/>
+        returns:<br/>
+        <code>{'A': False, 'B': False}<br/>
+        {'A': False, 'B': True}<br/>
+        {'A': True, 'B': False}<br/>
+        {'A': True, 'B': True}</code></p><hr/>
+<h3><a id="valid">valid</a></h3>
+<p> <b>satisfies(f, truthTable)</b><br/></p>
+<p><b>Usage:</b> <code>Logic.valid(f)</code></p>
+<p><b>Description</b>:<br/>        <i>Is the formula <b>f</b> valid</b>?</i><br/>
+        <b>Example</b><br/>
+        <code>Logic.valid("A or not A")</code>
+        returns <code>True<code>.</p><hr/>
+</body></html>

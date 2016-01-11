@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Graph</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="../styles/doc.css"/>
+</head>
+<body>
+<p><a href="mathguide.html">Main Overview</a></p>
+<h1>Class <code>Graph</code></h1>
+<p> Class <code>Graph</code>: Graph (in the sense of graph theory)<br/>
+        A Graph consists of nodes and edges.
+        An edge (class <a href="Edge.html">Edge</a>) connects two nodes.<br/>
+        Edges optionally may have a weight.<br/>
+        <p class="remark">Although a pure Graph does not carry geometrical data, mathGUIde allows to attach
+        positions to nodes corresponding to a Graph representation in the Graph window.</p></p>
+<div id="overview"><p style="margin-top:0">Overview:</p>
+<h2>Constructor</h2>
+<p><a href="#constr">Graph</a> ()</p>
+<h2>Class methods (static methods)</h2>
+<table><tr><td><b>Method</b></td><td><b>Meaning</b></td></tr>
+<tr><td><a href="#complete">complete</a> (n, r=130, margin=20)</td><td>Complete Graph of order n, displayed on a circle with radius r.</td></tr>
+<tr><td><a href="#completeBipartite">completeBipartite</a> (n1, n2)</td><td>Complete bipartite Graph with partition sizes n1 and n2.</td></tr>
+<tr><td><a href="#example1">example1</a> ()</td><td></td></tr>
+<tr><td><a href="#fromShortRepr">fromShortRepr</a> (s)</td><td>Makes the Graph from the short representation s</td></tr>
+<tr><td><a href="#petersen">petersen</a> (r=150, margin=20)</td><td>The Peterson Graph</td></tr>
+</table>
+<h2>Operators</h2>
+<table><tr><td><b>Operator</b></td><td><b>Meaning</b></td></tr>
+<tr><td><a href="#strx28xx29">str(x)</a></td><td>    </td></tr>
+</table>
+<h2>Object Methods</h2>
+<table><tr><td><b>Method</b></td><td><b>Meaning</b></td></tr>
+<tr><td><a href="#addEdges">addEdges</a> (*edges)</td><td></td></tr>
+<tr><td><a href="#addNodes">addNodes</a> (*nodes)</td><td></td></tr>
+<tr><td><a href="#adjacent">adjacent</a> (node1, node2)</td><td>Determines wether node1 and node2 are adjacent (bool return value) in G.</td></tr>
+<tr><td><a href="#adjacentNodes">adjacentNodes</a> (node)</td><td>Returns a sorted list of all nodes of G adjacent to <b>node</b>.</td></tr>
+<tr><td><a href="#cancelHighlight">cancelHighlight</a> ()</td><td>Resets all highlighted edges to normal state.</td></tr>
+<tr><td><a href="#complement">complement</a> ()</td><td>Returns the graph with the same vertices as G, such that two vertices are adjacent if and only if they are not adjacent in G.</td></tr>
+<tr><td><a href="#componentsCount">componentsCount</a> ()</td><td>The number connectivity components of the Graph G</td></tr>
+<tr><td><a href="#connectedNodes">connectedNodes</a> (node)</td><td>Returns a list of all nodes of G which are connected with node (including node).</td></tr>
+<tr><td><a href="#copy">copy</a> ()</td><td>independent copy ("clone") of G</td></tr>
+<tr><td><a href="#degree">degree</a> (node)</td><td>Returns the degree of node (count of adjacent nodes)</td></tr>
+<tr><td><a href="#display">display</a> (n=0)</td><td>Displays the Graph G in the n-th Graph tab.</td></tr>
+<tr><td><a href="#edge">edge</a> (node1, node2)</td><td>The connecting edge between the two nodes</td></tr>
+<tr><td><a href="#highlightMinimalSpanTree">highlightMinimalSpanTree</a> (trace=False)</td><td>Highlightes a minimal spanning tree using the Kruskal algorithm.</td></tr>
+<tr><td><a href="#highlightShortestPath">highlightShortestPath</a> (startNode, goalNode)</td><td>Highlightes a shortest path (if existent) from startNode to goalNode using the Dijkstra algorithm.</td></tr>
+<tr><td><a href="#incidentEdges">incidentEdges</a> (node)</td><td></td></tr>
+<tr><td><a href="#isConnected">isConnected</a> ()</td><td>Returns a truth value indicating wether the Graph G is connected</td></tr>
+<tr><td><a href="#isTree">isTree</a> ()</td><td>Returns a truth value indicating wether the Graph G is a tree</td></tr>
+<tr><td><a href="#isomorphic">isomorphic</a> (H)</td><td>Determines wether G and H are isomorphic Graphs.</td></tr>
+<tr><td><a href="#order">order</a> ()</td><td>Order (number of vertices) of the Graph G.</td></tr>
+<tr><td><a href="#reduceToHighlightedEdges">reduceToHighlightedEdges</a> ()</td><td>Removes all not highlighted edges from the Graph G.</td></tr>
+<tr><td><a href="#shortRepr">shortRepr</a> ()</td><td>short representation of Graph G as string</td></tr>
+</table>
+</div><h1>Constructor</h1>
+<h3><a id="constr">Graph</a></h3>
+<p> Constructor</p>
+<p><b>Usage:</b> <code>Graph()</code></p>
+<hr/>
+<h1>Class methods (static methods)</h1>
+<h3><a id="complete">complete</a></h3>
+<p> <b>Graph.complete(n, r=130, margin=20)</b><br/></p>
+<p><b>Usage:</b> <code>Graph.complete(n, r=130, margin=20)</code></p>
+<p><b>Description</b>:<br/>        <i>Complete Graph of order n, displayed on a circle with radius r.</i></p><hr/>
+<h3><a id="completeBipartite">completeBipartite</a></h3>
+<p> <b>Graph.completeBipartite(n1,n2)</b><br/></p>
+<p><b>Usage:</b> <code>Graph.completeBipartite(n1, n2)</code></p>
+<p><b>Description</b>:<br/>        <i>Complete bipartite Graph with partition sizes n1 and n2.</i></p><hr/>
+<h3><a id="example1">example1</a></h3>
+<p> <b>Graph.example1()</b></p>
+<p><b>Usage:</b> <code>Graph.example1()</code></p>
+<hr/>
+<h3><a id="fromShortRepr">fromShortRepr</a></h3>
+<p> <b>Graph.fromShortRepr(s)</b><br/></p>
+<p><b>Usage:</b> <code>Graph.fromShortRepr(s)</code></p>
+<p><b>Description</b>:<br/>        <i>Makes the Graph from the short representation s</i></p><hr/>
+<h3><a id="petersen">petersen</a></h3>
+<p> <b>Graph.petersen()</b><br/></p>
+<p><b>Usage:</b> <code>Graph.petersen(r=150, margin=20)</code></p>
+<p><b>Description</b>:<br/>        <i>The Peterson Graph</i><br/>
+        It serves as an example and counterexample for many problems in graph theory.</p><hr/>
+<h1>Operators</h1>
+<h3><a id="strx28xx29">str(x)</a></h3>
+<p> Object representation as string</p>
+<p><b>Usage:</b> <code>str(x)</font></p>
+<p><b>Description</b>:<br/>    </p><hr/>
+<h1>Object Methods</h1>
+<h3><a id="addEdges">addEdges</a></h3>
+<p></p>
+<p><b>Usage:</b> <code>self.addEdges(*edges)</code></p>
+<hr/>
+<h3><a id="addNodes">addNodes</a></h3>
+<p></p>
+<p><b>Usage:</b> <code>self.addNodes(*nodes)</code></p>
+<hr/>
+<h3><a id="adjacent">adjacent</a></h3>
+<p> <b>G.adjacentNodes(node1, node2)</b><br/></p>
+<p><b>Usage:</b> <code>self.adjacent(node1, node2)</code></p>
+<p><b>Description</b>:<br/>        <i>Determines wether node1 and node2 are adjacent (bool return value) in G.</i></p><hr/>
+<h3><a id="adjacentNodes">adjacentNodes</a></h3>
+<p> <b>G.adjacentNodes(node)</b><br/></p>
+<p><b>Usage:</b> <code>self.adjacentNodes(node)</code></p>
+<p><b>Description</b>:<br/>        <i>Returns a sorted list of all nodes of G adjacent to <b>node</b>.</i></p><hr/>
+<h3><a id="cancelHighlight">cancelHighlight</a></h3>
+<p> <b>G.cancelHighlight()</b><br/></p>
+<p><b>Usage:</b> <code>self.cancelHighlight()</code></p>
+<p><b>Description</b>:<br/>        <i>Resets all highlighted edges to normal state.</i></p><hr/>
+<h3><a id="complement">complement</a></h3>
+<p> <b>G.complement()</b><br/></p>
+<p><b>Usage:</b> <code>self.complement()</code></p>
+<p><b>Description</b>:<br/>        <i>Returns the graph with the same vertices as G, such that two vertices are adjacent if and only if they are not adjacent in G.</i></p><hr/>
+<h3><a id="componentsCount">componentsCount</a></h3>
+<p> <b>G.componentsCount()</b><br/></p>
+<p><b>Usage:</b> <code>self.componentsCount()</code></p>
+<p><b>Description</b>:<br/>        <i>The number connectivity components of the Graph G</i></p><hr/>
+<h3><a id="connectedNodes">connectedNodes</a></h3>
+<p> <b>G.componentsCount()</b><br/></p>
+<p><b>Usage:</b> <code>self.connectedNodes(node)</code></p>
+<p><b>Description</b>:<br/>        <i>Returns a list of all nodes of G which are connected with node (including node).</i></p><hr/>
+<h3><a id="copy">copy</a></h3>
+<p> <b>G.copy()</b><br/></p>
+<p><b>Usage:</b> <code>self.copy()</code></p>
+<p><b>Description</b>:<br/>        <i>independent copy ("clone") of G</i></p><hr/>
+<h3><a id="degree">degree</a></h3>
+<p> <b>G.degree(node)</b><br/></p>
+<p><b>Usage:</b> <code>self.degree(node)</code></p>
+<p><b>Description</b>:<br/>        <i>Returns the degree of node (count of adjacent nodes)</i></p><hr/>
+<h3><a id="display">display</a></h3>
+<p> <b>G.display(n=0)</b><br/></p>
+<p><b>Usage:</b> <code>self.display(n=0)</code></p>
+<p><b>Description</b>:<br/>        <i>Displays the Graph G in the n-th Graph tab.</i><br/>
+        if n == 0, the Graph is displayed in the active Graph window.</p><hr/>
+<h3><a id="edge">edge</a></h3>
+<p> <b>G.edge(node1, node2)</b><br/></p>
+<p><b>Usage:</b> <code>self.edge(node1, node2)</code></p>
+<p><b>Description</b>:<br/>        <i>The connecting edge between the two nodes</i><br/>
+        If node1 and node2 are adjacent, the connecting edge is returned, otherwise <code>None</code>.</p><hr/>
+<h3><a id="highlightMinimalSpanTree">highlightMinimalSpanTree</a></h3>
+<p> <b>G.minimalSpanTree(trace=False)</b><br/></p>
+<p><b>Usage:</b> <code>g.highlightMinimalSpanTree(trace=False)</code></p>
+<p><b>Description</b>:<br/>        <i>Highlightes a minimal spanning tree using the Kruskal algorithm.</i><br/>
+        If <code>trace</code> is <code>True</code>, all steps are printed.</p><hr/>
+<h3><a id="highlightShortestPath">highlightShortestPath</a></h3>
+<p> <b>G.highlightShortestPath(startNode, goalNode)</b><br/></p>
+<p><b>Usage:</b> <code>self.highlightShortestPath(startNode, goalNode)</code></p>
+<p><b>Description</b>:<br/>        <i>Highlightes a shortest path (if existent) from startNode to goalNode using the Dijkstra algorithm.</i><br/>
+        Returns the length of the path (or inf if there is no connection).<br/>
+        Use the method <a href="Graph.display"><code>display</code></a> in order
+        to make the highlighting visible.</p><hr/>
+<h3><a id="incidentEdges">incidentEdges</a></h3>
+<p></p>
+<p><b>Usage:</b> <code>self.incidentEdges(node)</code></p>
+<hr/>
+<h3><a id="isConnected">isConnected</a></h3>
+<p> <b>G.isConnected()</b><br/></p>
+<p><b>Usage:</b> <code>self.isConnected()</code></p>
+<p><b>Description</b>:<br/>        <i>Returns a truth value indicating wether the Graph G is connected</i></p><hr/>
+<h3><a id="isTree">isTree</a></h3>
+<p> <b>G.isTree()</b><br/></p>
+<p><b>Usage:</b> <code>self.isTree()</code></p>
+<p><b>Description</b>:<br/>        <i>Returns a truth value indicating wether the Graph G is a tree</i></p><hr/>
+<h3><a id="isomorphic">isomorphic</a></h3>
+<p> <b>G.isomorphic(H)</b><br/></p>
+<p><b>Usage:</b> <code>.isomorphic(H)</code></p>
+<p><b>Description</b>:<br/>        <i>Determines wether G and H are isomorphic Graphs.</i><br/></p><hr/>
+<h3><a id="order">order</a></h3>
+<p> <b>G.order()</b><br/></p>
+<p><b>Usage:</b> <code>self.order()</code></p>
+<p><b>Description</b>:<br/>        <i>Order (number of vertices) of the Graph G.</i></p><hr/>
+<h3><a id="reduceToHighlightedEdges">reduceToHighlightedEdges</a></h3>
+<p> <b>G.reduceToHighlightedEdges()</b><br/></p>
+<p><b>Usage:</b> <code>self.reduceToHighlightedEdges()</code></p>
+<p><b>Description</b>:<br/>        <i>Removes all not highlighted edges from the Graph G.</i><br/>
+        The highlighting of the remaining edges is turned off.</p><hr/>
+<h3><a id="shortRepr">shortRepr</a></h3>
+<p> <b>G.shortRepr()</b><br/></p>
+<p><b>Usage:</b> <code>self.shortRepr()</code></p>
+<p><b>Description</b>:<br/>        <i>short representation of Graph G as string</i><br/></p><hr/>
+</body></html>

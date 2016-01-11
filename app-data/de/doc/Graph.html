@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Graph</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="../styles/doc.css"/>
+</head>
+<body>
+<p><a href="mathguide.html">Hauptübersicht</a></p>
+<h1>Klasse <code>Graph</code></h1>
+<p> Klasse <code>Graph</code>: Graph (im Sinne der Graphentheorie)<br/>
+        Ein Graph besteht aus Knoten und Kanten.
+        Eine Kante (Klasse <a href="Edge.html">Edge</a>) verbindet zwei Knoten.<br/>
+        Kanten können auch mit einem Gewicht versehen werden.<br/>
+        <p class="remark">Obwohl zur Graphendefinition keine geometrischen Informationen gehören,
+        kann mathGUIde die Positionen von im Graphenfenster angeordneten Knoten speichern.</p></p>
+<div id="overview"><p style="margin-top:0">Übersicht:</p>
+<h2>Konstruktor</h2>
+<p><a href="#constr">Graph</a> ()</p>
+<h2>Klassenmethoden (statische Methoden)</h2>
+<table><tr><td><b>Methode</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#complete">complete</a> (n, r=130, margin=20)</td><td>Vollständiger Graph der Ordnung n angeordnet auf einem Kreis mit Radius r.</td></tr>
+<tr><td><a href="#completeBipartite">completeBipartite</a> (n1, n2)</td><td>Vollständiger bipartiter Graph mit den Partitionsgrößen n1 und n2.</td></tr>
+<tr><td><a href="#example1">example1</a> ()</td><td></td></tr>
+<tr><td><a href="#fromShortRepr">fromShortRepr</a> (s)</td><td>Erzeugt den Graphen aus der Kurzdarstellung s</td></tr>
+<tr><td><a href="#petersen">petersen</a> (r=150, margin=20)</td><td>Der Peterson-Graph</td></tr>
+</table>
+<h2>Operatoren</h2>
+<table><tr><td><b>Operator</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#strx28xx29">str(x)</a></td><td>    </td></tr>
+</table>
+<h2>Objektmethoden</h2>
+<table><tr><td><b>Methode</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#addEdges">addEdges</a> (*edges)</td><td></td></tr>
+<tr><td><a href="#addNodes">addNodes</a> (*nodes)</td><td></td></tr>
+<tr><td><a href="#adjacent">adjacent</a> (node1, node2)</td><td>Gibt an, ob node1 und node2 in G adjazent sind (bool).</td></tr>
+<tr><td><a href="#adjacentNodes">adjacentNodes</a> (node)</td><td>Gibt eine sortierte Liste aller zu <b>node</b> adjazenten Knoten von G zurück.</td></tr>
+<tr><td><a href="#cancelHighlight">cancelHighlight</a> ()</td><td>Setzt alle hervorgehobenen Kanten in den Normalzustand zurück.</td></tr>
+<tr><td><a href="#complement">complement</a> ()</td><td>Gibt den Graphen mit den gleichen Knoten wie G zurück, in dem sich zwischen zwei Knoten genau dann eine Kante befindet, wenn G dort keine Kante hat.</td></tr>
+<tr><td><a href="#componentsCount">componentsCount</a> ()</td><td>Anzahl der Zusammenhangskomponenten des Graphen G</td></tr>
+<tr><td><a href="#connectedNodes">connectedNodes</a> (node)</td><td>Gibt eine Liste aller mit node durch einen Kantenzug verbundenen Knoten in G zurück (einschließlich node).</td></tr>
+<tr><td><a href="#copy">copy</a> ()</td><td>unabhängige Kopie von G</td></tr>
+<tr><td><a href="#degree">degree</a> (node)</td><td>Gibt den Grad des Knotens node (Anzahl der adjazenten Knoten) in G zurück</td></tr>
+<tr><td><a href="#display">display</a> (n=0)</td><td>Zeigt den Graphen G im n-ten Graphen-Fenster an.</td></tr>
+<tr><td><a href="#edge">edge</a> (node1, node2)</td><td>Die Verbindungskante zwischen den zwei Knoten</td></tr>
+<tr><td><a href="#highlightMinimalSpanTree">highlightMinimalSpanTree</a> (trace=False)</td><td>Hebt einen minimalen aufspannenden Baum hervor (mit dem Kruskal-Algorithmus).</td></tr>
+<tr><td><a href="#highlightShortestPath">highlightShortestPath</a> (startNode, goalNode)</td><td>Hebt einen kürzesten Pfad von startNode nach goalNode hervor (mit dem Dijkstra-Algorithmus).</td></tr>
+<tr><td><a href="#incidentEdges">incidentEdges</a> (node)</td><td></td></tr>
+<tr><td><a href="#isConnected">isConnected</a> ()</td><td>Gibt als Wahrheitswert zurück, ob der Graph G zusammenhängend ist</td></tr>
+<tr><td><a href="#isTree">isTree</a> ()</td><td>Gibt als Wahrheitswert zurück, ob der Graph G ein Baum ist</td></tr>
+<tr><td><a href="#isomorphic">isomorphic</a> (H)</td><td>Entscheidet, ob G und H isomorphe Graphen sind.</td></tr>
+<tr><td><a href="#order">order</a> ()</td><td>Ordnung (Anzahl der Knoten) des Graphen G.</td></tr>
+<tr><td><a href="#reduceToHighlightedEdges">reduceToHighlightedEdges</a> ()</td><td>Entfernt alle nicht hervorgehobenen Kanten aus dem Graphen G.</td></tr>
+<tr><td><a href="#shortRepr">shortRepr</a> ()</td><td>Kurzdarstellung des Graphen G (als String)</td></tr>
+</table>
+</div><h1>Konstruktor</h1>
+<h3><a id="constr">Graph</a></h3>
+<p> Konstruktor</p>
+<p><b>Aufruf:</b> <code>Graph()</code></p>
+<hr/>
+<h1>Klassenmethoden (statische Methoden)</h1>
+<h3><a id="complete">complete</a></h3>
+<p> <b>Graph.complete(n, r=130, margin=20)</b><br/></p>
+<p><b>Aufruf:</b> <code>Graph.complete(n, r=130, margin=20)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Vollständiger Graph der Ordnung n angeordnet auf einem Kreis mit Radius r.</i></p><hr/>
+<h3><a id="completeBipartite">completeBipartite</a></h3>
+<p> <b>Graph.completeBipartite(n1,n2)</b><br/></p>
+<p><b>Aufruf:</b> <code>Graph.completeBipartite(n1, n2)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Vollständiger bipartiter Graph mit den Partitionsgrößen n1 und n2.</i></p><hr/>
+<h3><a id="example1">example1</a></h3>
+<p> <b>Graph.example1()</b></p>
+<p><b>Aufruf:</b> <code>Graph.example1()</code></p>
+<hr/>
+<h3><a id="fromShortRepr">fromShortRepr</a></h3>
+<p> <b>Graph.fromShortRepr(s)</b><br/></p>
+<p><b>Aufruf:</b> <code>Graph.fromShortRepr(s)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Erzeugt den Graphen aus der Kurzdarstellung s</i></p><hr/>
+<h3><a id="petersen">petersen</a></h3>
+<p> <b>Graph.completeBipartite()</b><br/></p>
+<p><b>Aufruf:</b> <code>Graph.petersen(r=150, margin=20)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Der Peterson-Graph</i><br/>
+        Er dient als Beispiel oder Gegenbeispiel für viele Probleme der Graphentheorie.</p><hr/>
+<h1>Operatoren</h1>
+<h3><a id="strx28xx29">str(x)</a></h3>
+<p> Object representation as string</p>
+<p><b>Aufruf:</b> <code>str(x)</font></p>
+<p><b>Beschreibung</b>:<br/>    </p><hr/>
+<h1>Objektmethoden</h1>
+<h3><a id="addEdges">addEdges</a></h3>
+<p></p>
+<p><b>Aufruf:</b> <code>self.addEdges(*edges)</code></p>
+<hr/>
+<h3><a id="addNodes">addNodes</a></h3>
+<p></p>
+<p><b>Aufruf:</b> <code>self.addNodes(*nodes)</code></p>
+<hr/>
+<h3><a id="adjacent">adjacent</a></h3>
+<p> <b>G.adjacentNodes(node1, node2)</b><br/></p>
+<p><b>Aufruf:</b> <code>self.adjacent(node1, node2)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Gibt an, ob node1 und node2 in G adjazent sind (bool).</i></p><hr/>
+<h3><a id="adjacentNodes">adjacentNodes</a></h3>
+<p> <b>G.adjacentNodes(node)</b><br/></p>
+<p><b>Aufruf:</b> <code>self.adjacentNodes(node)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Gibt eine sortierte Liste aller zu <b>node</b> adjazenten Knoten von G zurück.</i></p><hr/>
+<h3><a id="cancelHighlight">cancelHighlight</a></h3>
+<p> <b>G.cancelHighlight()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.cancelHighlight()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Setzt alle hervorgehobenen Kanten in den Normalzustand zurück.</i></p><hr/>
+<h3><a id="complement">complement</a></h3>
+<p> <b>G.complement()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.complement()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Gibt den Graphen mit den gleichen Knoten wie G zurück, in dem sich zwischen zwei Knoten genau dann eine Kante befindet, wenn G dort keine Kante hat.</i></p><hr/>
+<h3><a id="componentsCount">componentsCount</a></h3>
+<p> <b>G.componentsCount()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.componentsCount()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Anzahl der Zusammenhangskomponenten des Graphen G</i></p><hr/>
+<h3><a id="connectedNodes">connectedNodes</a></h3>
+<p> <b>G.componentsCount()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.connectedNodes(node)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Gibt eine Liste aller mit node durch einen Kantenzug verbundenen Knoten in G zurück (einschließlich node).</i></p><hr/>
+<h3><a id="copy">copy</a></h3>
+<p> <b>G.copy()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.copy()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>unabhängige Kopie von G</i></p><hr/>
+<h3><a id="degree">degree</a></h3>
+<p> <b>G.degree(node)</b><br/></p>
+<p><b>Aufruf:</b> <code>self.degree(node)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Gibt den Grad des Knotens node (Anzahl der adjazenten Knoten) in G zurück</i></p><hr/>
+<h3><a id="display">display</a></h3>
+<p> <b>G.display(n=0)</b><br/></p>
+<p><b>Aufruf:</b> <code>self.display(n=0)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Zeigt den Graphen G im n-ten Graphen-Fenster an.</i>
+        Ist n = 0, wird der Graph im aktiven Graphen-Fenster angezeigt.</p><hr/>
+<h3><a id="edge">edge</a></h3>
+<p> <b>G.edge(node1, node2)</b><br/></p>
+<p><b>Aufruf:</b> <code>self.edge(node1, node2)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Die Verbindungskante zwischen den zwei Knoten</i><br/>
+        Wenn node1 und node2 adjazent sind, wird die the Verbindungskante zurückgegeben, sonst <code>None</code>.</p><hr/>
+<h3><a id="highlightMinimalSpanTree">highlightMinimalSpanTree</a></h3>
+<p> <b>G.minimalSpanTree(trace=False)</b><br/></p>
+<p><b>Aufruf:</b> <code>g.highlightMinimalSpanTree(trace=False)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Hebt einen minimalen aufspannenden Baum hervor (mit dem Kruskal-Algorithmus).</i><br/>
+        Wenn <code>trace</code> den Wert <code>True</code> hat, werden alle Schritte angezeigt.</p><hr/>
+<h3><a id="highlightShortestPath">highlightShortestPath</a></h3>
+<p> <b>G.highlightShortestPath(startNode, goalNode)</b><br/></p>
+<p><b>Aufruf:</b> <code>self.highlightShortestPath(startNode, goalNode)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Hebt einen kürzesten Pfad von startNode nach goalNode hervor (mit dem Dijkstra-Algorithmus).</i><br/>
+        Die Länge des Pfades wird zurückgegeben (oder inf, falls keine Verbindung vorhanden).<br/>
+        Mit der Methode <a href="Graph.display"><code>display</code></a> können Sie
+        die Hervorhebung sichtbar machen.</p><hr/>
+<h3><a id="incidentEdges">incidentEdges</a></h3>
+<p></p>
+<p><b>Aufruf:</b> <code>self.incidentEdges(node)</code></p>
+<hr/>
+<h3><a id="isConnected">isConnected</a></h3>
+<p> <b>G.isConnected()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.isConnected()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Gibt als Wahrheitswert zurück, ob der Graph G zusammenhängend ist</i></p><hr/>
+<h3><a id="isTree">isTree</a></h3>
+<p> <b>G.isTree()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.isTree()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Gibt als Wahrheitswert zurück, ob der Graph G ein Baum ist</i></p><hr/>
+<h3><a id="isomorphic">isomorphic</a></h3>
+<p> <b>G.isomorphic(H)</b><br/></p>
+<p><b>Aufruf:</b> <code>.isomorphic(H)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Entscheidet, ob G und H isomorphe Graphen sind.</i><br/></p><hr/>
+<h3><a id="order">order</a></h3>
+<p> <b>G.order()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.order()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Ordnung (Anzahl der Knoten) des Graphen G.</i></p><hr/>
+<h3><a id="reduceToHighlightedEdges">reduceToHighlightedEdges</a></h3>
+<p> <b>G.reduceToHighlightedEdges()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.reduceToHighlightedEdges()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Entfernt alle nicht hervorgehobenen Kanten aus dem Graphen G.</i><br/>
+        Die Hervorhebung der verbleibenden Kanten wird zurückgenommen.</p><hr/>
+<h3><a id="shortRepr">shortRepr</a></h3>
+<p> <b>.shortRepr()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.shortRepr()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Kurzdarstellung des Graphen G (als String)</i></p><hr/>
+</body></html>

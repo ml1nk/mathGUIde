@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Netzwerke aus elektrischen Widerständen</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../../styles/guide.css"/>
+ <script type="text/javascript" src="../../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../../jsMath/plugins/spriteImageFonts.js"/>
+ <script type="text/javascript" src="../../listingButtons.js"/>
+</head>
+
+<body>
+<h1>Netzwerke aus elektrischen Widerständen</h1>
+
+<div class="right-img"><img alt="resistors" src="ohm-1.png"/></div>
+
+<h2>Die Aufgabenstellung</h2>
+<p>Zwischen zwei Punkten eines Netzwerks aus elektrischen Widerständen wird eine Spannung <var>U</var> angelegt.
+Gesucht ist der Strom <var>I</var>, der nun durch das Netzwerk fließt.</p>
+<p>Im nebenstehenden Bild sind die Anschlusspunkte dunkelblau, die übrigen Knotenpunkte des Netzwerks hellblau markiert.
+wie nummerieren die Knoten ab Null durch, wobei wir 0 und die höchste Zahl (im Bild 3) für die Anschlusspunkte verwenden.
+Den Widerstand zwischen den Knoten <var>i</var> und <var>k</var>
+bezeichnen wir mit <var>R<sub>ik</sub></var>
+und den Strom, der vom Knoten <var>i</var> zum Knoten <var>k</var> fließt, mit 
+<var>I<sub>ik</sub></var>. Da der Strom eine Richtung hat, ist
+<var>I<sub>ki</sub></var> = -<var>I<sub>ik</sub></var>.</p>
+
+<h2>Das ohmsche Gesetz</h2>
+<p>Nach dem 
+<a class="web" href="http://de.wikipedia.org/wiki/Ohmsches_Gesetz">ohmschen Gesetz</a> ist die Spannung zwischen zwei durch einen Widerstand verbundenen Knoten
+gleich dem Produkt aus Widerstand und durchfließenden Strom:</p>
+<div class="math">
+ U_i - U_k = R_{ik} I_{ik}
+</div>
+<p>Mit dem
+<a class="web" href="http://de.wikipedia.org/wiki/Elektrischer_Leitwert">Leitwert</a>
+(Kehrwert des Widerstandes) ergibt sich daraus</p>
+<div class="math">
+ I_{ik} = \sigma_{ik}  (U_i - U_k)
+</div>
+
+<p>Wir schreiben das für die Leitwerte der fünf Widerstände hin:</p>
+<div class="math">
+ \def\yellow{\bbox[#ffffa0,2pt]}
+ \eqalign{
+  \yellow{I_{01}} &amp; = &amp; \sigma_{01} U_1 \cr
+  \yellow{I_{02}} &amp; = &amp; \sigma_{02} U_2 \cr
+  \yellow{I_{12}} &amp; = &amp; \sigma_{12} (U_2 - U_1) \cr
+  \yellow{I_{13}} &amp; = &amp; \sigma_{13} (U - U_1) \cr
+  \yellow{I_{23}} &amp; = &amp; \sigma_{23} (U - U_2)
+ }                                   
+</div>
+
+
+<h2>Die erste kirchhoffsche Regel</h2>
+<div class="right-img"><img alt="kirchhoff" src="kirchhoff.png"/></div>
+<p>Nun betrachten wir die erste 
+<a class="web" href="http://de.wikipedia.org/wiki/Kirchhoffsche_Regeln">kirchhoffsche Regel</a>.
+Diese sagt einfach, dass kein Strom verloren geht:
+Die Summe der in einen Knotenpunkt hineinfließenden Ströme ist gleich der 
+Summe der herausfließenden Ströme. (Oder noch einfacher, wenn man hineinfließenden Ströme
+als negative herausfließenden Ströme ansieht:
+Die Summe der von einem Knoten wegfließenden Ströme ist Null.)</p>
+
+<p>Wir wenden die erste kirchhoffsche Regel für alle inneren Knoten (im Beispiel 1 und 2) an:</p>
+<div class="math">
+ \eqalign{
+  I_{01} &amp; = I_{12} +  I_{13} \cr
+  I_{02} &amp; = I_{21} +  I_{23} \cr
+ }
+</div>
+<p>Da allgemein <var>I<sub>ik</sub></var> = -<var>I<sub>ki</sub></var> ist,
+verwenden wir besser nur Ströme von einem kleinerem zu einem größeren Index:</p>
+<div class="math">
+ \eqalign{
+  \yellow{I_{01}} &amp; = \yellow{I_{12}} +  \yellow{I_{13}} \cr
+  \yellow{I_{02}} &amp; = -\yellow{I_{12}} +  \yellow{I_{23}}
+ }
+</div>
+
+
+<h2>Kombination der Gleichungen</h2>
+<p>Nun setzen wir die durch das ohmsche Gesetz gewonnenen Gleichungen 
+in die mit der kirchhoffschen Regel gewonnenen Gleichungen ein:</p>
+<div class="math">
+ \eqalign{
+  \sigma_{01} U_1 &amp; = \sigma_{12} (U_2 - U_1) +  \sigma_{13} (U - U_1) \cr
+  \sigma_{02} U_1 &amp; = -\sigma_{12} (U_2 - U_1) +  \sigma_{23} (U - U_2)
+ }
+</div>
+<p>Nach den Unbekannten <var>U<sub>1</sub></var> und <var>U<sub>1</sub></var> gegliedert, ergibt sich:</p>
+<div class="math">
+ \eqalign{
+  (\sigma_{01} + \sigma_{12} + \sigma_{13}) U_1  - \sigma_{12} U_2 &amp; = \sigma_{13} U \cr
+  -\sigma_{12} U_1 + (\sigma_{02} + \sigma_{12} + \sigma_{23}) U_2 &amp; = -\sigma_{23} U
+ }
+</div>
+<p>Wir müssen also das Gleichungssystem</p>
+<div class="math">
+ \pmatrix{ \sigma_{01} + \sigma_{12} + \sigma_{13} &amp; - \sigma_{12} \cr
+          -\sigma_{12} &amp; \sigma_{02} + \sigma_{12} + \sigma_{23}}
+ \cdot
+ \pmatrix{U_1 \cr U_2}
+ = \pmatrix{\sigma_{13} U \cr \sigma_{23} U}
+</div>
+<p>lösen.</p>
+
+<div class="right-img"><img alt="resistors" src="ohm-2.png"/></div>
+<p>Dazu betrachten wir konkrete Widerstände, setzen <var>U<sub>3</sub></var> auf 1V
+und lassen die Dimensionen weg:</p>
+<div class="math">
+ \pmatrix{ \frac 1 5 + \frac 1 {15} +  \frac 1 {10}  &amp; - \frac 1 {15} \cr
+          -\frac 1 {15} &amp; \frac 1 {25} + \frac 1 {15} + \frac 1 {20}}
+ \cdot
+ \pmatrix{U_1 \cr U_2}
+ = \pmatrix{\frac 1 {10} \cr \frac 1 {20}}
+</div>
+<p>Dieses Gleichungssystem kann mathGUIde für uns lösen:</p>
+
+<!-- listing-01 -->
+<pre>
+A =  Matrix([[1/5+1/15+1/10, -1/15], [-1/15, 1/25+1/15+1/20]])
+b =  ~Vector([1/10, 1/20])
+A.solve(b)</pre>
+<script type="text/javascript">listingButtons("01")</script>
+
+<h2>Der Gesamtwiderstand</h2>
+<p>Wir kennen jetzt die Spannung zwischen den inneren Knoten (1, 2) und dem Ausgangsknoten (0).
+Der Rest ist einfach: Mit dem ohmschen Gesetz berechnen wir die beiden vom Ausgangsknoten wegfließenden Ströme:</p>
+<div class="math">
+ \eqalign{
+  I_{01} &amp; = \frac {U_1} {R_{01}} = U_1 \sigma_{01} \cr
+  I_{02} &amp; = \frac {U_1} {R_{02}} = U_2 \sigma_{02}
+ }
+</div>
+<p>Mit der ersten kirchhoffschen Regel berechnen wir nun den Gesamtstrom durch das Netzwerk.
+Der verteilt sich am Eingangsknoten (0) auf die beiden Zweige nach Knoten 1 und 2:</p>
+<div class="math">
+  I = I_{01} + I_{02}
+</div>
+<p>Damit ergibt sich der Gesamtwiderstand:</p>
+<div class="math">
+  R = \frac U I = \frac {1V} I
+</div>
+
+<!-- listing-02 -->
+<pre>
+A =  Matrix([[1/5+1/15+1/10, -1/15], [-1/15, 1/25+1/15+1/20]])
+b =  ~Vector([1/10, 1/20])
+U = A.solve(b)
+U1, U2 = U[0,0], U[1,0]
+I01 = U1/5
+I02 = U2/25
+I = I01 + I02
+R = 1/I
+print("Gesamtwiderstand: {0} Ohm".format(R))</pre>
+<script type="text/javascript">listingButtons("02")</script>
+
+<h2>Zusammenfassung des Verfahrens</h2>
+<ol>
+ <li>Die Knoten des Netzwerks von Null bis <var>n</var> durchnummerieren,
+ wobei die Indizes 0 und <var>n</var> für die Anschlussknoten verwendet werden.</li>
+ <li>Für jede Kante (Widerstand) das ohmsche Gesetz in der Form <var>I</var> = <var>σU</var> hinschreiben.</li>
+ <li>Für jeden inneren Knoten (1 bis <var>n</var>-1) die 1. kirchhoffsche Regel hinschreiben.</li>
+ <li>In den in Schritt 3 hingeschriebenen Regeln die Ströme durch die
+  rechten Seiten der Gleichungen aus Schritt 2 ersetzen.</li>
+ <li>Die Gleichungen aus Schritt 4 nach den Unbekannten <var>U</var><sub>1</sub>
+   bis <var>U</var><sub><var>n</var>-1</sub> gliedern und <var>U</var><sub>0</sub> auf Null (Volt)
+   und <var>U</var><sub><var>n</var></sub> auf 1 (Volt) setzen.</li>
+ <li>Das Gleichungssystem lösen.</li>
+ <li>Mit Hilfe der nun bekannten Knotenspannungen und des ohmschen Gesetzes
+  die Summe <var>I</var> der vom Knoten Null ausgehenden Ströme berechnen.<br/>
+  Daraus dann wiederum mit dem ohmschen Gesetz den Gesamtwiderstand
+  (1V/<var>I</var>) berechnen.</li>
+</ol>
+
+
+<h2>Übungsaufgabe</h2>
+
+<div class="right-img"><img alt="example" src="ohm-4.png"/></div>
+<p>Sechs Widerstände von 10 Ω, 12 Ω, 15 Ω, 18 Ω, 22 Ω und 27 Ω werden zu einem 
+<a class="web" href="http://de.wikipedia.org/wiki/Tetraeder">Tetraeder</a> verlötet.</p>
+<p>Schreiben Sie ein mathGUIde-Programm, das folgendes ausgibt:</p>
+
+<ol style="list-style-type:lower-alpha">
+ <li>Die Anzahl unterschiedlicher möglicher Widerstände zwischen zwei Ecken eines solchen Tetraeders,</li>
+ <li>den niedrigsten und den höchsten dieser Widerstände,</li>
+ <li>den größten prozentualen Sprung zwischen zwei aufeinanderfolgenden sortierten Widerständen.</li>
+</ol>
+
+<h3>Hinweise</h3>
+<ul>
+ <li>Verwenden Sie die mathGUIde-Funktion <code>permutations</code>, um alle möglichen Anordnungen der Widerstände zu ermitteln.</li>
+ <li>Bauen Sie eine Liste aller möglichen Widerstände auf (um Duplikate sicher zu finden,
+  sollten Sie mit rationalen Zahlen (Klasse <code>Rational</code>) rechnen).</li>
+ <li>Sortieren Sie diese Liste (mit der Listen-Methode <code>sort</code>).</li>
+<li>Das folgende kleine Beispiel zeigt Ihnen alle technischen Mittel, die Sie zur Lösung benötigen:<br/>
+ Gesucht sind alle rationalen Zahlen (in aufsteigender Reihenfolge), die sich in der Form
+<div class="math">
+ \frac a b + \frac c d
+</div>
+schreiben lassen, wobei <var>a</var>, <var>b</var>, <var>c</var> und <var>d</var> die Zahlen 1, 2, 3 und 4 in beliebiger Reihenfolge sind.
+
+<!-- listing-03 -->
+<pre>
+l = []
+<span class="keyword">for</span> p <span class="keyword">in</span> permutations([1,2,3,4]):
+    s = Rational(p[0],p[1]) + Rational(p[2],p[3])
+    <span class="keyword">if not</span> s <span class="keyword">in</span> l:
+        l.append(s)
+l.sort()
+print(l)</pre>
+<script type="text/javascript">listingButtons("03")</script>
+</li>
+</ul>
+
+</body>
+</html>

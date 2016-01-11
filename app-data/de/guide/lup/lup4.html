@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>LUP-Zerlegung — 4</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../../styles/guide.css"/>
+ <script type="text/javascript" src="../../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../../jsMath/plugins/spriteImageFonts.js"/>
+ <script type="text/javascript" src="../../listingButtons.js"/>
+</head>
+
+<body>
+<h1>LUP-Zerlegung</h1>
+
+<div class="overview">
+<a href="./lup1.html">1. Lösung linearer Gleichungen mit LU-Zerlegung</a><br/>
+<a href="./lup2.html">2. Ein einfacher rekursiver Algorithmus mit einem Schönheitsfehler</a><br/>
+<a href="./lup3.html">3. Umformung in eine Iteration</a><br/>
+4. Beseitigung des Schönheitsfehlers: LUP-Zerlegung
+</div>
+
+<h2>4. Beseitigung des Schönheitsfehlers: LUP-Zerlegung</h2>
+
+<p>Wir kommen nun auf das Problem der Division durch Null
+(vom Ende des 1. Abschnitts) zurück. Bei der folgenden Matrix versagt
+unser Algorithmus, obwohl sie invertierbar ist:</p>
+
+<div class="math">
+  A = \pmatrix{0 &amp; 5 &amp; 2 \cr
+           2 &amp; 6 &amp; 4 \cr
+           2 &amp; 1 &amp; 1 }
+</div>
+
+<!-- listing-01 -->
+<pre>
+A = Matrix.fromString("0, 5, 2;  2, 6, 4;  2, 1, 1")
+luIter(A)</pre>
+<script type="text/javascript">listingButtons("01")</script>
+
+<p>Wir können die Division durch Null hier verhindern, indem wir
+die ersten beiden Zeilen der Matrix vertauschen:</p>
+
+<div class="math">
+  A' = \pmatrix{2 &amp; 6 &amp; 4 \cr
+           0 &amp; 5 &amp; 2 \cr
+           2 &amp; 1 &amp; 1 }
+</div>
+
+
+<!-- listing-02 -->
+<pre>
+A1 = Matrix.fromString("2, 6, 4;  0, 5, 2;  2, 1, 1")
+luIter(A1)
+print(A1)</pre>
+<script type="text/javascript">listingButtons("02")</script>
+
+<p>Die Vertauschung der der ersten beiden Zeilen lässt sich erreichen,
+indem man <var>A</var> von links mit der entsprechenden Permutationsmatrix
+multipliziert. Diese entsteht aus der Einheitsmatrix durch Vertauschung
+der der entsprechenden Zeilen:</p>
+
+<div class="math">
+  A' = 
+  \pmatrix{2 &amp; 6 &amp; 4 \cr
+           0 &amp; 5 &amp; 2 \cr
+           2 &amp; 1 &amp; 1 }
+  =
+  \pmatrix{0 &amp; 1 &amp; 0 \cr
+           1 &amp; 0 &amp; 0 \cr
+           0 &amp; 0 &amp; 1 }
+  \pmatrix{0 &amp; 5 &amp; 2 \cr
+           2 &amp; 6 &amp; 4 \cr
+           2 &amp; 1 &amp; 1 }
+           = PA
+</div>
+
+<p>In einer invertierbaren Matrix lassen sich die Zeilen immer so permutieren, dass
+unser Algortihmus anschließend erfolgreich ist. Es gilt nämlich:</p>
+
+<div class="theorem">
+ <p class="title">Satz</p>
+ <p>Zu jeder invertierbaren Matrix <var>A</var> gibt es</p>
+ <ul>
+  <li>eine Permutationsmatrix <var>P</var>,</li>
+  <li>eine untere Dreiecksmatrix <var>L</var> (nur Einsen auf der Hauptdiagonalen),</li>
+  <li>eine obere Dreiecksmatrix <var>U</var> (keine Null auf der Hauptdiagonalen),</li>
+ </ul>
+ <p>so dass <span class="bgGreen"><var>PA</var> = <var>LU</var></span>.</p>
+</div>
+
+<p>Wir können das lineare Gleichungssystem auf beiden Seiten mit <var>P</var>
+multiplizieren, und dann mit der Zerlegung der der permutierten Matrix arbeiten:</p>
+
+<div class="math">
+ \def\green{\bbox[#d0ffd0,2pt]}
+  A\textbf x = \textbf b \quad
+  \Rightarrow\quad  \green{PA}\textbf x = P\textbf b \quad
+  \Rightarrow\quad \green{LU}\textbf x = P\textbf b
+</div>
+
+<p>Dieses Gleichungssystem lässt sich in zwei Schritten lösen:</p>
+
+<h4>1. Schritt:</h4>
+Mit dem Ansatz <var>U</var><span class="textbf">x</span> = <span class="textbf">y</span>
+wird die Gleichung zu <var>L</var><span class="textbf">y</span> = <var>P</var><span class="textbf">b</span>.
+Diese Gleichung nach <span class="textbf">y</span> auflösen!
+
+<h4>2. Schritt:</h4>
+Mit dem nun bekannten <span class="textbf">y</span> kann der Ansatz
+	<var>U</var><span class="textbf">x</span> = <span class="textbf">y</span>
+nach x aufgelöst werden.
+
+<p>In der nun folgenden Implementierung vertauschen wir nicht nur,
+um Divisionen durch Null zu verhindern, sondern bringen immer das dem Betrage
+nach größte Element an die Divisionsposition. Damit erhöht sich die numerische
+Stabilität beim Rechnen mit Gleitkommazahlen.</p>
+
+<!-- listing-03 -->
+<pre>
+<span class="keyword">def</span> lup(A):
+    A = A.copy() <span class="comment"># Kopie, damit übergebene Matrix unverändert bleibt</span>
+    n = A.height()
+    P = Matrix.identity(n) <span class="comment"># Ausgangsbasis für Permutationsmatrix</span>
+    <span class="keyword">for</span> k <span class="keyword">in</span> fromTo(0,n-2):
+        <span class="comment"># Suche das dem Betrag nach größte Element
+        # der k-ten Spalte ab der k-ten Zeile:</span>
+        absMax, kMax = max([(abs(A[i,k]), i) <span class="keyword">for</span> i <span class="keyword">in</span> fromTo(k,n-1)])
+        <span class="keyword">assert</span> absMax > 0
+
+        <span class="comment"># Vertausche die Zeile des größten Elements mit der k-ten Zeile...</span>
+        P[k], P[kMax] = P[kMax], P[k]  <span class="comment"># ... in der Permutation</span>
+        A[k], A[kMax] = A[kMax], A[k]  <span class="comment"># ... und in der Matrix</span>
+
+        <span class="keyword">for</span> i <span class="keyword">in</span> fromTo(k+1,n-1):
+            <span class="comment"># Dividiere die restlichen Elemente
+            # der k-ten Spalte durch das „Kopfelement“:</span>
+            A[i,k] /= A[k,k]
+            <span class="comment"># Subtrahiere in der Restmatrix überall das Produkt
+            # aus den „Randelementen“ links und oberhalb:</span>
+            <span class="keyword">for</span> j <span class="keyword">in</span> fromTo(k+1,n-1):
+                A[i,j] -= A[i,k] * A[k,j]
+
+    <span class="comment"># A in linke und rechte Dreiecksmatrix zerlegen</span>
+    L = Matrix.identity(n)
+    U = Matrix.null(n)
+    <span class="keyword">for</span> i <span class="keyword">in</span> range(n):
+        <span class="keyword">for</span> k <span class="keyword">in</span> range(n):
+            <span class="keyword">if</span> k &lt; i:  L[i,k] = A[i,k]
+            <span class="keyword">else</span>:      U[i,k] = A[i,k]
+    <span class="keyword">return</span> L, U, P</pre>
+<script type="text/javascript">listingButtons("03")</script>
+
+<p>Ein Test mit der Matrix von oben:</p>
+
+<!-- listing-04 -->
+<pre>
+A = Matrix.fromString(<span class="literal">"0, 5, 2;  2, 6, 4;  2, 1, 1"</span>)
+L,U,P = lup(A)
+print(L,U,P)</pre>
+<script type="text/javascript">listingButtons("04")</script>
+
+<p>Und die Kontrolle:</p>
+
+<!-- listing-05 -->
+<pre>
+print(P * A)
+print(L * U)</pre>
+<script type="text/javascript">listingButtons("05")</script>
+
+<p>Die Funktion <code>lup</code> ist in mathGUIde bereits eingebaut,
+allerdings nicht als globale Funktion sondern als Matrix-Methode:</p>
+
+<!-- listing-06 -->
+<pre>
+A = Matrix.fromString(<span class="literal">"0, 5, 2;  2, 6, 4;  2, 1, 1"</span>)
+L,U,P = A.lup()
+print(L,U,P)</pre>
+<script type="text/javascript">listingButtons("06")</script>
+
+</body>
+</html>

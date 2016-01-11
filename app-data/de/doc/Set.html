@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Set</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="../styles/doc.css"/>
+</head>
+<body>
+<p><a href="mathguide.html">Hauptübersicht</a></p>
+<h1>Klasse <code>Set</code></h1>
+<p> Klasse <code>Set</code><br/>
+        <i>Polymorphe Mengen</i><br/>
+        <b>Beispiel</b>: <code>A = Set([1,2,3])</code><br/>
+        Die Klasse Set erlaubt folgende Operationen:<br/>
+        <ul>
+          <li>Durchschnitt (Operator &amp;)</li>
+          <li>Vereinigung (Operator +)</li>
+          <li>Mengendifferenz (Operator -)</li>
+          <li>Symmetrische Differenz (Operator ^)</li>
+          <li>Potenzmenge (powerset)</li>
+          <li>Kartesisches Produkt (Operator *)</li>
+          <li>Elementtest (Operator <code>in</code>)</li>
+          <li>Kardinalzahl (Python-Funktion <code>len</code>)</li>
+        </ul></p>
+<p><b>Basisklasse:</b> <code>list</code></p>
+<div id="overview"><p style="margin-top:0">Übersicht:</p>
+<h2>Konstruktor</h2>
+<p><a href="#constr">Set</a> (el)</p>
+<h2>Operatoren</h2>
+<table><tr><td><b>Operator</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#xx20x2bx20y">x + y</a></td><td>        a + b  <span style="font-family:Wingdings">à</span> __add__ (a, b), if a is of type Set
+                   __radd__(b, a), otherwise
+    </td></tr>
+<tr><td><a href="#"></a></td><td>        Elements, wihch are sets themself come first and are sorted by length (cardinality)
+
+        simultaneous overloading of  &lt; &lt;=, >, >=, == and !=
+
+        If A is a Set and b not, A.__cmp__(b)  is called for comparing A with b (or vice versa)!
+
+    </td></tr>
+<tr><td><a href="#xx20x3dx3dx20y">x == y</a></td><td></td></tr>
+<tr><td><a href="#xx20x2ax20y">x * y</a></td><td>    </td></tr>
+<tr><td><a href="#xx20x21x3dx20y">x != y</a></td><td></td></tr>
+<tr><td><a href="#strx28xx29">str(x)</a></td><td>    </td></tr>
+<tr><td><a href="#xx20x2dx20y">x - y</a></td><td>    </td></tr>
+<tr><td><a href="#xx20x5ex20y">x ^ y</a></td><td>    </td></tr>
+</table>
+<h2>Objektmethoden</h2>
+<table><tr><td><b>Methode</b></td><td><b>Bedeutung</b></td></tr>
+<tr><td><a href="#card">card</a> ()</td><td>Kardinalzahl</td></tr>
+<tr><td><a href="#difference">difference</a> (B)</td><td>Mengendifferenz</td></tr>
+<tr><td><a href="#insert">insert</a> (e)</td><td>Fügt ein zusätzliches Element in die Menge ein</td></tr>
+<tr><td><a href="#intersection">intersection</a> (B)</td><td>Schnittmenge</td></tr>
+<tr><td><a href="#issubset">issubset</a> (B)</td><td>Ist A Teilmenge (oder gleich) B?</td></tr>
+<tr><td><a href="#issuperset">issuperset</a> (B)</td><td>Ist A Obermenge (oder gleich) B</td></tr>
+<tr><td><a href="#operators">operators</a> ()</td><td>Nur zur Dokumentation</td></tr>
+<tr><td><a href="#powerset">powerset</a> ()</td><td>Potenzmenge (Menge aller Teilmengen)</td></tr>
+<tr><td><a href="#product">product</a> (B)</td><td>Kartesisches Produkt</td></tr>
+<tr><td><a href="#symmDiff">symmDiff</a> (B)</td><td>Symmetrische Differenz</td></tr>
+<tr><td><a href="#union">union</a> (B)</td><td>Vereinigungsmenge</td></tr>
+</table>
+</div><h1>Konstruktor</h1>
+<h3><a id="constr">Set</a></h3>
+<p> Konstruktor</p>
+<p><b>Aufruf:</b> <code>Set(el)</code></p>
+<hr/>
+<h1>Operatoren</h1>
+<h3><a id="xx20x2bx20y">x + y</a></h3>
+<p> Union (operators + and +=):</p>
+<p><b>Aufruf:</b> <code>x + y</font></p>
+<p><b>Beschreibung</b>:<br/>        a + b  <span style="font-family:Wingdings">à</span> __add__ (a, b), if a is of type Set
+                   __radd__(b, a), otherwise
+    </p><hr/>
+<h3><a id=""></a></h3>
+<p> For ordering sets</p>
+<p><b>Aufruf:</b> <code></font></p>
+<p><b>Beschreibung</b>:<br/>        Elements, wihch are sets themself come first and are sorted by length (cardinality)
+
+        simultaneous overloading of  &lt; &lt;=, >, >=, == and !=
+
+        If A is a Set and b not, A.__cmp__(b)  is called for comparing A with b (or vice versa)!
+
+    </p><hr/>
+<h3><a id="xx20x3dx3dx20y">x == y</a></h3>
+<p></p>
+<p><b>Aufruf:</b> <code>x == y</font></p>
+<hr/>
+<h3><a id="xx20x2ax20y">x * y</a></h3>
+<p> Cartesian product (operator *)</p>
+<p><b>Aufruf:</b> <code>x * y</font></p>
+<p><b>Beschreibung</b>:<br/>    </p><hr/>
+<h3><a id="xx20x21x3dx20y">x != y</a></h3>
+<p></p>
+<p><b>Aufruf:</b> <code>x != y</font></p>
+<hr/>
+<h3><a id="strx28xx29">str(x)</a></h3>
+<p> Object representation as string (in curly braces)</p>
+<p><b>Aufruf:</b> <code>str(x)</font></p>
+<p><b>Beschreibung</b>:<br/>    </p><hr/>
+<h3><a id="xx20x2dx20y">x - y</a></h3>
+<p> Set difference (operators - and -=)</p>
+<p><b>Aufruf:</b> <code>x - y</font></p>
+<p><b>Beschreibung</b>:<br/>    </p><hr/>
+<h3><a id="xx20x5ex20y">x ^ y</a></h3>
+<p> Symmetric difference (operators ^ and ^=)</p>
+<p><b>Aufruf:</b> <code>x ^ y</font></p>
+<p><b>Beschreibung</b>:<br/>    </p><hr/>
+<h1>Objektmethoden</h1>
+<h3><a id="card">card</a></h3>
+<p> <b>A.card()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.card()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Kardinalzahl</i><br/>
+        Synonym zu len(A)</p><hr/>
+<h3><a id="difference">difference</a></h3>
+<p> <b>A.difference(B)</b><br/></p>
+<p><b>Aufruf:</b> <code>.difference(B)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Mengendifferenz</i><br/>
+        Auch Operatorschreibweise: <b>A - B</b><br/>
+        Statt A = A - B kann auch A -= B geschrieben werden.</p><hr/>
+<h3><a id="insert">insert</a></h3>
+<p> <b>A.insert(e)</b><br/></p>
+<p><b>Aufruf:</b> <code>self.insert(e)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Fügt ein zusätzliches Element in die Menge ein</i><br/>
+        A.insert(e) ist äquivalent zu A += Set(e)</p><hr/>
+<h3><a id="intersection">intersection</a></h3>
+<p> <b>A.intersection(B)</b><br/></p>
+<p><b>Aufruf:</b> <code>.intersection(B)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Schnittmenge</i><br/>
+        Auch Operatorschreibweise: <b>A &amp; B</b><br/>
+        Statt A = A &amp; B kann auch A &amp;= B geschrieben werden.</p><hr/>
+<h3><a id="issubset">issubset</a></h3>
+<p> <b>A.issubset(B)</b><br/></p>
+<p><b>Aufruf:</b> <code>A.issubset(B)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Ist A Teilmenge (oder gleich) B?</i><br/>
+        Rückgabewert: bool</p><hr/>
+<h3><a id="issuperset">issuperset</a></h3>
+<p> <b>A.issuperset(B)</b><br/></p>
+<p><b>Aufruf:</b> <code>A.issuperset(B)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Ist A Obermenge (oder gleich) B</i><br/>
+        Rückgabewert: bool</p><hr/>
+<h3><a id="operators">operators</a></h3>
+<p> <b>Set.operators()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.operators()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Nur zur Dokumentation</i><br/>
+        Die Klasse <b>Set</b> erlaubt folgende Operatoren:<br/>
+        <table>
+         <tr><th>Op.</th><th>Funktion</th><th>Beispiele</th></tr>
+         <tr><th>&amp;</th><td>Durchschnitt</td><td><code>A &amp; B; A &amp;= B</code></td></tr>
+         <tr><th>+</th><td>Vereinigung</td><td><code>A + B; A += B</code></td></tr>
+         <tr><th>-</th><td>Mengendifferenz</td><td><code>A - B; A -= B</code></td></tr>
+         <tr><th>^</th><td>Symmetrische Differenz</td><td><code>A ^ B; A ^= B</code></td></tr>
+         <tr><th>*</th><td>Kartesisches Produkt</td><td><code>A * B; A *= B</code></td></tr>
+         <tr><th>in</th><td>ist Element von</td><td><code>x in A</code></td></tr>
+        </table>
+        <font color="#000080" size="-2">Diese Methode dient nur zur Dokumentation. Sie hat keine Wirkung.</font></p><hr/>
+<h3><a id="powerset">powerset</a></h3>
+<p> <b>A.powerset()</b><br/></p>
+<p><b>Aufruf:</b> <code>self.powerset()</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Potenzmenge (Menge aller Teilmengen)</i><br/></p><hr/>
+<h3><a id="product">product</a></h3>
+<p> <b>A.product(B)</b><br/></p>
+<p><b>Aufruf:</b> <code>.product(B)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Kartesisches Produkt</i><br/>
+        Auch Operatorschreibweise: <b>A * B</b><br/>
+        Statt A = A * B kann auch A *= B geschrieben werden.</p><hr/>
+<h3><a id="symmDiff">symmDiff</a></h3>
+<p> <b>A.symmDiff(B)</b><br/></p>
+<p><b>Aufruf:</b> <code>.symmDiff(B)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Symmetrische Differenz</i><br/>
+        Auch Operatorschreibweise: <b>A ^ B</b><br/>
+        Statt A = A ^ B kann auch A ^= B geschrieben werden.</p><hr/>
+<h3><a id="union">union</a></h3>
+<p> <b>A.union(B)</b><br/></p>
+<p><b>Aufruf:</b> <code>.union(B)</code></p>
+<p><b>Beschreibung</b>:<br/>        <i>Vereinigungsmenge</i><br/>
+        Auch Operatorschreibweise: <b>A + B</b><br/>
+        Statt A = A + B kann auch A += B geschrieben werden.</p><hr/>
+</body></html>

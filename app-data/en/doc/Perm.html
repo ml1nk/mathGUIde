@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<title>Perm</title>
+<meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+<link rel="stylesheet" type="text/css" href="../styles/doc.css"/>
+</head>
+<body>
+<p><a href="mathguide.html">Main Overview</a></p>
+<h1>Class <code>Perm</code></h1>
+<p> Class <code>Perm</code><br/>
+        <i>Permutations (from dictionary or cycle representation)</i>
+        <b>Examples</b> (three times the same permutation:<br/>
+        <code>Perm({1:4, 2:3, 3:2, 4:1})</code><br/>
+        <code>Perm("(1,4)(2,3)")</code><br/>
+        <code>Perm([[1,4],[2,3]])</code></p>
+<div id="overview"><p style="margin-top:0">Overview:</p>
+<h2>Constructor</h2>
+<p><a href="#constr">Perm</a> (p)</p>
+<h2>Operators</h2>
+<table><tr><td><b>Operator</b></td><td><b>Meaning</b></td></tr>
+<tr><td><a href="#xx20x3dx3dx20y">x == y</a></td><td></td></tr>
+<tr><td><a href="#xx5bix5d">x[i]</a></td><td></td></tr>
+<tr><td><a href="#xx20x2ax20y">x * y</a></td><td>    </td></tr>
+<tr><td><a href="#xx20x21x3dx20y">x != y</a></td><td></td></tr>
+<tr><td><a href="#strx28xx29">str(x)</a></td><td>    </td></tr>
+</table>
+<h2>Object Methods</h2>
+<table><tr><td><b>Method</b></td><td><b>Meaning</b></td></tr>
+<tr><td><a href="#check">check</a> ()</td><td>check for consistency</td></tr>
+<tr><td><a href="#cycles">cycles</a> ()</td><td>Cycle representation</td></tr>
+<tr><td><a href="#fromVector">fromVector</a> (v)</td><td>Generation from vector v with argument/value pairs.</td></tr>
+<tr><td><a href="#inverse">inverse</a> ()</td><td>inverse permutation</td></tr>
+<tr><td><a href="#inversions">inversions</a> ()</td><td>Inversion number (count of "swapped pairs")</td></tr>
+<tr><td><a href="#members">members</a> ()</td><td>List of the permuted elements</td></tr>
+<tr><td><a href="#odd">odd</a> ()</td><td>odd permutation?</td></tr>
+<tr><td><a href="#reduce">reduce</a> ()</td><td>removes fixed points</td></tr>
+<tr><td><a href="#sign">sign</a> ()</td><td>signum</td></tr>
+</table>
+</div><h1>Constructor</h1>
+<h3><a id="constr">Perm</a></h3>
+<p> Constructor</p>
+<p><b>Usage:</b> <code>Perm(p)</code></p>
+<hr/>
+<h1>Operators</h1>
+<h3><a id="xx20x3dx3dx20y">x == y</a></h3>
+<p></p>
+<p><b>Usage:</b> <code>x == y</font></p>
+<hr/>
+<h3><a id="xx5bix5d">x[i]</a></h3>
+<p></p>
+<p><b>Usage:</b> <code>x[i]</font></p>
+<hr/>
+<h3><a id="xx20x2ax20y">x * y</a></h3>
+<p> product of two Permutations (left first, then right!)</p>
+<p><b>Usage:</b> <code>x * y</font></p>
+<p><b>Description</b>:<br/>    </p><hr/>
+<h3><a id="xx20x21x3dx20y">x != y</a></h3>
+<p></p>
+<p><b>Usage:</b> <code>x != y</font></p>
+<hr/>
+<h3><a id="strx28xx29">str(x)</a></h3>
+<p> Object representation as string (as cycles)</p>
+<p><b>Usage:</b> <code>str(x)</font></p>
+<p><b>Description</b>:<br/>    </p><hr/>
+<h1>Object Methods</h1>
+<h3><a id="check">check</a></h3>
+<p> <b>p.check()</b><br/></p>
+<p><b>Usage:</b> <code>self.check()</code></p>
+<p><b>Description</b>:<br/>        <i>check for consistency</i></p><hr/>
+<h3><a id="cycles">cycles</a></h3>
+<p> <b>p.cycles()</b><br/></p>
+<p><b>Usage:</b> <code>self.cycles()</code></p>
+<p><b>Description</b>:<br/>        <i>Cycle representation</i></p><hr/>
+<h3><a id="fromVector">fromVector</a></h3>
+<p> <b>p.fromVector(v)</b><br/></p>
+<p><b>Usage:</b> <code>self.fromVector(v)</code></p>
+<p><b>Description</b>:<br/>        <i>Generation from vector v with argument/value pairs.</i><br/>
+        Example: <code>p.fromVector([[1,4],[2,3]])</code></p><hr/>
+<h3><a id="inverse">inverse</a></h3>
+<p> <b>p.inverse()</b><br/></p>
+<p><b>Usage:</b> <code>self.inverse()</code></p>
+<p><b>Description</b>:<br/>        <i>inverse permutation</i></p><hr/>
+<h3><a id="inversions">inversions</a></h3>
+<p> <b>p.inversions()</b><br/></p>
+<p><b>Usage:</b> <code>self.inversions()</code></p>
+<p><b>Description</b>:<br/>        <i>Inversion number (count of "swapped pairs")</i></p><hr/>
+<h3><a id="members">members</a></h3>
+<p> <b>p.members()</b><br/></p>
+<p><b>Usage:</b> <code>self.members()</code></p>
+<p><b>Description</b>:<br/>        <i>List of the permuted elements</i></p><hr/>
+<h3><a id="odd">odd</a></h3>
+<p> <b>p.odd()</b><br/></p>
+<p><b>Usage:</b> <code>self.odd()</code></p>
+<p><b>Description</b>:<br/>        <i>odd permutation?</i> (bool)</p><hr/>
+<h3><a id="reduce">reduce</a></h3>
+<p> <b>p.reduce()</b><br/></p>
+<p><b>Usage:</b> <code>self.reduce()</code></p>
+<p><b>Description</b>:<br/>        <i>removes fixed points</i></p><hr/>
+<h3><a id="sign">sign</a></h3>
+<p> <b>p.sign()</b><br/></p>
+<p><b>Usage:</b> <code>self.sign()</code></p>
+<p><b>Description</b>:<br/>        <i>signum</i><br/>
+        1 for even, -1 for odd permutations</p><hr/>
+</body></html>

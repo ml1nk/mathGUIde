@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+ <title>Multiplikation — 3</title>
+ <meta name="author" content="Hartmut Ring"/>
+ <link rel="stylesheet" type="text/css" href="../../styles/guide.css"/>
+ <script type="text/javascript" src="../../../jsMath/easy/load.js"/>
+ <script type="text/javascript" src="../../../jsMath/plugins/spriteImageFonts.js"/>
+ <script type="text/javascript" src="../../listingButtons.js"/>
+</head>
+
+<body>
+<h1>Eine kurze Geschichte der Multiplikation</h1>
+
+<p class="overview"><a href="mult1.html">1. Multiplikation durch Addition</a><br/>
+<a href="mult2.html">2. Binäre Multiplikation</a><br/>
+3. Parallele Multiplikation<br/>
+<a href="mult4.html">4. Karatsuba-Multiplikation</a></p>
+
+<h2>3. Parallele Multiplikation</h2>
+<div class="left-img"><img alt="clock" src="clock-mod.jpg"/></div>
+<p>Modulo-Rechnung kennen wir vom Ablesen einer Uhr.</p>
+<p class="remark">Uhren mit Digitalanzeige konnten sich nie flächendeckend durchsetzen.
+Das liegt wohl neben der Ästhetik vor allem an zwei Nachteilen
+der Digitaluhren. Erstens sagen sie zwar, wie spät es genau ist,
+meist wollen wir es aber nur ungefähr wissen und haben einen kleinen Transfer
+zu leisten (z.B. von 10:54:49 nach „fünf vor Elf“). Zweitens – und das ist
+wohl wichtiger – wollen wir meistens gar nicht wissen, wie spät es gerade ist,
+sondern wie lange es noch bis zu einem bestimmten Termin dauert.
+Und genau das lässt sich bei der Analoguhr mit einem Blick ablesen:
+Wenn Sie um 17:00 verabredet sind, wie lange haben Sie noch Zeit?
+Auf der Uhr im Bild wären es noch knapp 7 Stunden (grüner Bogen).</p>
+
+<p>Wenn wir die 12 durch 0 ersetzen, ist das Zifferblatt ein praktisches
+Hilfsmittel für die Addition modulo 12. Der grüne Bogen steht dann für
+(10 + 7) mod 12 = 5.<br/>
+Natürlich kann man die Arithmetik modulo 12 auch auf die
+Multiplikation und weitere Rechenoperationen ausdehnen, auch wenn die Uhr
+dabei dann nicht mehr hilft.
+Der <a class="web" href="http://de.wikipedia.org/wiki/Chinesischer_Restsatz">chinesische Restsatz</a>
+sagt in einer speziellen Form: Wenn zwei Zahlen <var>m</var><sub>1</sub>
+und <var>m</var><sub>2</sub> teilerfremd sind und für
+eine Zahl <var>x</var> bekannt ist, dass
+<var>x</var> mod <var>m</var><sub>1</sub> = <var>a</var><sub>1</sub> und
+<var>x</var> mod <var>m</var><sub>2</sub> = <var>a</var><sub>2</sub>,
+dann gibt es genau eine Lösung <var>x</var> im Bereich von 0
+bis <var>m</var><sub>1</sub> · <var>m</var><sub>2</sub> - 1.</p>
+<p>Mit <var>m</var><sub>1</sub> = 99 und <var>m</var><sub>2</sub> = 101
+können wir also jede Zahl von 0 bis 99·101 - 1 = 9998 bestimmen, wenn wir
+ihre beiden Reste modulo 99 und 101 kennen.</p>
+
+<div class="right-img"><img alt="modular multiplication" src="mod-mult.png"/></div>
+<p>Die nebenstehende Abbildung zeigt im Prinzip, wie man damit die Multiplikation
+mit Ergebnissen im Bereich 0, ..., 9998 in zwei Teilmultiplikationen
+von Zahlen in den Bereichen 0, ..., 98  und im Bereich 0, ..., 100 zerlegen kann.</p>
+
+<p>Wählt man statt 99 und 101 z.B. zwei teilerfremde Zahlen knapp unterhalb
+von 10<sup>32</sup>, so kann man eine Multiplikation von Zahlen bis knapp 10<sup>64</sup>
+in zwei 32-Bit-Multiplikationen zerlegen, die auf zwei Prozessoren parallel
+ausgeführt werden können. Der chinesische Restsatz gilt aber nicht nur für zwei,
+sondern für beliebig viele teilerfremde Modulo-Zahlen. Damit könnte man große
+Multiplikationen auf viele Prozessorkerne verteilen.
+Das lohnt sich allerdings erst dann, wenn man mehr als eine Rechenoperation
+ausführt, bevor man das Ergebnis benötigt. Denn die Rückberechnung des Ergebnisses
+kostet ja auch Rechenzeit.</p>
+
+<p>Der chinesische Restsatz ist in mathGUIde eingebaut.
+Hier folgt das Berechnungsbeispiel aus der Abbildung:</p>
+
+<!-- listing-01 -->
+<pre>
+<span class="bgBlue">m1</span>, <span class="bgPink">m2</span> = <span class="bgBlue">99</span>, <span class="bgPink">101</span>
+a, b = 10, 200
+<span class="bgBlue">a1</span>, <span class="bgPink">a2</span> = <span class="bgBlue">a % m1</span>,    <span class="bgPink">a % m2</span>
+<span class="bgBlue">b1</span>, <span class="bgPink">b2</span> = <span class="bgBlue">b % m1</span>,    <span class="bgPink">b % m2</span>
+<span class="bgBlue">p1</span>, <span class="bgPink">p2</span> = <span class="bgBlue">a1 * b1</span>,   <span class="bgPink">a2 * b2</span>
+print(<span class="bgBlue">p1</span>, <span class="bgPink">p2</span>, sep=", ")
+print(chinese(<span class="bgBlue">Mod(p1,m1)</span>, <span class="bgPink">Mod(p2,m2)</span>))</pre>
+<script type="text/javascript">listingButtons("01")</script>
+
+<p><b>Fortsetzung</b>: <a href="mult4.html">Karatsuba-Multiplikation</a></p>
+
+</body>
+</html>
