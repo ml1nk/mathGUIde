@@ -1,4 +1,10 @@
 #include <QtGui>
+#include <QStyleOptionGraphicsItem>
+#include <QGraphicsSceneContextMenuEvent>
+#include <QStyle>
+#include <QMenu>
+#include <QGraphicsScene>
+#include <QApplication>
 
 #include "edge.h"
 #include <math.h>
@@ -10,8 +16,8 @@ QPen Edge::normalPen = QPen(normalBrush, 3, Qt::SolidLine, Qt::RoundCap, Qt::Rou
 QPen Edge::markedPen = QPen(markedBrush, 12, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
 QPen Edge::selectionPen = QPen(selectionBrush, 3, Qt::SolidLine, Qt::RoundCap, Qt::RoundJoin);
 
-Edge::Edge(QMenu* contextMenu, Node* sourceNode, Node* targetNode, QGraphicsItem* parent, QGraphicsScene* scene)
-:   QGraphicsLineItem(parent, scene),
+Edge::Edge(QMenu* contextMenu, Node* sourceNode, Node* targetNode, QGraphicsItem* parent/*, QGraphicsScene* scene*/)
+:   QGraphicsLineItem(parent/*,scene*/),
     weight(0),
     marked(false)
 {

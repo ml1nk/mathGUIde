@@ -26,7 +26,7 @@
 #include <QListWidgetItem>
 #include <QDockWidget>
 #include <QProgressBar>
-#include <QtWebKit>
+#include <QtWebKitWidgets>
 
 #include "py-inter.h"
 #include "popupwidgets.h"

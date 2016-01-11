@@ -1,10 +1,16 @@
 #include <QtGui>
+#include <QGraphicsScene>
+#include <QGraphicsItem>
+#include <QGraphicsSceneContextMenuEvent>
+#include <QMenu>
+#include <QStyle>
+#include <QStyleOptionGraphicsItem>
 
 #include "node.h"
 #include "edge.h"
 
-Node::Node(QMenu* contextMenu, QGraphicsItem* parent, QGraphicsScene* scene)
-    : QGraphicsItem(parent, scene)
+Node::Node(QMenu* contextMenu, QGraphicsItem* parent/*, QGraphicsScene* scene*/)
+    : QGraphicsItem(parent/*,scene*/)
 {
     _contextMenu = contextMenu;
     setFlag(QGraphicsItem::ItemIsMovable, true);

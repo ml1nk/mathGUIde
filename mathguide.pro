@@ -1,14 +1,14 @@
-TEMPLATE = app
-TARGET = 
+TEMPLATE = mathguide
+TARGET = mathguide
 DEPENDPATH += . \
     ui
 INCLUDEPATH += .
 INCLUDEPATH += ./source
 INCLUDEPATH += ./source/graph
-QT += webkit
+QT += webkitwidgets
 
-INCLUDEPATH += /usr/include/python3.1
-LIBS += -lpython3.1
+INCLUDEPATH += /usr/include/python3.4m
+LIBS += -lpython3.4m
 
 # Input
 HEADERS += \

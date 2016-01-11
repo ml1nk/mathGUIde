@@ -24,6 +24,7 @@
 #include <QTextCursor>
 #include <QTextBlock>
 #include <QKeyEvent>
+#include <QMimeData>
 
 //--------------------------------------------------------------
 // class InputWindow

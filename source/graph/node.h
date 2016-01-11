@@ -21,7 +21,7 @@ class Edge;
 class Node : public QGraphicsItem {
 public:
     enum { Type = UserType + 1 };
-    Node(QMenu* contextMenu, QGraphicsItem* parent=0, QGraphicsScene* scene=0);
+    Node(QMenu* contextMenu, QGraphicsItem* parent=0/*, QGraphicsScene* scene=0*/);
     virtual int type() const { return Type; }
     virtual QRectF boundingRect() const;
     virtual QPainterPath shape() const;

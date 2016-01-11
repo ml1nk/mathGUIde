@@ -17,6 +17,8 @@
 #include "recordwindow.h"
 
 #include <QtGui>
+#include <QScrollBar>
+#include <QMessageBox>
 
 //--------------------------------------------------------------
 // class RecordWindow
@@ -117,7 +119,7 @@ void RecordWindow::saveHtml(QString& fileName) {
                 && QMessageBox::warning(this,
                         tr("mathGUIde"),
                         tr("The file %1 existists.\nOverwrite?")
-                            .arg(QDir::convertSeparators(fileName)),
+                            .arg(QDir::toNativeSeparators(fileName)),
                         QMessageBox::Yes | QMessageBox::Default,
                         QMessageBox::No | QMessageBox::Escape)
                    == QMessageBox::No)

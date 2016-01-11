@@ -1381,7 +1381,7 @@ void MainWindow::calc() {
     QApplication::restoreOverrideCursor();
     int ms = t.msecsTo(QTime::currentTime());
     int cSec = (ms%1000+5)/10; // centiseconds
-    QString s = QString(tr("Calculation time for last command: %1.%2%2 sec"))
+    QString s = QString(tr("Calculation time for last command: %1.%2%3 sec"))
         .arg(ms/1000).arg((cSec)/10).arg((cSec)%10);
     statusBar()->showMessage(s);
 

@@ -18,7 +18,7 @@ class Edge : public QGraphicsLineItem {
 public:
     enum { Type = UserType + 2 };
 
-    Edge(QMenu* contextMenu, Node* sourceNode, Node* targetNode, QGraphicsItem* parent=0, QGraphicsScene* scene=0);
+    Edge(QMenu* contextMenu, Node* sourceNode, Node* targetNode, QGraphicsItem* parent=0/*, QGraphicsScene* scene=0*/);
 
     virtual int type() const { return Type; }
     virtual QRectF boundingRect() const;

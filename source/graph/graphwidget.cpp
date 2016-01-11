@@ -1,5 +1,9 @@
 #include <QtGui>
 #include <QLabel>
+#include <QMenu>
+#include <QInputDialog>
+#include <QGraphicsView>
+#include <QVBoxLayout>
 
 //#include <QMessageBox> // TODO !!!
 
@@ -65,7 +69,7 @@ void GraphWidget::editEdgeWeight() {
         return;
     Edge* selectedEdge = qgraphicsitem_cast<Edge*>(_scene->selectedItems()[0]);
     bool ok;
-    int w = QInputDialog::getInteger(this, tr("Weight"),
+    int w = QInputDialog::getInt(this, tr("Weight"),
             tr("Weight of the selected edge:"),
             selectedEdge->weight,  0, 2147483647, 1, &ok);
     if (ok) {

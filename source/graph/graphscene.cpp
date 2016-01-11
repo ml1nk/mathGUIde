@@ -1,4 +1,6 @@
 #include <QtGui>
+#include <QGraphicsSceneMouseEvent>
+#include <QTransform>
 
 #include "graphscene.h"
 #include "edge.h"
@@ -113,7 +115,7 @@ void GraphScene::mousePressEvent(QGraphicsSceneMouseEvent* mouseEvent) {
             break;
         }
         case InsertEdge: {
-            QGraphicsItem* item = itemAt(mouseEvent->scenePos());
+            QGraphicsItem* item = itemAt(mouseEvent->scenePos(),QTransform());
             if (item && item->type() == Node::Type) {
                 _dragLine = new QGraphicsLineItem(QLineF(item->pos(), mouseEvent->scenePos()));
                 QPen pen(Edge::normalPen);
