@@ -1,4 +1,4 @@
-TEMPLATE = mathguide
+TEMPLATE = app
 TARGET = mathguide
 DEPENDPATH += . \
     ui
