@@ -1414,7 +1414,7 @@ class Matrix (Vector): # Matrices # Matrizen
             <b>Example</b>:<br/>
             <code>Matrix.fromFunction(2,4, pow, 1)</code><br/>
             returns the Matrix<pre>
-     / 1 1 1  1 \ 
+     / 1 1 1  1 \
      |          |
      \ 2 4 8 16 /</pre>
         ----de----
@@ -1425,7 +1425,7 @@ class Matrix (Vector): # Matrices # Matrizen
             <b>Beispiel</b>:<br/>
             <code>Matrix.fromFunction(2,4, pow, 1)</code><br/>
             liefert die Matrix<pre>
-     / 1 1 1  1 \ 
+     / 1 1 1  1 \
      |          |
      \ 2 4 8 16 /</pre>
         """
@@ -1442,7 +1442,7 @@ class Matrix (Vector): # Matrices # Matrizen
             <b>Example</b>:<br/>
             <code>Matrix.fromString("1, 2, 3.14; 4/5, 5, 6")</code>
             returns the matrix<pre>
-     / 1    2  3.14 \ 
+     / 1    2  3.14 \
      |              |
      \ 4/5  5   6   /</pre>
         ----de----
@@ -1454,7 +1454,7 @@ class Matrix (Vector): # Matrices # Matrizen
             <b>Beispiel</b>:<br/>
             <code>Matrix.fromString("1, 2, 3.14; 4/5, 5, 6")</code>
             liefert die Matrix<pre>
-     / 1    2  3.14 \ 
+     / 1    2  3.14 \
      |              |
      \ 4/5  5   6   /</pre>
         """
@@ -1919,7 +1919,7 @@ class Matrix (Vector): # Matrices # Matrizen
      A = Matrix([[1,1],[2,0]])
      A.gramSchmidt()</pre>
             returns the matrix<pre>
-     / 1   1 \ 
+     / 1   1 \
      |       |
      \ 1  -1 /</pre>
         ----de----
@@ -1933,7 +1933,7 @@ class Matrix (Vector): # Matrices # Matrizen
      A = Matrix([[1,1],[2,0]])
      A.gramSchmidt()</pre>
             liefert die Matrix<pre>
-     / 1   1 \ 
+     / 1   1 \
      |       |
      \ 1  -1 /</pre>
         """
@@ -2070,7 +2070,7 @@ def fit(data, values):
         <i>Interpolation using the Gaussian method of least squares</i><br/>
         <code>fit(data, values)</code>
         calculates (using the method of least squares)
-        a linear combination of the functions mapping x 
+        a linear combination of the functions mapping x
         to the terms in <code>values</code>.<br/>
         (corresponds to the Mathematica function <code>Fit</code>).<br/>
         <b>Example</b>:<pre>
@@ -3560,10 +3560,14 @@ class Logic: # propositional logic # Aussagenlogik
             <code>Logic.satisfies("A or B", {"A":True, "B":False})</code>
             gibt <code>True</code> zurück.
         """
-        f = f.replace("not", "@0").replace("and", "@1").replace("or", "@2").replace("xor", "@3")
+        f = f.replace("->", "<=").replace("<->", "==").replace("xor", "!=").replace("<<=", "==").replace("||", "or").replace("&&", "and")
+        f = f.replace("not", "@0").replace("and", "@1").replace("or", "@2")
         for var in truthTable:
-            f = f.replace(var, str(truthTable[var]))
-        f = f.replace("@0", "not").replace("@1", "and").replace("@2", "or").replace("@3", "xor")
+            if truthTable[var]:
+                f = f.replace(var, "@3")
+            else:
+                f = f.replace(var, "@4")
+        f = f.replace("@0", "not").replace("@1", "and").replace("@2", "or").replace("@3", "True").replace("@4", "False")
         return eval(f)
 
     @staticmethod
@@ -3580,7 +3584,6 @@ class Logic: # propositional logic # Aussagenlogik
             <code>Logic.valid("A or not A")</code>
             gibt <code>True</code> zurück.
         """
-        f = f.replace("->", "<=").replace("<->", "==").replace("xor", "!=").replace("<<=", "==")
         for t in Logic.truthTables(f):
             if not Logic.satisfies(f, t):
                 return False
@@ -3776,7 +3779,7 @@ class Graph: # Graphs # Graphen
         nodes2 = ";".join(["{0},{1},{2}".format(n1+i+1, margin2+i*dx, margin+dy) for i in range(n2)])
         edges = ";".join(["{0},{1},{2}".format(i+1,n1+j+1,0) for i in range(n1) for j in range(n2)])
         return Graph.fromShortRepr("{0};{1}|{2}".format(nodes1, nodes2, edges))
-        
+
     @staticmethod
     def petersen(r=150, margin=20):
         """ <b>Graph.petersen()</b><br/>
@@ -3793,7 +3796,7 @@ class Graph: # Graphs # Graphen
         nodes2 = ";".join(["{0},{1},{2}".format(i+6, c+r0*sin(i*2*pi/5), c-r0*cos(i*2*pi/5)) for i in range(5)])
         edges = "1,2;1,5;1,6;2,3;2,7;3,4;3,8;4,5;4,9;5,10;6,8;6,9;7,9;7,10;8,10"
         return Graph.fromShortRepr("{0};{1}|{2}".format(nodes1, nodes2, edges))
-    
+
     #............................................................
 
     def __init__(self):
