@@ -163,7 +163,7 @@ def product(obj, start=None, end=None, step=1):
         <i>The product of the elements of iterable obj or of all obj(i) for i in fromTo(start,end,step)</i><br/>
         The element type must define the operator *.<br/>
         <b>Examples</b>:<br/>
-        <code>product([i^2 for i n fromTo(1,10)])</code><br/>
+        <code>product([i^2 for in fromTo(1,10)])</code><br/>
         <code>product(fibonacci, 0, 10)</code><br/>
         <code>product(lambda i:i^2, 2, 10, 2)</code>
     ----de----
@@ -171,7 +171,7 @@ def product(obj, start=None, end=None, step=1):
         <i>Product der Elemente des iterierbaren Objekts a bzw. aller obj(i) für i in fromTo(start,end,step)</i><br/>
         Die Elemente müssen mit dem Operator * verknüpfbar sein<br/>
         <b>Beispiele</b>:<br/>
-        <code>product([i^2 for i n fromTo(1,10)])</code><br/>
+        <code>product([i^2 for in fromTo(1,10)])</code><br/>
         <code>product(fibonacci, 0, 10)</code><br/>
         <code>product(lambda i:i^2, 2, 10, 2)</code>
     """
