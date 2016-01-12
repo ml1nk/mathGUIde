@@ -55,20 +55,25 @@ PythonInterpreter::PythonInterpreter(QString dataPath)
         "    f = codecs.open(r'%2','a+', 'utf8')\n"
         "    f.write(s)\n"
         "    f.close()\n"
+	"  def flush(self):\n"
+    	"    pass\n"
         "sys.stderr=_StdErrCatcher()\n"
 
         "class _StdOutCatcher:\n"  // reassign sys.stdout
         "  def write(self, s):\n"
         "    f = codecs.open(r'%3','a+', 'utf8')\n"
         "    f.write(s)\n"
-        "    #f.write(s)\n"
         "    f.close()\n"
+	"  def flush(self):\n"
+    	"    pass\n"
         "sys.stdout=_StdOutCatcher()\n").arg(_dataPath)
                                         .arg(_errFile)
                                         .arg(_outFile);
     int result = RunPythonString(patch);
     isOk = (result == 0);
 
+    // plot.py und table.py sind nicht auffindbar
+    /*
     // Python code for plotting and tables
     QStringList extensions;
     extensions << "plot" << "table";
@@ -79,6 +84,7 @@ PythonInterpreter::PythonInterpreter(QString dataPath)
         f.close();
         RunPythonString(input);
     }
+    */
 }
 
 PythonInterpreter::~PythonInterpreter() {
