@@ -3560,7 +3560,7 @@ class Logic: # propositional logic # Aussagenlogik
             <code>Logic.satisfies("A or B", {"A":True, "B":False})</code>
             gibt <code>True</code> zurück.
         """
-        f = f.replace("->", "<=").replace("<->", "==").replace("xor", "!=").replace("<<=", "==").replace("||", "or").replace("&&", "and").replace("-", "not")
+        f = f.replace("-->", "<=").replace("->", "<=").replace("<->", "==").replace("xor", "!=").replace("<<=", "==").replace("||", "or").replace("&&", "and").replace("-", "not ")
         f = f.replace("not", "@0").replace("and", "@1").replace("or", "@2")
         for var in truthTable:
             if truthTable[var]:
