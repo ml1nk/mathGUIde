@@ -1,13 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+
+
+<html>
 <head>
+<meta charset="UTF-8">
  <title>Kettenbrüche – 2</title>
  <meta name="author" content="Hartmut Ring"/>
  <link rel="stylesheet" type="text/css" href="../../styles/guide.css"/>
- <script type="text/javascript" src="../../../jsMath/easy/load.js"></script>
- <script type="text/javascript" src="../../../jsMath/plugins/spriteImageFonts.js"></script>
+ <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({ 
+ "HTML-CSS": {    availableFonts: ["TeX"], imageFont: null},menuSettings: { zoom: "Click"},
+  MathMenu: {    showRenderer: false,  showLocale: false  },
+     extensions: ["jsMath2jax.js"]
+   });
+ </script>
+ <script type="text/javascript" src="../../../MathJax/MathJax.js?config=TeX-AMS_HTML&locale=de"></script>
  <script type="text/javascript" src="../../listingButtons.js"></script>
 </head>
 
@@ -21,7 +28,7 @@
 <h2>2. Wie kommt man auf „optimale Brüche“?</h2>
 
 <p>Bitte betrachten Sie die folgende Abbildung:</p>
-<div><object data="contfrac1.svg" type="image/svg+xml" width="225" height="60"/></div>
+<div><object data="contfrac1.svg" type="image/svg+xml" width="225" height="60"></object></div>
 <p>Wenn die Figur nur aus Quadraten besteht und die drei großen Quadrate
 die Seitenlänge 1 haben, wie breit ist dann die ganze Figur?</p>
 
@@ -40,7 +47,7 @@ Figur also die Breite</p>
 
 
 <p>Und wie breit ist die folgende Figur im Vergleich zu ihrer Höhe?</p>
-<div><object data="contfrac2.svg" type="image/svg+xml" width="225" height="175"/></div>
+<div><object data="contfrac2.svg" type="image/svg+xml" width="225" height="175"></object></div>
 <p>Die Figur besteht aus einem großen Quadrat und dem rechten Teil, der dem
 um 90° gedrehten ersten Beispiel entspricht, also das Seitenverhältnis 3 + 1/5 hat.
 Damit hat die ganze Figur das Seitenverhältnis</p>
@@ -56,7 +63,7 @@ Damit hat die ganze Figur das Seitenverhältnis</p>
 <hr/>
 
 <p>Dieses Spiel lässt sich beliebig fortsetzen.</p>
-<div><object data="contfrac3.svg" type="image/svg+xml" width="595" height="225"/></div>
+<div><object data="contfrac3.svg" type="image/svg+xml" width="595" height="225"></object></div>
 <p>Hier ergibt sich mit den gleichen Überlegungen das Seitenverhältnis</p>
 <div class="math">
  \def\pink{\bbox[#ffe0e0,2pt]}
@@ -175,7 +182,7 @@ print(<span class="literal">"Schritte | Näherungswert | Jahre bis 1 Tag Abweich
     relativeAbweichung = naeherung/echteMondwochen - 1
     tageAbweichungProJahr = relativeAbweichung * 365.24
     jahreBisTagAbweichung = abs(1/tageAbweichungProJahr)
-    print(<span class="literal">"{0:8} | {1:13} | {2}"</span>.format(i, naeherung, jahreBisTagAbweichung))</pre>
+    print(<span class="literal">"{0!s:8} | {1!s:13} | {2!s}"</span>.format(i, naeherung, jahreBisTagAbweichung))</pre>
 <script type="text/javascript">listingButtons("03")</script>
 
 <p>Im sechsten Schritt haben wir unser Getriebe wieder bekommen. Wenn Sie dies
@@ -208,7 +215,7 @@ print(<span class="literal">"Schritte | Näherungswert | Jahre bis 1 Tag Abweich
     relativeAbweichung = naeherung/echteMondwochen - 1
     tageAbweichungProJahr = relativeAbweichung * 365.24
     jahreBisTagAbweichung = abs(1/tageAbweichungProJahr)
-    print(<span class="literal">"{0:8} | {1:13} | {2}"</span>.format(i, naeherung, jahreBisTagAbweichung))</pre>
+    print(<span class="literal">"{0!s:8} | {1!s:13} | {2!s}"</span>.format(i, naeherung, jahreBisTagAbweichung))</pre>
 <script type="text/javascript">listingButtons("04")</script>
 
 

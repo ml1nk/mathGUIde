@@ -1,13 +1,20 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+
+
+<html>
 <head>
+<meta charset="UTF-8">
  <title>Kombinatorik – Würfelspiele</title>
  <meta name="author" content="Hartmut Ring"/>
  <link rel="stylesheet" type="text/css" href="../../styles/guide.css"/>
- <script type="text/javascript" src="../../../jsMath/easy/load.js"></script>
- <script type="text/javascript" src="../../../jsMath/plugins/spriteImageFonts.js"></script>
+ <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({ 
+ "HTML-CSS": {    availableFonts: ["TeX"], imageFont: null},menuSettings: { zoom: "Click"},
+  MathMenu: {    showRenderer: false,  showLocale: false  },
+     extensions: ["jsMath2jax.js"]
+   });
+ </script>
+ <script type="text/javascript" src="../../../MathJax/MathJax.js?config=TeX-AMS_HTML&locale=de"></script>
  <script type="text/javascript" src="../../listingButtons.js"></script>
 </head>
 
@@ -149,17 +156,17 @@ Die Gewinnwahrscheinlichkeit ist also immer 2/3.</p>
 <table>
  <tr>
   <td>
-   <table style="background:#lightgray">
+   <table style="background-color:#lightgray">
     <tr><td colspan="7">Würfel 1<br/>gegen Würfel 2</td></tr>
     <tr><td></td><th> 3 </th><th> 3 </th><th> 3 </th><th> 3 </th><th> 3 </th><th> 3 </th></tr>
     <tr>
       <th>0</th>
-      <td rowspan="2" colspan="6" style="background:#ffc0c0"></td>
+      <td rowspan="2" colspan="6" style="background-color:#ffc0c0"></td>
     </tr>
     <tr> <th>0</th> </tr>
     <tr>
       <th>4</th>
-      <td rowspan="4" colspan="6" style="background:#c0ffc0"></td>
+      <td rowspan="4" colspan="6" style="background-color:#c0ffc0"></td>
     </tr>
     <tr> <th>4</th> </tr>
     <tr> <th>4</th> </tr>
@@ -169,13 +176,13 @@ Die Gewinnwahrscheinlichkeit ist also immer 2/3.</p>
   <td></td>
 
   <td>
-   <table style="background:#lightgray">
+   <table style="background-color:#lightgray">
     <tr><td colspan="7">Würfel 2<br/>gegen Würfel 3</td></tr>
     <tr><td></td><th> 2 </th><th> 2 </th><th> 2 </th><th> 2 </th><th> 6 </th><th> 6 </th></tr>
     <tr>
       <th>3</th>
-      <td rowspan="6" colspan="4" style="background:#c0ffc0"></td>
-      <td rowspan="6" colspan="2" style="background:#ffc0c0"></td>
+      <td rowspan="6" colspan="4" style="background-color:#c0ffc0"></td>
+      <td rowspan="6" colspan="2" style="background-color:#ffc0c0"></td>
     </tr>
     <tr> <th>3</th> </tr>
     <tr> <th>3</th> </tr>
@@ -187,20 +194,20 @@ Die Gewinnwahrscheinlichkeit ist also immer 2/3.</p>
   <td></td>
 
   <td>
-   <table style="background:#lightgray">
+   <table style="background-color:#lightgray">
     <tr><td colspan="7">Würfel 3<br/>gegen Würfel 4</td></tr>
     <tr><td></td><th> 1 </th><th> 1 </th><th> 1 </th><th> 5 </th><th> 5 </th><th> 5 </th></tr>
     <tr>
       <th>2</th>
-      <td rowspan="4" colspan="3" style="background:#c0ffc0"></td>
-      <td rowspan="4" colspan="3" style="background:#ffc0c0"></td>
+      <td rowspan="4" colspan="3" style="background-color:#c0ffc0"></td>
+      <td rowspan="4" colspan="3" style="background-color:#ffc0c0"></td>
     </tr>
     <tr> <th>2</th> </tr>
     <tr> <th>2</th> </tr>
     <tr> <th>2</th> </tr>
     <tr>
      <th>6</th>
-     <td rowspan="2" colspan="6" style="background:#c0ffc0"></td>
+     <td rowspan="2" colspan="6" style="background-color:#c0ffc0"></td>
     </tr>
     <tr> <th>6</th> </tr>
    </table>
@@ -208,19 +215,19 @@ Die Gewinnwahrscheinlichkeit ist also immer 2/3.</p>
   <td></td>
 
   <td>
-   <table style="background:#lightgray">
+   <table style="background-color:#lightgray">
     <tr><td colspan="7">Würfel 4<br/>gegen Würfel 1</td></tr>
     <tr><td></td><th> 0 </th><th> 0 </th><th> 4 </th><th> 4 </th><th> 4 </th><th> 4 </th></tr>
     <tr>
       <th>1</th>
-      <td rowspan="3" colspan="2" style="background:#c0ffc0"></td>
-      <td rowspan="3" colspan="4" style="background:#ffc0c0"></td>
+      <td rowspan="3" colspan="2" style="background-color:#c0ffc0"></td>
+      <td rowspan="3" colspan="4" style="background-color:#ffc0c0"></td>
     </tr>
     <tr> <th>1</th> </tr>
     <tr> <th>1</th> </tr>
     <tr>
      <th>5</th>
-     <td rowspan="3" colspan="6" style="background:#c0ffc0"></td>
+     <td rowspan="3" colspan="6" style="background-color:#c0ffc0"></td>
     </tr>
     <tr> <th>5</th> </tr>
     <tr> <th>5</th> </tr>

@@ -1,4 +1,4 @@
-body {background:#fffff0; margin:1mm;}
+body {background-color:#fffff0; margin:1mm;}
 
 body, p, li, td, th {
     font-family:Calibri,Arial,Helvetica,sans-serif;
@@ -18,17 +18,17 @@ pre {
     white-space: pre;
     margin-top:0mm;
     margin-bottom:0mm;
-    background:#e0ffe0;
+    background-color:#e0ffe0;
     padding:0.4em;
 }
 
 pre.src {
-    background:#dce6f2;
+    background-color:#dce6f2;
 	font-size:10pt;
 }
 
 p.src {
-    background:#dce6f2;
+    background-color:#dce6f2;
 	font-size:10pt
 	font-weight:bold
 }
@@ -82,7 +82,7 @@ hr {
 p.intro   { font-size:1.2em; color:#606060 }
 
 table {empty-cells:show}
-table.overview {background:#FCFAF8;
+table.overview {background-color:#FCFAF8;
     border-width:thin; border-color:#C0C0C0; border-style:solid}
 
 tr {vertical-align:top}

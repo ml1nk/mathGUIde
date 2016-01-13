@@ -1,4 +1,4 @@
-body {background:white; margin:3mm;}
+body {background-color:white; margin:3mm;}
 
 body, p, li, td, th {
     font-family:Calibri,Arial,Helvetica,sans-serif;
@@ -14,7 +14,7 @@ code, pre, var {
     font-family:Consolas,'Courier New',Courier,Typewriter,monospace}
 pre {
     clear:both;
-    background:#FCFAF8;
+    background-color:#FCFAF8;
     border-width:1px; border-color:#C0C0C0; border-style:solid;
     padding:2mm;
     margin-bottom:0mm
@@ -24,7 +24,7 @@ var {
 }
 
 a[href]:link, a[href]:visited {color:#376092; font-weight:bold}
-a[href]:hover {background:#ECE8FF; color:#376092}
+a[href]:hover {background-color:#ECE8FF; color:#376092}
 
 p.buttons {
 	color:#008050;
@@ -67,7 +67,7 @@ hr {
 p.intro   { font-size:1.2em; color:#606060 }
 
 table {empty-cells:show}
-table.overview {background:#FCFAF8;
+table.overview {background-color:#FCFAF8;
     border-width:thin; border-color:#C0C0C0; border-style:solid}
 
 tr {vertical-align:top}

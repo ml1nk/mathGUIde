@@ -1,21 +1,10 @@
 TEMPLATE = app
 DESTDIR  = bin
-
-CONFIG += qt debug_and_release
-CONFIG(debug, debug|release) {
-    CONFIG += debug
-    TARGET = mathguide_debug
-    OBJECTS_DIR = build/debug/obj
-    MOC_DIR = build/debug/moc
-    RCC_DIR = build/debug/rcc
-    UI_DIR = build/debug/ui
-} else {
-    TARGET = mathguide
-    OBJECTS_DIR = build/release/obj
-    MOC_DIR = build/release/moc
-    RCC_DIR = build/release/rcc
-    UI_DIR = build/release/ui
-}
+TARGET = mathguide
+OBJECTS_DIR = build/obj
+MOC_DIR = build/moc
+RCC_DIR = build/rcc
+UI_DIR = build/ui
 
 DEPENDPATH += ./ui
 INCLUDEPATH += .
