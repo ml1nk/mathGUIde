@@ -3501,7 +3501,7 @@ class Logic: # propositional logic # Aussagenlogik
         <b>Variablen</b> müssen einzelne Buchstaben sein.<br/>
         <b>Junktoren</b>: "<code>not</code>", "<code>and</code>", "<code>or</code>", "<code>xor</code>", "<code>-></code>", "<code>&lt;-></code>".
     """
-    _staticMethods = ("truthTables", "satisfies", "valid", "satisfiable", "implies", "equivalent", "printTable")
+    _staticMethods = ("truthTables", "satisfies", "valid", "satisfiable", "implies", "equivalent", "printTruthTable")
 
     @staticmethod
     def truthTables(formula):
@@ -3535,7 +3535,7 @@ class Logic: # propositional logic # Aussagenlogik
             if c.isalpha(): # Variable!
                 table[c] = False
         n = len(table)
-        vars = list(table.keys())
+        vars = sorted(list(table.keys()))
         while True:
             yield table
             k = n-1
@@ -3637,23 +3637,24 @@ class Logic: # propositional logic # Aussagenlogik
         """
         return Logic.valid("({0}) == ({1})".format(f1, f2))
     @staticmethod
-    def printTable(formulae):
-        """ <b>printTable(formulae)</b><br/>
+    def printTruthTable(formulae):
+        """ <b>printTruthTable(formulae)</b><br/>
             <i>Print a truth table with the formulae equivalent?</i><br/>
             <b>Example</b><br/>
-            <code>Logic.printTable(["A","B","not (A and B)", "not A or not B"])</code>
+            <code>Logic.printTruthTable(["A","B","not (A and B)", "not A or not B"])</code>
         ----de----
-            <b>printTable(formulae)</b><br/>
+            <b>printTruthTable(formulae)</b><br/>
             <i>Erzeuge eine Wahrheitstabelle mit den gegebenen Formeln</i><br/>
             <b>Beispiel</b><br/>
-            <code>Logic.printTable(["A","B","not (A and B)", "not A or not B"])</code>
+            <code>Logic.printTruthTable(["A","B","not (A and B)", "not A or not B"])</code>
         """
         table = [];
         for t in Logic.truthTables(" and ".join(formulae)):
             table.append(copy(t))
         printTable(pow(2,len(table[0])),len(formulae),
             lambda i,k: Logic.satisfies(formulae[k], table[i]),
-            colHeadFn = lambda i: formulae[i])
+            colHeadFn = lambda i: formulae[i].replace("<", "&lt;").replace(">", "&gt;")
+)
 
 #===============================================================
 #  Graphs and Trees
