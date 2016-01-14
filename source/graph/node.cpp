@@ -15,6 +15,7 @@ Node::Node(QMenu* contextMenu, QGraphicsItem* parent/*, QGraphicsScene* scene*/)
     _contextMenu = contextMenu;
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
+    setFlag(QGraphicsItem::ItemSendsGeometryChanges, true); // seit Qt 4.6 standardmäßig deaktiviert
 }
 
 QRectF Node::boundingRect() const {
