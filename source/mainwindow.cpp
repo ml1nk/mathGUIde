@@ -1012,7 +1012,7 @@ void MainWindow::insertTable() {
 }
 
 void MainWindow::insertValueTable() {
-    QString var      = _settings.value("/table/var", "n").toString();
+    QString var      = _settings.value("/table/var", "x").toString();
     QString sFrom    = _settings.value("/table/from", "1").toString();
     QString sTo      = _settings.value("/table/to", "10").toString();
     QString sIncr    = _settings.value("/table/incr", "1").toString();
