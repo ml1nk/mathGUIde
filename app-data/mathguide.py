@@ -3639,12 +3639,12 @@ class Logic: # propositional logic # Aussagenlogik
     @staticmethod
     def printTruthTable(formulae):
         """ <b>printTruthTable(formulae)</b><br/>
-            <i>Print a truth table with the formulae equivalent?</i><br/>
+            <i>Print a truth table with the formulae equivalent.</i><br/>
             <b>Example</b><br/>
             <code>Logic.printTruthTable(["A","B","not (A and B)", "not A or not B"])</code>
         ----de----
             <b>printTruthTable(formulae)</b><br/>
-            <i>Erzeuge eine Wahrheitstabelle mit den gegebenen Formeln</i><br/>
+            <i>Erzeuge eine Wahrheitstabelle mit den gegebenen Formeln.</i><br/>
             <b>Beispiel</b><br/>
             <code>Logic.printTruthTable(["A","B","not (A and B)", "not A or not B"])</code>
         """
