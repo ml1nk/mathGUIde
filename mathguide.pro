@@ -12,8 +12,24 @@ INCLUDEPATH += ./source
 INCLUDEPATH += ./source/graph
 QT += webkitwidgets
 
-INCLUDEPATH += /usr/include/python3.4m
-LIBS += -lpython3.4m
+win32 { 
+    # Pfade müssen vermutlich angepasst werden
+    INCLUDEPATH += ./Python31/include
+    LIBS += ./Python31/libs/python31.lib
+    RC_FILE = mathguide.rc
+}
+
+macx {
+    # Pfade müssen vermutlich angepasst werden
+    INCLUDEPATH += /Library/Frameworks/Python.framework/Versions/3.1/Headers
+    LIBS += /Library/Frameworks/Python.framework/Versions/3.1/lib/libpython3.1.dylib
+    ICON = mathguide.icns
+}
+
+linux-g++ {
+    INCLUDEPATH += /usr/include/python3.4m
+    LIBS += -lpython3.4m
+}
 
 # Input
 HEADERS += \
